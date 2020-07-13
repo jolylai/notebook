@@ -21,7 +21,6 @@ const ArrayConcat = (arr, ...args) => [].concat(arr, ...args);
 
 :::
 
-
 ## include
 
 ```js
@@ -109,7 +108,10 @@ const without = (arr, ...args) => arr.filter(v => !args.includes(v));
 
 ```js
 const zip = (...arrays) => {
-  const maxLength = Math.max.apply(null, arrays.map(a => a.length));
+  const maxLength = Math.max.apply(
+    null,
+    arrays.map(a => a.length),
+  );
   return Array.from({ length: maxLength }).map((_, i) => {
     return Array.from({ length: arrays.length }, (_, k) => arrays[k][i]);
   });
@@ -132,8 +134,6 @@ const average = arr => arr.reduce((acc, val) => acc + val, 0) / arr.length;
 // average([1,2,3]) -> 2
 ```
 
-
-
 ## occurrences
 
 计算某个值在数组中出现的次数
@@ -147,7 +147,6 @@ const countOccurrences = (arr, value) =>
 ## deepFlatten
 
 将数组扁平化
-
 
 ## dropElements
 
@@ -251,7 +250,7 @@ all([1, 2, 3]); // true
 const bifurcate = (arr, filter) =>
   arr.reduce((acc, val, i) => (acc[filter[i] ? 0 : 1].push(val), acc), [
     [],
-    []
+    [],
   ]);
 ```
 
@@ -266,7 +265,7 @@ const bifurcate = (arr, filter) =>
 
 ```js
 const countBy = (arr, fn) =>
-  arr.map(typeof fn === "function" ? fn : val => val[fn]).reduce((acc, val) => {
+  arr.map(typeof fn === 'function' ? fn : val => val[fn]).reduce((acc, val) => {
     acc[val] = (acc[val] || 0) + 1;
     return acc;
   }, {});
@@ -285,7 +284,7 @@ const countBy = (arr, fn) =>
 const initializeArrayWithRange = (end, start = 0, step = 1) =>
   Array.from(
     { length: Math.ceil((end - start + 1) / step) },
-    (v, i) => i * step + start
+    (v, i) => i * step + start,
   );
 ```
 
@@ -294,13 +293,13 @@ const initializeArrayWithRange = (end, start = 0, step = 1) =>
 ```js
 const initializeArrayWithRangeRight = (end, start = 0, step = 1) =>
   Array.from({ length: Math.ceil((end + 1 - start) / step) }).map(
-    (v, i, arr) => (arr.length - i - 1) * step + start
+    (v, i, arr) => (arr.length - i - 1) * step + start,
   );
 
 const initializeArrayWithRangeRight = (end, start = 0, step = 1) =>
   Array.from(
     { length: Math.ceil((end - start + 1) / step) },
-    (v, i) => i * step + start
+    (v, i) => i * step + start,
   ).reverse();
 ```
 

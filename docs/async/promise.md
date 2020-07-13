@@ -1,8 +1,7 @@
 ---
 title: Promise
-group:
+nav:
   title: 异步
-  path: async
 ---
 
 ## 思考

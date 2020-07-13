@@ -1,7 +1,8 @@
 ---
-title: 类型
+title: 数据类型
+order: 1
 group:
-  title: 指南
+  title: 基本概念
 ---
 
 ## 内置类型
