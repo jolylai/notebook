@@ -36,6 +36,13 @@ footer: Open-source MIT Licensed | Copyright © 2020<br />Powered by [dumi](http
 
 - [前端小测](https://github.com/zhangxinxu/quiz)
 - [每日一题](https://muyiy.cn/)
+- [nestjs+vue+ts 打造一个酷炫的星空聊天室](https://mp.weixin.qq.com/s/M6JMm5dWnFwppRNnmfoKOg)
+- [手写 webpack 核心原理](https://mp.weixin.qq.com/s/1xpEhYtvDH7vS7s8XrJerg)
+- [用 jQuery 手写一个小游戏](https://mp.weixin.qq.com/s/ZAdavmcVMPyWOlRmFRuLag)
+- [一篇文章搞定 babel-plugin-import 插件](https://mp.weixin.qq.com/s/aBTODfHAG9p_z2A1ikVoug)
+- [HTML5 画布](https://mp.weixin.qq.com/s/lS8HP67y3ufWd0buEcN4Gg)
+- [GraphQL + Koa + React 项目实践](https://mp.weixin.qq.com/s/UiT9upPTVkxHDREsHsp32g)
+- [手写 Promise](https://mp.weixin.qq.com/s/ek41c2qoWg7WCCNyVvd2eA)
 
 ## 📄 文章&教程
 

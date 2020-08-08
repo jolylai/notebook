@@ -358,3 +358,110 @@ window.onscroll = function(event) {
 ```
 
 `Document.documentElement` 是一个会返回文档对象（document）的根元素的只读属性（如 HTML 文档的 `<html>` 元素）。
+
+### 焦点事件
+
+- `blur`:在元素失去焦点时触发。这个事件不会冒泡;所有浏览器都支持它。
+- `focus`:在元素获得焦点时触发。这个事件不会冒泡;所有浏览器都支持它。
+- `focusin`:在元素获得焦点时触发。这个事件与 HTML 事件 focus 等价，但它冒泡
+- `focusout`:在元素失去焦点时触发。这个事件是 HTML 事件 blur 的通用版本。
+
+当焦点从页面中的一个元素移动到另一个元素，会依次触发下列事件:
+
+1. `focusout`： 在失去焦点的元素上触发;
+2. `focusin`： 在获得焦点的元素上触发;
+3. `blur`： 在失去焦点的元素上触发;
+4. `DOMFocusOut`： 在失去焦点的元素上触发;
+5. `focus`： 在获得焦点的元素上触发;
+6. `DOMFocusIn`： 在获得焦点的元素上触发。
+
+blur、DOMFocusOut 和 focusout 的事件目标是失去焦点的元素;而 focus、DOMFocusIn
+和 focusin 的事件目标是获得焦点的元素。
+
+#### 鼠标与滚轮事件
+
+- `click`:在用户单击主鼠标按钮(一般是左边的按钮)或者按下回车键时触发。这一点对确保 易访问性很重要，意味着 onclick 事件处理程序既可以通过键盘也可以通过鼠标执行。
+- `dblclick`:在用户双击主鼠标按钮(一般是左边的按钮)时触发。
+- `mousedown`:在用户按下了任意鼠标按钮时触发。不能通过键盘触发这个事件。
+- `mouseenter`:在鼠标光标从元素外部首次移动到元素范围之内时触发。这个事件不冒泡，而且 在光标移动到后代元素上不会触发。
+- `mouseleave`:在位于元素上方的鼠标光标移动到元素范围之外时触发。这个事件不冒泡，而且在光标移动到后代元素上不会触发。
+- `mousemove`:当鼠标指针在元素内部移动时重复地触发。不能通过键盘触发这个事件。
+- `mouseout`:在鼠标指针位于一个元素上方，然后用户将其移入另一个元素时触发。又移入的另一个元素可能位于前一个元素的外部，也可能是这个元素的子元素。不能通过键盘触发这个事件。
+- `mouseover`:在鼠标指针位于一个元素外部，然后用户将其首次移入另一个元素边界之内时触 发。不能通过键盘触发这个事件。
+- `mouseup`:在用户释放鼠标按钮时触发。不能通过键盘触发这个事件。
+
+页面上的所有元素都支持鼠标事件。除了 mouseenter 和 mouseleave，所有鼠标事件都会冒泡，
+也可以被取消，而取消鼠标事件将会影响浏览器的默认行为。
+
+只有在同一个元素上相继触发 mousedown 和 mouseup 事件，才会触发 click 事件;如果 mousedown 或 mouseup 中的一个被取消，就不会触发 click 事件。
+
+只有触发两次 click 事 件，才会触发一次 dblclick 事件。如果有代码阻止了连续两次触发 click 事件(可能是直接取消 click 事件，也可能通过取消 mousedown 或 mouseup 间接实现)，那么就不会触发 dblclick 事件了
+
+```js
+const btn = document.getElementById('btn');
+btn.onmousedown = function() {
+  console.log('mousedown');
+};
+btn.onmouseup = function(evetn) {
+  evetn.stopImmediatePropagation();
+  console.log('mouseup');
+};
+btn.onclick = function() {
+  console.log('click');
+};
+btn.ondblclick = function() {
+  console.log('dbclick');
+};
+```
+
+#### 客户区坐标位置
+
+```js
+document.body.onclick = function(event) {
+  console.log('client coordinates', event.clientX, event.clientY);
+};
+```
+
+<Alert>
+这些值中不包括页面滚动的距离，因此这个位置并不表示鼠标在页面上的位置。
+</Alert>
+
+#### 页面坐标位置
+
+通过客户区坐标能够知道鼠标是在视口中什么位置发生的，而页面坐标通过事件对象的 pageX 和 pageY 属性，能告诉你事件是在页面中的什么位置发生的。换句话说，这两个属性表示鼠标光标在页面 中的位置，因此坐标是从页面本身而非视口的左边和顶边计算的。
+
+```js
+document.body.onclick = function(event) {
+  console.log('Page coordinates', event.pageX, event.pageY);
+};
+```
+
+在页面没有滚动的情况下，pageX 和 pageY 的值与 clientX 和 clientY 的值相等。
+
+```js
+document.body.onclick = function(event) {
+  var pageX = event.pageX,
+    pageY = event.pageY;
+  if (pageX === undefined) {
+    pageX =
+      event.clientX +
+      (document.body.scrollLeft || document.documentElement.scrollLeft);
+  }
+  if (pageY === undefined) {
+    pageY =
+      event.clientY +
+      (document.body.scrollTop || document.documentElement.scrollTop);
+  }
+  console.log('Page coordinates: ' + pageX + ',' + pageY);
+};
+```
+
+#### 屏幕坐标位置
+
+鼠标事件发生时，不仅会有相对于浏览器窗口的位置，还有一个相对于整个电脑屏幕的位置。而通 过 screenX 和 screenY 属性就可以确定鼠标事件发生时鼠标指针相对于整个屏幕的坐标信息。
+
+```js
+document.body.onclick = function(event) {
+  console.log('Screen coordinates', event.screenX, event.screenY);
+};
+```

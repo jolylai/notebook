@@ -7,17 +7,20 @@
     <title>Event</title>
   </head>
   <body style="height: 200vh">
+    <button id="btn">Button</button>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+    <!-- <input id="btn" value="button" type="button" /> -->
     <script>
-      window.onresize = function(event) {
-        // console.log('event: ', event.target);
-      };
-      window.onscroll = function(event) {
-        if (document.compatMode == 'CSS1Compat') {
-          alert(document.documentElement.scrollTop);
-        } else {
-          alert(document.body.scrollTop);
-        }
-      };
+      const ul = document.querySelector('ul');
+      const firstChild = ul.firstElementChild;
+      ul.appendChild(firstChild);
     </script>
   </body>
 </html>
