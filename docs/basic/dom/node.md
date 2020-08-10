@@ -1,3 +1,8 @@
+---
+title: 节点
+order: 1
+---
+
 ## 节点类型
 
 `JavaScript` 中的所有节点类型都继承自 `Node` 类型，因此所有节点类型都共享着相同的基本属性和方法。每个节点都有一个 `nodeType` 属性，用于表明节点的类型。
@@ -38,15 +43,7 @@ if (btn.nodeType === 1) {
 
 ### 子节点
 
-```js
-const btn = document.getElementById('btn');
-
-const firstChild = btn.childNodes[0];
-const secondChild = btn.childNodes.item(1);
-const count = btn.childNodes.length;
-```
-
-NodeList 是一种类数组 对象，用于保存一组有序的节点，可以通过位置来访问这些节点。可以通过方括号，也可以使用 item() 方法。
+NodeList 是一种类数组对象，用于保存一组有序的节点，可以通过位置来访问这些节点。可以通过方括号，也可以使用 `item()` 方法。
 
 ```js
 const btn = document.getElementById('btn');
@@ -77,15 +74,13 @@ const btn = document.getElementById('btn');
 const parentNode = btn.parentNode;
 ```
 
-整个文档的文档节点
+这种关系表示的是任何节点都属于它所在的文档，任何节点都不能同时存在于两个或更多个文档中。通过`ownerDocument`属性，我们可以不必在节点层次中通过层层回溯到达顶端，而是可以直接访问文档节点。
 
 ```js
 const btn = document.getElementById('btn');
 
-const ownerDocument = btn.ownerDocument;
+const ownerDocument = btn.ownerDocument; // document
 ```
-
-这种关 系表示的是任何节点都属于它所在的文档，任何节点都不能同时存在于两个或更多个文档中。通过这个 属性，我们可以不必在节点层次中通过层层回溯到达顶端，而是可以直接访问文档节点。
 
 ### 兄弟节点
 

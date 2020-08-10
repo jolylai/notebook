@@ -16,11 +16,26 @@
       <li>5</li>
       <li>6</li>
     </ul>
+    <fieldset>
+      <legend>Which color do you prefer?</legend>
+      <ul>
+        <li>
+          <input type="radio" value="red" name="color" id="colorRed" />
+          <label for="colorRed">Red</label>
+        </li>
+        <li>
+          <input type="radio" value="green" name="color" id="colorGreen" />
+          <label for="colorGreen">Green</label>
+        </li>
+        <li>
+          <input type="radio" value="blue" name="color" id="colorBlue" />
+          <label for="colorBlue">Blue</label>
+        </li>
+      </ul>
+    </fieldset>
     <!-- <input id="btn" value="button" type="button" /> -->
     <script>
-      const ul = document.querySelector('ul');
-      const firstChild = ul.firstElementChild;
-      ul.appendChild(firstChild);
+      console.log(document.getElementsByName('color'));
     </script>
   </body>
 </html>
