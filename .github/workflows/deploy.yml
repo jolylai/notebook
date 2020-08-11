@@ -37,4 +37,4 @@ jobs:
           SOURCE: 'docs-dist'
           REMOTE_HOST: ${{ secrets.ALIYUN_SERVER_HOST }}
           REMOTE_USER: 'root'
-          TARGET: '/usr/share/nginx/html'
+          TARGET: '/usr/share/nginx/html/js'
