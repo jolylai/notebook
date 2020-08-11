@@ -20,8 +20,10 @@ jobs:
       - name: Cache dependencies
         uses: c-hive/gha-yarn-cache@v1
 
-      - run: yarn
-      - run: yarn docs:build
+      - run: |
+          yarn config set registry https://registry.npm.taobao.org
+          yarn
+          yarn docs:build
 
       - name: Deploy gh-pages
         uses: peaceiris/actions-gh-pages@v3
