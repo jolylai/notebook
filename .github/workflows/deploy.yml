@@ -36,7 +36,7 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.ALIYUN_SERVER_ACCESS_TOKEN }}
           ARGS: '-avz --delete'
-          SOURCE: 'docs-dist'
+          SOURCE: 'docs-dist/'
           REMOTE_HOST: ${{ secrets.ALIYUN_SERVER_HOST }}
           REMOTE_USER: 'root'
-          TARGET: '/usr/share/nginx/html/js/'
+          TARGET: '/usr/share/nginx/html/notebook-javascript/'
