@@ -7,35 +7,20 @@
     <title>Event</title>
   </head>
   <body style="height: 200vh">
-    <button id="btn">Button</button>
-    <ul>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-      <li>5</li>
-      <li>6</li>
-    </ul>
-    <fieldset>
-      <legend>Which color do you prefer?</legend>
-      <ul>
-        <li>
-          <input type="radio" value="red" name="color" id="colorRed" />
-          <label for="colorRed">Red</label>
-        </li>
-        <li>
-          <input type="radio" value="green" name="color" id="colorGreen" />
-          <label for="colorGreen">Green</label>
-        </li>
-        <li>
-          <input type="radio" value="blue" name="color" id="colorBlue" />
-          <label for="colorBlue">Blue</label>
-        </li>
-      </ul>
-    </fieldset>
-    <!-- <input id="btn" value="button" type="button" /> -->
+    <form id="form1" onsubmit="handleSubmit">
+      <input name="username" />
+      <input type="submit" value="提交" />
+      <input type="reset" value="重置" />
+    </form>
     <script>
-      console.log(document.getElementsByName('color'));
+      var form1 = document.getElementById('form1');
+      function handleSubmit(event) {
+        console.log(object);
+      }
+      form1.rest = function(event) {
+        console.log('event: ', event);
+        event.preventDefault();
+      };
     </script>
   </body>
 </html>
