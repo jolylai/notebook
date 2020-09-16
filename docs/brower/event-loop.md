@@ -1,10 +1,6 @@
 ---
-title: microtasks
-group:
-  title: 指南
+title: Event Loop
 ---
-
-# microtasks
 
 ## 事件循环
 
@@ -14,22 +10,25 @@ JS 主线程不断的循环往复的从任务队列中读取任务，执行任�
 
 ![](https://cy-picgo.oss-cn-hangzhou.aliyuncs.com/microtasks.svg)
 
-在高层次上，JavaScript 中有 microtasks 和 macrotasks（task），它们是异步任务的一种类型，Microtasks 的优先级要高于 macrotasks，microtasks 用于处理 I/O 和计时器等事件，每次执行一个。microtask 为 async/await 和 Promise 实现延迟执行，并在每个 task 结束时执行。在每一个事件循环之前，microtask 队列总是被清空（执行）。
+在 JavaScript 中，任务被分为两种，一种宏任务（MacroTask）也叫 Task，一种叫微任务（MicroTask）。
 
-microtasks
+MacroTask（宏任务）
 
-- process.nextTick
+- script 全部代码
+- setTimeout
+- setImmediate（浏览器暂时不支持，只有 IE10 支持，具体可见 MDN）
+- setInterval
+- I/O
+- UI 渲染
+
+MicroTask（微任务）
+
+- process.nextTick（Node 独有）
 - promise
 - Object.observe (废弃)
 - MutationObserver
 
-macrotasks
-
-- setTimeout
-- setImmediate
-- setInterval
-- I/O
-- UI 渲染
+在高层次上，JavaScript 中有 microtasks 和 macrotasks（task），它们是异步任务的一种类型，Microtasks 的优先级要高于 macrotasks，microtasks 用于处理 I/O 和计时器等事件，每次执行一个。microtask 为 async/await 和 Promise 实现延迟执行，并在每个 task 结束时执行。在每一个事件循环之前，microtask 队列总是被清空（执行）。
 
 **注意：**
 

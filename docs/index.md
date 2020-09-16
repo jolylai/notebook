@@ -15,7 +15,7 @@ features:
   - icon: https://gw.alipayobjects.com/zos/bmw-prod/d1ee0c6f-5aed-4a45-a507-339a4bfe076c/k7bjsocq_w144_h144.png
     title: Feature 3
     desc: Balabala
-footer: Open-source MIT Licensed | Copyright © 2020<br />Powered by [dumi](https://d.umijs.org)
+# footer: Open-source MIT Licensed | Copyright © 2020<br />Powered by [dumi](https://d.umijs.org)
 ---
 
 ## 💥 重点掌握
@@ -31,6 +31,14 @@ footer: Open-source MIT Licensed | Copyright © 2020<br />Powered by [dumi](http
 - [ ] Ajax/Fetch
 - [ ] ES6+
 - [ ] 正则表达式
+
+## CSS
+
+- [codepen](https://codepen.io)
+- [awwwards](https://www.awwwards.com)
+- [csslayout](https://csslayout.io)
+- [css inspiration](https://chokcoco.github.io/CSS-Inspiration)
+- [animista](https://animista.net)
 
 ## 练习题
 
@@ -50,14 +58,15 @@ footer: Open-source MIT Licensed | Copyright © 2020<br />Powered by [dumi](http
 - [Eloquent Javascript](https://eloquentjavascript.net/)
 - [ECMAScript 6 入门-阮一峰](https://es6.ruanyifeng.com/)
 - [现代 JavaScript 教程](https://zh.javascript.info/)
-
 - [记录前端开发中的技巧以及算法知识](https://github.com/louzhedong/blog)
 - [缓存](https://www.jianshu.com/p/54cc04190252)
 - [如何在 JS 循环中正确使用 async 与 await](https://juejin.im/post/5cf7042df265da1ba647d9d1)
 - [axios](https://zhuanlan.zhihu.com/p/50859466)
+- [掘金翻译计划](https://github.com/xitu/gold-miner)
 
 ## Github
 
+- [RoadMap](https://github.com/ObjTube/front-end-roadmap)
 - [JavaScript Style](https://github.com/airbnb/javascript) -js 书写风格 <img src="https://img.shields.io/github/stars/airbnb/javascript.svg?style=social">
 - [javascript-algorithms](https://github.com/trekhleb/javascript-algorithms) <img src="https://img.shields.io/github/stars/trekhleb/javascript-algorithms.svg?style=social">
 - [30-seconds-of-code](https://30secondsofcode.org/) - JavaScript 片段集合 <img src="https://img.shields.io/github/stars/30-seconds/30-seconds-of-code.svg?style=social">
@@ -77,8 +86,9 @@ footer: Open-source MIT Licensed | Copyright © 2020<br />Powered by [dumi](http
 - 《JavaScript DOM 编程艺术》
 - 《JavaScript 高级程序设计》
 - 《JavaScript 语言精粹》
-- 《你不知道的 JavaScript》
+- [《你不知道的 JavaScript》](https://github.com/getify/You-Dont-Know-JS)
 - 《JavaScript 设计模式》
 - 《JavaScript 权威指南》
 - 《Secrets of the JavaScript Ninja》
-- 《How JavaScript Works》
+- [《How JavaScript Works》](https://github.com/Troland/how-javascript-works)
+- [Understanding ES6](https://github.com/nzakas/understandinges6)

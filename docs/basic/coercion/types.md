@@ -2,7 +2,7 @@
 title: 数据类型
 order: 1
 group:
-  title: 基本概念
+  title: 强制类型转换
 ---
 
 ## 内置类型

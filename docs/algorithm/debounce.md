@@ -1,8 +1,85 @@
 ---
 title: 防抖
-group:
-  title: 指南
 ---
+
+原理：在事件被触发 n 秒后再执行回调，如果在这 n 秒内又被触发，则重新计时。
+
+适用场景：
+
+- 按钮提交场景：防止多次提交按钮，只执行最后提交的一次
+- 搜索框联想场景：防止联想发送请求，只发送最后一次输入
+
+简易版实现
+
+```js
+/**
+ * @params {Function} fun 传入的防抖函数(callback)
+ * @params {number} delay 等待时间
+ * @returns {Function} Returns the new debounced function.
+ */
+function debounce(func, wait) {
+  let timerId;
+  return function() {
+    const context = this;
+    clearTimeout(timerId);
+    timerId = setTimeout(function() {
+      func.apply(context, arguments);
+    }, wait);
+  };
+}
+```
+
+立即执行版实现
+有时希望立刻执行函数，然后等到停止触发 n 秒后，才可以重新触发执行。
+
+```js
+// 有时希望立刻执行函数，然后等到停止触发 n 秒后，才可以重新触发执行。
+function debounce(func, wait, immediate) {
+  let timeout;
+  return function() {
+    const context = this;
+    const args = arguments;
+    if (timeout) clearTimeout(timeout);
+    if (immediate) {
+      const callNow = !timeout;
+      timeout = setTimeout(function() {
+        timeout = null;
+      }, wait);
+      if (callNow) func.apply(context, args);
+    } else {
+      timeout = setTimeout(function() {
+        func.apply(context, args);
+      }, wait);
+    }
+  };
+}
+```
+
+返回值版实现
+func 函数可能会有返回值，所以需要返回函数结果，但是当 immediate 为 false 的时候，因为使用了 setTimeout ，我们将 func.apply(context, args) 的返回值赋给变量，最后再 return 的时候，值将会一直是 undefined，所以只在 immediate 为 true 的时候返回函数的执行结果。
+
+```js
+function debounce(func, wait, immediate) {
+  let timeout, result;
+  return function() {
+    const context = this;
+    const args = arguments;
+    if (timeout) clearTimeout(timeout);
+    if (immediate) {
+      const callNow = !timeout;
+      timeout = setTimeout(function() {
+        timeout = null;
+      }, wait);
+      if (callNow) result = func.apply(context, args);
+    } else {
+      timeout = setTimeout(function() {
+        func.apply(context, args);
+      }, wait);
+    }
+    return result;
+  };
+}
+```
 
 > 触发高频事件后 n 秒内函数只会执行一次，如果 n 秒内高频事件再次被触发，则重新计算时间
 

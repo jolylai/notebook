@@ -1,22 +1,27 @@
-# 抽象值操作
+---
+title: 抽象值操作
+---
 
-掌握字符串、数字和布尔值之间类型转换的基本规则。
+掌握字符串、数字和布尔值之间类型转换的基本规则。”抽象操作”(即“仅供内部使用的操作”)和转换规则。
 
 ## ToString
 
+抽象操作 ToString，它负责处理非字符串到字符串的强制类型转换。
+
 要把一个值转换为一个字符串有两种方式。
 
-第一种是使用几乎每个值都有的 `toString()`方法。这个方法唯一要做的就是返回相应值的字符串表现。
-
-第二种使用`String()` 基本包装类型
+- 使用几乎每个值都有的 `toString()`方法。这个方法唯一要做的就是返回相应值的字符串表现。
+- 使用`String()` 基本包装类型
 
 **String()函数遵循下列转换规则：**
 
--   如果值有 `toString()`方法，则调用该方法（没有参数）并返回相应的结果；
--   如果值是 `null`，则返回`"null"`；
--   如果值是 `undefined`，则返回`"undefined"`。
+- 如果值有 `toString()`方法，则调用该方法（没有参数）并返回相应的结果；
+- 如果值是 `null`，则返回`"null"`；
+- 如果值是 `undefined`，则返回`"undefined"`。
 
-### undefined and null
+### 基本类型
+
+基本类型值的字符串化规则为:null 转换为 "null"，undefined 转换为 "undefined"，true 转换为 "true"。
 
 `null` 和 `undefined` 值没有`toString()`这个方法, 如果调用 `toString` 方法会报错；
 
@@ -32,13 +37,7 @@ a.toString(); // Uncaught TypeError: Cannot read property 'toString' of undefine
 
 a = true;
 a.toString(); // "true"
-```
-
-### Boolean
-
-```js
-true.toString(); // "true"
-String('true'); // "true"
+String(a); // "true"
 ```
 
 ### Number
@@ -73,27 +72,26 @@ number.toString(); // "1.07e21"
 String(number); // "1.07e21"
 ```
 
-### Object
+### 对象字符串化
+
+对普通对象来说，除非自行定义，否则 `toString()`（Object.prototype.toString()）返回内部属性 [[Class]] 的值，如 "[object Object]"。
+
+如果对象有自己的 `toString()` 方法，字符串化时就会调用该方法并使用其返回值。
 
 ```js
 const obj = {
-    age: 18,
+  age: 18,
 };
 obj.toString(); //  "[object Object]"
 
 // 自定义 toString 方法
 obj.toString = function() {
-    return this.age;
+  return this.age;
 };
 obj.toString(); //  18
 ```
 
-**Note**
-
--   对普通对象来说，除非自行定义，否则 `toString()`（Object.prototype.toString()）返回内部属性 [[Class]] 的值，如 "[object Object]"。
--   如果对象有自己的 `toString()` 方法，字符串化时就会调用该方法并使用其返回值。
-
-### Array
+数组的默认 toString() 方法经过了重新定义，将所有单元字符串化以后再用 "," 连接起来
 
 ```js
 [null].toString(); // ""
@@ -104,11 +102,7 @@ obj.toString(); //  18
 [[1, [2]]].toString(); // "1,2"
 ```
 
-**Note**
-
--   数组的默认 toString() 方法经过了重新定义，将所有单元字符串化以后再用 "," 连接起来
-
-### JSON Stringification
+### JSON 字符串化
 
 > [JSON.stringify(value[, replacer [, space]])](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
 
@@ -116,17 +110,17 @@ obj.toString(); //  18
 
 ```js
 JSON.stringify(42); // "42"
-JSON.stringify('42'); // ""42"" (a string with a quoted string value in it)
+JSON.stringify('42'); // ""42"" (含有双引号的字符串)
 JSON.stringify(null); // "null"
 JSON.stringify(true); // "true"
 ```
 
-**Note:不安全的 JSON 值**
+**不安全的 JSON 值**
 
--   undefined
--   function
--   symbol（ES6+）
--   包含循环引用（对象之间相互引用，形成一个无限循环）的对象。(对包含循环引用的对象执行 JSON.stringify(..) 会出错。)
+- undefined
+- function
+- symbol（ES6+）
+- 包含循环引用（对象之间相互引用，形成一个无限循环）的对象。(对包含循环引用的对象执行 JSON.stringify(..) 会出错。
 
 JSON.stringify(..) 在对象中遇到 `undefined`、`function` 和 `symbol` 时会自动将其忽略，在
 数组中则会返回 `null`（以保证单元位置不变）。
@@ -142,11 +136,90 @@ JSON.stringify([1, undefined, function() {}, 4]); // "[1,null,null,4]"
 JSON.stringify({ a: 2, b: function() {} }); // "{"a":2}"
 ```
 
+如果对象中定义了 toJSON() 方法，JSON 字符串化时会首先调用该方法，然后用它的返回 值来进行序列化。
+
+如果要对含有非法 JSON 值的对象做字符串化，或者对象中的某些值无法被序列化时，就 需要定义 toJSON() 方法来返回一个安全的 JSON 值。
+
+```js
+var o = {};
+var a = {
+  b: 42,
+  c: o,
+  d: function() {},
+};
+// 在a中创建一个循环引用
+o.e = a;
+// 循环引用在这里会产生错误 // JSON.stringify( a );
+// 自定义的JSON序列化
+a.toJSON = function() {
+  // 序列化仅包含b
+  return { b: this.b };
+};
+JSON.stringify(a); // "{"b":42}"
+```
+
+`toJSON()` 应该“返回一个能够被字符串化的安全的 JSON 值”，而不是“返回 一个 JSON 字符串”。
+
+```js
+var a = {
+  val: [1, 2, 3],
+  // 可能是我们想要的结果!
+  toJSON: function() {
+    return this.val.slice(1);
+  },
+};
+var b = {
+  val: [1, 2, 3],
+  // 可能不是我们想要的结果!
+  toJSON: function() {
+    return '[' + this.val.slice(1).join() + ']';
+  },
+};
+JSON.stringify(a); // "[2,3]"
+JSON.stringify(b); // ""[2,3]""
+```
+
 ---
 
 ## ToNumber
 
 `true` 转换为 `1`，`false` 转换为 `0`。`undefined` 转换为 `NaN`，`null` 转换为 `0`。
+
+对象(包括数组)会首先被转换为相应的基本类型值，如果返回的是非数字的基本类型值，则再遵循以上规则将其强制转换为数字。
+
+为了将值转换为相应的基本类型值，抽象操作 ToPrimitive 会首先检查该值是否有 `valueOf()` 方法。 如果有并且返回基本类型值，就使用该值进行强制类型转换。如果没有就使用 `toString()`的返回值(如果存在)来进行强制类型转换。
+
+如果 `valueOf()` 和 `toString()` 均不返回基本类型值，会产生 TypeError 错误。
+
+```js
+var a = {
+  valueOf: function() {
+    return '42';
+  },
+};
+
+var b = {
+  toString: function() {
+    return '42';
+  },
+};
+
+var c = [4, 2];
+c.toString = function() {
+  return this.join(''); // "42"
+};
+
+Number(a); // 42
+Number(b); // 42
+Number(c); // 42
+Number(''); // 0
+Number([]); // 0
+Number(['abc']); // NaN
+```
+
+<Alert>
+Object.create(null) 创建的对象 [[Prototype]] 属性为 null，并且没 有 valueOf() 和 toString() 方法，因此无法进行强制类型转换。
+</Alert>
 
 ### String
 
@@ -180,9 +253,9 @@ parseInt(true); // NaN
 
 **Note:parseInt**
 
--   parseInt(..) 针对的是字符串值。向 parseInt(..) 传递数字和其他类型的参数是没有用的，比如 true、function(){...} 和 [1,2,3]。
--   非字符串参数会首先被强制类型转换为字符串，依赖这样的隐式强制类型转换并非上策，应该避免向 parseInt(..) 传递非字符串参数。
--   如果你的代码需要在 ES5 之前的环境运行，请记得将第二个参数设置为 10。
+- parseInt(..) 针对的是字符串值。向 parseInt(..) 传递数字和其他类型的参数是没有用的，比如 true、function(){...} 和 [1,2,3]。
+- 非字符串参数会首先被强制类型转换为字符串，依赖这样的隐式强制类型转换并非上策，应该避免向 parseInt(..) 传递非字符串参数。
+- 如果你的代码需要在 ES5 之前的环境运行，请记得将第二个参数设置为 10。
 
 ### Object
 
@@ -198,28 +271,28 @@ parseInt(true); // NaN
 Number({}); // NaN
 
 const a = {
-    valueOf: function() {
-        return '42';
-    },
+  valueOf: function() {
+    return '42';
+  },
 };
 Number(a); // 42
 
 const b = {
-    toString: function() {
-        return '42';
-    },
+  toString: function() {
+    return '42';
+  },
 };
 Number(b); // 42
 
 const c = {
-    // 有valueOf方法先采用
-    valueOf: function() {
-        return '12';
-    },
+  // 有valueOf方法先采用
+  valueOf: function() {
+    return '12';
+  },
 
-    toString: function() {
-        return '42';
-    },
+  toString: function() {
+    return '42';
+  },
 };
 Number(c); // 42
 
@@ -228,11 +301,11 @@ Number(['abc']); // NaN
 const d = [4, 2];
 Number(d); // NaN
 d.toString = function() {
-    return this.join(''); // "42"
+  return this.join(''); // "42"
 };
 Number(d); // 42
 d.valueOf = function() {
-    return 12;
+  return 12;
 };
 Number(d); // 12
 ```
@@ -264,16 +337,16 @@ const timestamp = Date.now();
 
 JavaScript 中的值可以分为以下两类：
 
--   (1) 可以被强制类型转换为 false 的值
--   (2) 其他（被强制类型转换为 true 的值）
+- (1) 可以被强制类型转换为 false 的值
+- (2) 其他（被强制类型转换为 true 的值）
 
 ### 假值
 
--   undefined
--   null
--   ''
--   false
--   +0, -0 ,NaN
+- undefined
+- null
+- ''
+- false
+- +0, -0 ,NaN
 
 ### 真值（truthy value）
 
