@@ -8,11 +8,27 @@
   </head>
   <body>
     <script>
-      Number.prototype.valueOf = function() {
-        return 3;
-      };
-      // new Number(2) == 3; // true
-      console.log(2 == 3);
+      class People {
+        constructor(name) {
+          this.name = name;
+        }
+        eat() {
+          console.log(`${this.name} is eating`);
+        }
+      }
+
+      class Student extends People {
+        constructor(name, number) {
+          super(name);
+          this.number = number;
+        }
+        lean() {
+          console.log(`${this.name} is leaning`);
+        }
+      }
+
+      const xiaoming = new Student('xiaoming', 42);
+      xiaoming.eat();
     </script>
   </body>
 </html>

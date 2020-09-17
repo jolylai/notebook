@@ -1,7 +1,5 @@
 ---
 title: Array
-group:
-  title: 指南
 ---
 
 ## ArrayConcat
@@ -10,16 +8,12 @@ group:
 const ArrayConcat = (arr, ...args) => [].concat(arr, ...args);
 ```
 
-::: tip
-
 - Array.concat(value1[, value2[, ...[, valueN]]])
 
   - value 可以是值或数组
   - 当 value 为数组的时候 [1].concat([2]) -> [1,2]
 
 - 使用 `...args` 获取传入的其余参数, 为数组
-
-:::
 
 ## include
 
@@ -31,11 +25,8 @@ const includes = (collection, val, fromIndex = 0) =>
 // includes([1, 2, 3, 4], [1, 2], 1) -> false
 ```
 
-::: tip
-
 - 同时支持数组和字符串
 - Array.include()
-  :::
 
 ## intersection
 
@@ -68,12 +59,9 @@ const remove = (arr, func) =>
 //  remove([1, 2, 3, 4], n => n % 2 == 0) -> [2, 4]
 ```
 
-::: tip
-
 - 使用 `Array.splice(start[, deleteCount[, item1[, item2[, ...]]]])` 移除数组中的元素
 - 修改了传入的 arr
 - 以数组的形式返回别删除的元素
-  :::
 
 ## sample
 
@@ -120,10 +108,7 @@ const zip = (...arrays) => {
 //zip(['a'], [1, 2], [true, false]); -> [['a', 1, true], [undefined, 2, false]]
 ```
 
-::: tip
-
 - 获取数组中的最大值 `maxLength = Math.max.apply(null, arrays.map(a => a.length))`
-  :::
 
 ## average
 
@@ -172,10 +157,7 @@ const fillArray = (arr, value, start = 0, end = arr.length) =>
 // fillArray([1,2,3,4],'8',1,3) -> [1,'8','8',4]
 ```
 
-::: tip
-
 - Array.fill(value[, start[, end]])
-  :::
 
 ## filterNonUnique
 
@@ -225,10 +207,7 @@ const unique = arr => [...new Set(arr)];
 // unique([1,2,2,3,4,4,5]) -> [1,2,3,4,5]
 ```
 
-::: tip
-
 使用 ES6 中是 `Set` 和 `...` 去除掉重复的值
-:::
 
 ## all
 
@@ -239,10 +218,7 @@ all([4, 2, 3], x => x > 1); // true
 all([1, 2, 3]); // true
 ```
 
-::: tip
-
 - fn 默认为 [Boolean](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Boolean)
-  :::
 
 ## bifurcate
 
@@ -254,10 +230,7 @@ const bifurcate = (arr, filter) =>
   ]);
 ```
 
-::: tip
-
 - 返回值 `(acc[filter[i] ? 0 : 1].push(val), acc)`, 将对象中的值改变并返回这个对象
-  :::
 
 ## countBy
 
@@ -271,10 +244,7 @@ const countBy = (arr, fn) =>
   }, {});
 ```
 
-::: tip
-
 - `typeof fn === 'function'` 检验传入的参数是否为函数
-  :::
 
 ## 初始化数组
 
