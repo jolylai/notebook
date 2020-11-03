@@ -1,5 +1,11 @@
 # XMLHttpRequest
 
+在现代 Web 开发中，出于以下三种原因，我们还在使用 XMLHttpRequest：
+
+- 历史原因：我们需要支持现有的使用了 XMLHttpRequest 的脚本。
+- 我们需要兼容旧浏览器，并且不想用 polyfill（例如为了使脚本更小）。
+- 我们需要做一些 fetch 目前无法做到的事情，例如跟踪上传进度。
+
 ## GET
 
 用`XMLHttpRequest` 向 `http://www.mocky.io/v2/5e01ea3f2f00007d97dcd401` 接口发出一个 get 请求

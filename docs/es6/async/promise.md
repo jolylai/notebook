@@ -6,6 +6,10 @@ group:
   title: 异步
 ---
 
+## 状态
+
+pending resoved rejected
+
 ## 思考
 
 ### Promise 构造函数是同步执行还是异步执行，那么 then 方法呢？

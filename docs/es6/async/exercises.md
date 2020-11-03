@@ -1,52 +1,6 @@
 ---
-title: Event Loop
+title: 练习题
 ---
-
-## 事件循环
-
-JS 主线程不断的循环往复的从任务队列中读取任务，执行任务，其中运行机制称为事件循环（event loop）。
-
-## Microtasks、Macrotasks（task）
-
-![](https://cy-picgo.oss-cn-hangzhou.aliyuncs.com/microtasks.svg)
-
-在 JavaScript 中，任务被分为两种，一种宏任务（MacroTask）也叫 Task，一种叫微任务（MicroTask）。
-
-MacroTask（宏任务）
-
-- script 全部代码
-- setTimeout
-- setImmediate（浏览器暂时不支持，只有 IE10 支持，具体可见 MDN）
-- setInterval
-- I/O
-- UI 渲染
-
-MicroTask（微任务）
-
-- process.nextTick（Node 独有）
-- promise
-- Object.observe (废弃)
-- MutationObserver
-
-在高层次上，JavaScript 中有 microtasks 和 macrotasks（task），它们是异步任务的一种类型，Microtasks 的优先级要高于 macrotasks，microtasks 用于处理 I/O 和计时器等事件，每次执行一个。microtask 为 async/await 和 Promise 实现延迟执行，并在每个 task 结束时执行。在每一个事件循环之前，microtask 队列总是被清空（执行）。
-
-**注意：**
-
-- 每一个 event loop 都有一个 microtask queue
-- 每个 event loop 会有一个或多个 macrotask queue ( 也可以称为 task queue )
-- 一个任务 task 可以放入 macrotask queue 也可以放入 microtask queue 中
-- 每一次 event loop，会首先执行 microtask queue， 执行完成后，会提取 macrotask queue 的一个任务加入 microtask queue， 接着继续执行 microtask queue，依次执行下去直至所有任务执行结束。
-
-## 异步运行机制
-
-JS 主线程拥有一个 执行栈（同步任务） 和 一个 任务队列（microtasks queue），主线程会依次执行代码
-
-- 当遇到函数（同步）时，会先将函数入栈，函数运行结束后再将该函数出栈；
-- 当遇到 task 任务（异步）时，这些 task 会返回一个值，让主线程不在此阻塞，使主线程继续执行下去，而真正的 task 任务将交给 浏览器内核 执行，浏览器内核执行结束后，会将该任务事先定义好的回调函数加入相应的 **任务队列（microtasks queue/ macrotasks queue)** 中。
-- 当 JS 主线程清空执行栈之后，会按先入先出的顺序读取 microtasks queue 中的回调函数，并将该函数入栈，继续运行执行栈，直到清空执行栈，再去读取任务队列。
-- 当 microtasks queue 中的任务执行完成后，会提取 macrotask queue 的一个任务加入 microtask queue， 接着继续执行 microtask queue，依次执行下去直至所有任务执行结束。
-
-思考
 
 ```js
 // 1. 开始执行
@@ -195,3 +149,62 @@ await end
 ```
 
 [reference](https://github.com/sisterAn/blog/issues/21)
+
+1. 描述 event loop 机制，可画图
+2. 什么是微任务和宏任务，两者有什么区别
+
+```js
+Promise.resolve()
+  .then(() => {
+    console.log(1);
+  })
+  .catch(() => {
+    console.log(2);
+  })
+  .then(() => {
+    console.log(3);
+  });
+```
+
+```js
+Promise.resolve()
+  .then(() => {
+    console.log(1);
+    throw new Error('error1');
+  })
+  .catch(() => {
+    console.log(2);
+  })
+  .then(() => {
+    console.log(3);
+  });
+```
+
+```js
+async function async1() {
+  console.log('async1 start');
+  await async2();
+  console.log('async1 end');
+}
+
+async function async2() {
+  console.log('async2');
+}
+
+console.log('js start');
+
+setTimeout(() => {
+  console.log('settimeout');
+}, 0);
+
+async1();
+
+Promise.resolve(function(resolve) {
+  console.log('promise 1');
+  resolve();
+}).then(function() {
+  console.log('promise 2');
+});
+
+console.log('js end');
+```

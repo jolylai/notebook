@@ -1,7 +1,0 @@
-## navigator
-
-## location
-
-## screen
-
-## history

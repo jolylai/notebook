@@ -1,7 +1,7 @@
 ---
 title: 拖放
 group:
-  title: 事件
+  title: DOM
 ---
 
 ## 被拖拽元素

@@ -4,31 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Todo List</title>
   </head>
   <body>
-    <script>
-      class People {
-        constructor(name) {
-          this.name = name;
-        }
-        eat() {
-          console.log(`${this.name} is eating`);
-        }
-      }
-
-      class Student extends People {
-        constructor(name, number) {
-          super(name);
-          this.number = number;
-        }
-        lean() {
-          console.log(`${this.name} is leaning`);
-        }
-      }
-
-      const xiaoming = new Student('xiaoming', 42);
-      xiaoming.eat();
-    </script>
+    <h1>Fruits</h1>
+    <p>Do not forget to buy</p>
+    <ul id="fruits">
+      <li class="fruit" title="apple">Apple</li>
+      <li class="fruit" title="pomelo">Pomelo</li>
+    </ul>
+    <p onmousedown="onMouseDown(event)">双击选择</p>
   </body>
+  <script>
+    const nodes = document.body.childNodes;
+    console.log('nodes: ', nodes);
+
+    const onMouseDown = e => {
+      console.log('e: ', e);
+      e.preventDefault();
+      return false;
+    };
+  </script>
 </html>

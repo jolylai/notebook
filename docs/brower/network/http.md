@@ -11,7 +11,14 @@ title: HTTP
 - patch/put：修改数据
 - delete： 删除数据
 
-## Restful A
+## Restful API
 
 - 传统 Api：把每个 url 当做一个功能
 - restful Api： 把每个 url 当做唯一的资源
+
+
+## Headers
+
+### Request Headers
+
+- Ac
