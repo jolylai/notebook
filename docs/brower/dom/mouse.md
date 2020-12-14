@@ -1,8 +1,5 @@
 ---
 title: 鼠标事件
-group:
-  title: 事件
-  order: 1
 ---
 
 ## 事件类型

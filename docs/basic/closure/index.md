@@ -1,5 +1,7 @@
 ---
 title: 闭包
+group:
+  title: 作用域与闭包
 ---
 
 1. 手写 call、apply、bind 函数

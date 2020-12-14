@@ -1,3 +1,14 @@
+---
+title: 进程和线程
+nav:
+  order: 2
+  title: 浏览器
+group:
+  order: 1
+  title: 现代浏览器内部揭秘
+  path: inside-browser
+---
+
 ## 进程 线程
 
 - 浏览器进程 (Browser Process)：负责浏览器的 TAB 的前进、后退、地址栏、书签栏的工作和处理浏览器的一些不可见的底层操作，比如网络请求和文件访问。

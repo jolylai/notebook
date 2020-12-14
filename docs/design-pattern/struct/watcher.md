@@ -1,4 +1,6 @@
-# 观察者模式
+---
+title: 观察者模式
+---
 
 > 发布—订阅模式又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知。在 JavaScript 开发中，我们一般用事件模型 来替代传统的发布—订阅模式
 
@@ -17,7 +19,7 @@
 ```
 
 ```js
-const btn = document.getElementById("btn");
+const btn = document.getElementById('btn');
 // 订阅
 btn.onclick = e => console.log(e);
 ```
@@ -35,7 +37,7 @@ const p = new Promise(resolve => {
 
 // 订阅
 p.then(function() {
-  console.log("then");
+  console.log('then');
 }).cateh(function(error) {
   console.log(error);
 });
@@ -84,8 +86,8 @@ class Observer {
 }
 
 const s = new Subject();
-const o1 = new Observer("o1", s);
-const o2 = new Observer("o2", s);
+const o1 = new Observer('o1', s);
+const o2 = new Observer('o2', s);
 
 s.setState(1);
 ```

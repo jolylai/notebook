@@ -1,7 +1,5 @@
 ---
 title: Promise
-nav:
-  title: ES6
 group:
   title: 异步
 ---

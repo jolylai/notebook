@@ -2,7 +2,7 @@
 title: 工厂模式
 group:
   title: 创建型模式
-  path: /creation
+  order: 2
 ---
 
 ![](https://cy-picgo.oss-cn-hangzhou.aliyuncs.com/factory-method-zh.png)

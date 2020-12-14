@@ -32,6 +32,11 @@ features:
 - [ ] ES6+
 - [ ] 正则表达式
 
+## TODO
+
+- [Understanding ES6 中文](https://oshotokill.gitbooks.io/understandinges6-simplified-chinese/content/)
+- [how-javascript-works](https://github.com/Troland/how-javascript-works)
+
 ## 练习题
 
 - [前端小测](https://github.com/zhangxinxu/quiz)

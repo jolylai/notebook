@@ -1,3 +1,11 @@
+---
+title: Blob
+group:
+  title: 数据存储
+---
+
+- [存储引擎及如何选择合适的存储 API](https://github.com/Troland/how-javascript-works/blob/master/storage.md)
+
 ```jsx
 import React, { useState } from 'react';
 

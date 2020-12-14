@@ -1,4 +1,6 @@
-# 代理模式
+---
+title: 代理模式
+---
 
 ## 代理
 
@@ -7,9 +9,9 @@ const obj = { a: 1 };
 
 const handlers = {
   get(target, key, context) {
-    console.log("accessing:", key);
+    console.log('accessing:', key);
     return Reflect.get(target, key, context);
-  }
+  },
 };
 
 pobj = new Proxy(obj, handlers);
@@ -28,9 +30,9 @@ const obj = { a: 1 };
 
 const handlers = {
   get(target, key, context) {
-    console.log("accessing:", key);
+    console.log('accessing:', key);
     return Reflect.get(target, key, context);
-  }
+  },
 };
 
 const { proxy: pobj, revoke: prevoke } = Proxy.revocable(obj, handlers);
@@ -44,12 +46,12 @@ console.log(pobj.a);
 
 ```js
 const myImage = (function() {
-  const imgNode = document.createElement("img");
+  const imgNode = document.createElement('img');
   document.body.appendChild(imgNode);
   return {
     setSrc: function(src) {
       imgNode.src = src;
-    }
+    },
   };
 })();
 
@@ -60,11 +62,11 @@ const pImg = (function() {
   };
   return {
     setSrc: function(src) {
-      myImage.setSrc(path.join(__dirname, "loading.jpg"));
+      myImage.setSrc(path.join(__dirname, 'loading.jpg'));
       img.src = src;
-    }
+    },
   };
 })();
 
-pImg.setSrc("https://i.loli.net/2019/12/08/piVAzhkHn8g9yS6.jpg");
+pImg.setSrc('https://i.loli.net/2019/12/08/piVAzhkHn8g9yS6.jpg');
 ```
