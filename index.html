@@ -5,61 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script> -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.0.0-alpha.5/tailwind.min.css"
+    />
   </head>
+  <style>
+    @keyframes ants {
+      to {
+        background-position: 100%;
+      }
+    }
+    .marching-ants {
+      padding: 1em;
+      border: 4px solid transparent;
+      background: linear-gradient(white, white) padding-box,
+        repeating-linear-gradient(
+            -45deg,
+            black 0,
+            black 25%,
+            white 0,
+            white 50%
+          )
+          0 / 0.6em 0.6em;
+      animation: ants 24s linear infinite;
+    }
+  </style>
   <body>
+    <input id="fileInput" type="file" style="display: none;" />
+    <div class="flex animate-pulse">
+      <label
+        id="droptarget"
+        for="fileInput"
+        class="flex-auto p-6 border-dashed border-4 border-gray-400 hover:border-gray-500"
+      >
+        <h2 class="text-center">
+          Click or drag file to this area to upload
+        </h2>
+        <p class="text-center">
+          Support for a single or bulk upload. Strictly prohibit from uploading
+          company data or other band files
+        </p>
+      </label>
+    </div>
+
     <script>
-      const arr = [6, 5, 4, 3, 2, 1];
+      const fileInput = document.getElementById('fileInput');
+      fileInput.onchange = event => {
+        console.log('event: ', event.target.files);
+      };
 
-      function bubbleSort(arr) {
-        let length = arr.length;
-        for (let i = 0; i < length - 1; i++) {
-          for (let j = 0; j < length - 1 - i; j++) {
-            if (arr[j] > arr[j + 1]) {
-              const temp = arr[j];
-              arr[j] = arr[j + 1];
-              arr[j + 1] = temp;
-            }
-          }
+      const droptarget = document.getElementById('droptarget');
+
+      const handleEvent = event => {
+        event.preventDefault();
+
+        if (event.type === 'drop') {
+          const files = event.dataTransfer.files;
+          console.log('files: ', files);
         }
+      };
 
-        return arr;
-      }
-
-      function selectionSort(arr) {
-        const length = arr.length;
-
-        // 只需
-        for (let i = 0; i < length - 1; i++) {
-          let minIndex = i;
-          for (let j = i + 1; j < length; j++) {
-            if (arr[minIndex] > arr[j]) {
-              minIndex = j;
-            }
-          }
-
-          let temp = arr[i];
-          arr[i] = arr[minIndex];
-          arr[minIndex] = temp;
-        }
-        return arr;
-      }
-
-      function insertSolution(arr) {
-        const length = arr.length;
-        for (let i = 1; i < length; i++) {
-          for (let j = i; j > 0; j--) {
-            if (arr[i] < arr[j]) {
-              a;
-              arr.splice(j, 0, arr[i]);
-              // console.log('arr: ', arr);
-            }
-          }
-        }
-
-        return arr;
-      }
-
-      console.log(insertSolution(arr));
+      droptarget.ondragover = handleEvent;
+      droptarget.ondrop = handleEvent;
     </script>
   </body>
 </html>

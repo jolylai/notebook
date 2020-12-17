@@ -3025,10 +3025,10 @@
     umi-webpack-bundle-analyzer "3.5.0"
     zlib "1.0.5"
 
-"@umijs/preset-dumi@1.0.31":
-  version "1.0.31"
-  resolved "https://registry.npm.taobao.org/@umijs/preset-dumi/download/@umijs/preset-dumi-1.0.31.tgz#2fa2d4d22a5356523d4e078ca37e4c2896e86b89"
-  integrity sha1-L6LU0ipTVlI9TgeMo35MKJboa4k=
+"@umijs/preset-dumi@1.0.38":
+  version "1.0.38"
+  resolved "https://registry.npm.taobao.org/@umijs/preset-dumi/download/@umijs/preset-dumi-1.0.38.tgz#63684e25c9d43ed2e664386a1e2ea9984046646e"
+  integrity sha1-Y2hOJcnUPtLmZDhqHi6pmEBGZG4=
   dependencies:
     "@babel/core" "^7.7.2"
     "@babel/generator" "^7.7.2"
@@ -3067,7 +3067,7 @@
     remark-parse "^7.0.1"
     remark-rehype "^5.0.0"
     slash2 "^2.0.0"
-    sylvanas "^0.4.2"
+    sylvanas "0.4.3"
     symlink-dir "^3.1.1"
     unified "^8.4.1"
     unist-util-visit "^2.0.1"
@@ -5985,12 +5985,12 @@ dotenv@8.2.0:
   resolved "https://registry.npm.taobao.org/dotenv/download/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
   integrity sha1-l+YZJZradQ7qPk6j4mvO6lQksWo=
 
-dumi@^1.0.8:
-  version "1.0.31"
-  resolved "https://registry.npm.taobao.org/dumi/download/dumi-1.0.31.tgz#2eff014a9a2f941a4818f00a966963513a1281ee"
-  integrity sha1-Lv8BSpovlBpIGPAKlmljUToSge4=
+dumi@^1.0.38:
+  version "1.0.38"
+  resolved "https://registry.npm.taobao.org/dumi/download/dumi-1.0.38.tgz#6a8c43b1c1ea907a901e07c791c023420fad7b39"
+  integrity sha1-aoxDscHqkHqQHgfHkcAjQg+tezk=
   dependencies:
-    "@umijs/preset-dumi" "1.0.31"
+    "@umijs/preset-dumi" "1.0.38"
     umi "^3.0.0"
 
 duplexer3@^0.1.4:
@@ -15306,9 +15306,9 @@ svgo@^1.0.0, svgo@^1.2.2:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-sylvanas@^0.4.2:
+sylvanas@0.4.3:
   version "0.4.3"
-  resolved "https://registry.npm.taobao.org/sylvanas/download/sylvanas-0.4.3.tgz#e40ce0e651bd9f57b3a4738ce4aecbfd84eb649f"
+  resolved "https://registry.npm.taobao.org/sylvanas/download/sylvanas-0.4.3.tgz?cache=0&sync_timestamp=1604540566320&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fsylvanas%2Fdownload%2Fsylvanas-0.4.3.tgz#e40ce0e651bd9f57b3a4738ce4aecbfd84eb649f"
   integrity sha1-5Azg5lG9n1ezpHOM5K7L/YTrZJ8=
   dependencies:
     "@babel/core" "^7.4.5"
