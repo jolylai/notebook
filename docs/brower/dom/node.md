@@ -7,9 +7,9 @@ order: 1
 
 `JavaScript` 中的所有节点类型都继承自 `Node` 类型，因此所有节点类型都共享着相同的基本属性和方法。每个节点都有一个 `nodeType` 属性，用于表明节点的类型。
 
-- Node.ELEMENT_NODE(1)：元素节点;
+- Node.ELEMENT_NODE(1) 元素节点;
 - Node.ATTRIBUTE_NODE(2);
-- Node.TEXT_NODE(3);
+- Node.TEXT_NODE(3) 文本节点;
 - Node.CDATA_SECTION_NODE(4);
 - Node.ENTITY_REFERENCE_NODE(5);
 - Node.ENTITY_NODE(6);
@@ -17,7 +17,8 @@ order: 1
 - Node.COMMENT_NODE(8);
 - Node.DOCUMENT_NODE(9);
 - Node.DOCUMENT_TYPE_NODE(10);
-- Node.DOCUMENT_FRAGMENT_NODE(11);  Node.NOTATION_NODE(12)。
+- Node.DOCUMENT_FRAGMENT_NODE(11);
+- Node.NOTATION_NODE(12)。
 
 判断节点类型
 

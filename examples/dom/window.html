@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Frameset Example</title>
+  </head>
+  <body>
+    <iframe src="https://cssreference.io">
+      Fallback text for non-supported browsers
+    </iframe>
+    <iframe src="https://www.bilibili.com/" width="100%" height="600">
+      Fallback text for non-supported browsers
+    </iframe>
+    <script>
+      const a = document.createElement('a');
+      a.href = 'https://www.bilibili.com/';
+      console.log(a.host);
+    </script>
+  </body>
+</html>

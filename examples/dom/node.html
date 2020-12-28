@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul id="list">
+      <li id="1">1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+    <script>
+      const list = document.getElementById('list');
+      console.log('list: ', list);
+      console.log('firstChild: ', list.firstChild);
+
+      const li1 = document.getElementById('1');
+      console.log('li1: ', li1.previousSibling);
+      console.log('li1: ', li1.nextSibling);
+    </script>
+  </body>
+</html>

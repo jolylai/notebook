@@ -1,3 +1,45 @@
+---
+title: window
+order: 1
+group:
+  title: BOM
+  order: 2
+---
+
+## 前言
+
+BOM(浏览器对象模型)
+
+## 窗口大小
+
+```js
+// 窗口本身的尺寸
+window.outerWidth;
+window.outerHeight;
+
+// 视图容器尺寸
+window.innerWidth;
+window.innerHeight;
+```
+
+IE8 及更早版本没有提供取得当前浏览器窗口尺寸的属性;不过，它通过 DOM 提供了页面可见区域 的相关信息。
+在 IE、Firefox、Safari、Opera 和 Chrome 中，`document.documentElement.clientWidth` 和 `document.documentElement.clientHeight` 中保存了页面视口的信息。在 IE6 中，这些属性必须在 标准模式下才有效;如果是混杂模式，就必须通过 `document.body.clientWidth` 和 `document.body. clientHeight` 取得相同信息。而对于混杂模式下的 Chrome，则无论通过 `document.documentElement` 还是 `document.body` 中的 `clientWidth` 和 `clientHeight` 属性，都可以取得视口的大小。
+
+```js
+let pageWidth = window.innerWidth;
+let pageHeight = window.innerHeight;
+
+if (typeof pageWidth != 'number') {
+  if (document.compatMode == 'CSS1Compat') {
+    pageWidth = document.documentElement.clientWidth;
+    pageHeight = document.documentElement.clientHeight;
+  } else {
+    pageWidth = document.body.clientWidth;
+    pageHeight = document.body.clientHeight;
+  }
+}
+```
+
 # 元素大小和滚动
 
 ```jsx | inline
@@ -329,8 +371,8 @@ const Container = styled.div`
 
 export default () => {
   const handleRef = ref => {
-    console.log('ref: ', ref.offsetParent);
-    console.log('ref: ', ref.clientLeft);
+    // console.log('ref: ', ref.offsetParent);
+    // console.log('ref: ', ref.clientLeft);
   };
 
   return (

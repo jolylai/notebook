@@ -71,7 +71,41 @@ export default () => {
 
 默认情况下，图像、链接和文本是可以拖动的，也就是说，不用额外编写代码，用户就可以拖动它 们。文本只有在被选中的情况下才能拖动，而图像和链接在任何时候都可以拖动。
 
-图像和链接的 draggable 属性自动被设置成了 true，而其他元素这个属性 的默认值都是 false。要想让其他元素可拖动，或者让图像或链接不能拖动，都可以设置这个属性。
+```jsx | inline
+import React from 'react';
+
+export default () => {
+  const onChange = e => {
+    console.log('files: ', e.target.files);
+    console.log('value: ', e.target.value);
+  };
+
+  return (
+    <article className="p-4 flex space-x-4">
+      <img
+        src="https://tailwindcss.com/_next/static/media/jucy-beef-burger.032c3c262707ccb9636fb3c909efeaf6.jpg"
+        alt=""
+        className="flex-none w-18 h-18 rounded-lg object-cover bg-gray-100"
+        width="144"
+        height="144"
+      />
+      <div className="min-w-0 relative flex-auto sm:pr-20 lg:pr-0 xl:pr-20">
+        <h2 className="text-lg font-semibold text-black mb-0.5">
+          <a href="#">Hank’s Juiciest Beef Burger</a>
+        </h2>
+        <dl className="flex flex-wrap text-sm font-medium whitespace-pre">
+          <div className="flex-none w-full mt-0.5 font-normal">
+            <dt className="inline">By</dt>{' '}
+            <dd className="inline text-black">Franecki</dd>
+          </div>
+        </dl>
+      </div>
+    </article>
+  );
+};
+```
+
+图像和链接的 `draggable` 属性自动被设置成了 `true`，而其他元素这个属性 的默认值都是 `false`。要想让其他元素可拖动，或者让图像或链接不能拖动，都可以设置这个属性。
 
 ```html
 <!-- 让这个图像不可以拖动 -->
@@ -204,4 +238,4 @@ dropElement.ondrop = function(event) {
 };
 ```
 
-文件（[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)）接口提供有关文件的信息，并允许网页中的 JavaScript 访问其内容。
+[File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)接口提供有关文件的信息，并允许网页中的 JavaScript 访问其内容。
