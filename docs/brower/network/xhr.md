@@ -1,4 +1,11 @@
-# XMLHttpRequest
+---
+title: XMLHttpRequest
+order: 2
+---
+
+## 前言
+
+<code src='../../../demos/xhr' inline />
 
 在现代 Web 开发中，出于以下三种原因，我们还在使用 XMLHttpRequest：
 
@@ -6,9 +13,26 @@
 - 我们需要兼容旧浏览器，并且不想用 polyfill（例如为了使脚本更小）。
 - 我们需要做一些 fetch 目前无法做到的事情，例如跟踪上传进度。
 
-## GET
+## 发送请求
+
+### GET 请求
 
 用`XMLHttpRequest` 向 `http://www.mocky.io/v2/5e01ea3f2f00007d97dcd401` 接口发出一个 get 请求
+
+```js
+const xhr = new XMLHttpRequest();
+
+xhr.open('get', 'http://www.mocky.io/v2/5e01ea3f2f00007d97dcd401', true);
+
+xhr.send(null);
+```
+
+1. 创建一个 xhr 实例
+2. 调用 `open()`方法，`open()`方法并不会真正发送请求， 而只是启动一个请求以备发送。这个方法接收 3 个参数:
+   - 请求类型("get"、"post"等)
+   - 请求 URL
+   - 表示请求是否异步的布尔值。
+3. `send()`方法接收一个参数，是作为请求体发送的数据。如果不需要发送请求体，则必须传 `null`， 因为这个参数在某些浏览器中是必需的。调用 `send()`之后，请求就会发送到服务器。
 
 ```js
 const xhr = new XMLHttpRequest();
@@ -59,7 +83,7 @@ xhr.open('get', url, true);
 xhr.send(null);
 ```
 
-## POST 请求
+### POST 请求
 
 首先将 Content-Type 头部信息设置为 application/x-www-form-urlencoded，也就是表单 提交时的内容类型，其次是以适当的格式创建一个字符串。
 
@@ -84,7 +108,7 @@ const data = serialize({ pageNumber: 1, pageSize: 10 });
 xhr.send(data);
 ```
 
-### FormData
+#### FormData
 
 FormData 为序列化表单以及创建与表单格式相同的数据(用于通过 XHR 传输)提供了便利。
 
@@ -123,38 +147,7 @@ xhr.send(data);
 
 使用 FormData 的方便之处体现在不必明确地在 XHR 对象上设置请求头部。XHR 对象能够识别传 入的数据类型是 FormData 的实例，并配置适当的头部信息。
 
-## 获取响应
-
-XHR 对象的 `readyState` 属性表示请求 /响应过程的当前活动阶段，对应的值如下
-
-- `0`:未初始化。尚未调用 open()方法。
-- `1`:启动。已经调用 open()方法，但尚未调用 send()方法。
-- `2`:发送。已经调用 send()方法，但尚未接收到响应。
-- `3`:接收。已经接收到部分响应数据。
-- `4`:完成。已经接收到全部响应数据，而且已经可以在客户端使用了。
-
-只要 `readyState` 属性的值由一个值变成另一个值，都会触发一次 `readystatechange` 事件，因此可以检测 `XHR` 对象的 `readyState` 属性来判断是否已经接受到响应
-
-```js
-xhr.onreadystatechange = function() {
-  if (xhr.readyState === 4) {
-    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
-      console.log(xhr.responseText);
-    }
-  }
-};
-```
-
-在收到响应后，响应的数据会自动填充 `XHR` 对象的属性，相关的属性简介如下。
-
-- `responseText`:作为响应主体被返回的文本。
-- `responseXML`:如果响应的内容类型是`"text/xml"或"application/xml"`，这个属性中存包含着响应数据的 XML DOM 文档。
-- `status`:响应的 HTTP 状态。
-- `statusText`:HTTP 状态的说明。
-
-无论内容类型是什么，响应主体的内容都会保存到 responseText 属性中;而 对于非 XML 数据而言，responseXML 属性的值将为 null。
-
-## 超时设定
+### 超时设定
 
 ```js
 const xhr = new XMLHttpRequest();
@@ -183,7 +176,62 @@ xhr.send(null);
 将 timeout 属性设置为 1000 毫秒，意味着如果请求在 1 秒钟内还没有返回，就会自动终止。请求终止时，会调用 ontimeout 事件处理程序。但此时 readyState 可能已经改变为 4 了，这意味着会调用 onreadystatechange 事件处理程序。可是，如果在超时终止 请求之后再访问 status 属性，就会导致错误。为避免浏览器报告错误，可以将检查 status 属性的语
 句封装在一个 try-catch 语句当中。
 
-## 重写响应的 MIME 类型
+### 取消请求
+
+```js
+xhr.abort();
+```
+
+## 获取响应
+
+收到响应后，XHR 对象的以下属性会被填充上数据。
+
+- `responseText`:作为响应主体被返回的文本。
+- `responseXML`:如果响应的内容类型是`"text/xml"或"application/xml"`，这个属性中存包含着响应数据的 XML DOM 文档。
+- `status`:响应的 HTTP 状态。
+- `statusText`:HTTP 状态的说明。
+
+无论内容类型是什么，响应主体的内容都会保存到 responseText 属性中;而 对于非 XML 数据而言，responseXML 属性的值将为 null。
+
+XHR 对象的 `readyState` 属性表示请求 /响应过程的当前活动阶段，对应的值如下
+
+- `0`:未初始化。尚未调用 open()方法。
+- `1`:启动。已经调用 open()方法，但尚未调用 send()方法。
+- `2`:发送。已经调用 send()方法，但尚未接收到响应。
+- `3`:接收。已经接收到部分响应数据。
+- `4`:完成。已经接收到全部响应数据，而且已经可以在客户端使用了。
+
+只要 `readyState` 属性的值由一个值变成另一个值，都会触发一次 `readystatechange` 事件，因此可以检测 `XHR` 对象的 `readyState` 属性来判断是否已经接受到响应
+
+```js
+xhr.onreadystatechange = function() {
+  if (xhr.readyState === 4) {
+    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+      console.log(xhr.responseText);
+    }
+  }
+};
+```
+
+### load 事件
+
+load 事件，用以替代 readystatechange 事件。响应接收完毕后将触发 load 事件，因此也就没有必要去检查 readyState 属性了。而 onload 事件处理程序会接收到一个 event 对象，其 target 属性 就指向 XHR 对象实例，因而可以访问到 XHR 对象的所有方法和属性。然而，并非所有浏览器都为这个事件实现了适当的事件对象。结果，开发人员还是要像下面这样被迫使用 XHR 对象变量
+
+```js
+const xhr = new XMLHttpRequest();
+
+xhr.load = function() {
+  if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+    console.log(xhr.responseText);
+  }
+};
+
+xhr.open('get', 'http://www.mocky.io/v2/5e01ea3f2f00007d97dcd401', true);
+
+xhr.send(null);
+```
+
+### 重写响应的 MIME 类型
 
 服务器返回的 MIME 类型是 text/plain，但数据中实际包含的是 XML。根据 MIME 类型， 即使数据是 XML，responseXML 属性中仍然是 null。通过调用 overrideMimeType()方法，可以保 证把响应当作 XML 而非纯文本来处理。
 
@@ -196,13 +244,23 @@ xhr.send(null);
 
 调用 overrideMimeType()必须在 send()方法之前，才能保证重写响应的 MIME 类型。
 
-## 取消请求
+## HTTP 头部
 
-```js
-xhr.abort();
-```
+每个 HTTP 请求和响应都会携带一些头部字段，这些字段可能对开发者有用。XHR 对象会通过一 些方法暴露与请求和响应相关的头部字段。
+默认情况下，XHR 请求会发送以下头部字段。
 
-## 携带凭证
+- `Accept`:浏览器可以处理的内容类型。
+- `Accept-Charset`:浏览器可以显示的字符集。
+- `Accept-Encoding`:浏览器可以处理的压缩编码类型。
+- `Accept-Language`:浏览器使用的语言。
+- `Connection`:浏览器与服务器的连接类型。
+- `Cookie`:页面中设置的 Cookie。
+- `Host`:发送请求的页面所在的域。
+- `Referer`:发送请求的页面的 URI。注意，这个字段在 HTTP 规范中就拼错了，所以考虑到兼容
+  性也必须将错就错。(正确的拼写应该是 Referrer。)
+- `User-Agent`:浏览器的用户代理字符串。
+
+### 携带凭证
 
 ```js
 const xhr = new XMLHttpRequest();
@@ -227,24 +285,6 @@ xhr.send(null);
 - `abort`:在因为调用 abort()方法而终止连接时触发。
 - `load`:在接收到完整的响应数据时触发。
 - `loadend`:在通信完成或者触发 error、abort 或 load 事件后触发。
-
-### load 事件
-
-load 事件，用以替代 readystatechange 事件。响应接收完毕后将触发 load 事件，因此也就没有必要去检查 readyState 属性了。而 onload 事件处理程序会接收到一个 event 对象，其 target 属性 就指向 XHR 对象实例，因而可以访问到 XHR 对象的所有方法和属性。然而，并非所有浏览器都为这个事件实现了适当的事件对象。结果，开发人员还是要像下面这样被迫使用 XHR 对象变量
-
-```js
-const xhr = new XMLHttpRequest();
-
-xhr.load = function() {
-  if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
-    console.log(xhr.responseText);
-  }
-};
-
-xhr.open('get', 'http://www.mocky.io/v2/5e01ea3f2f00007d97dcd401', true);
-
-xhr.send(null);
-```
 
 ### progress 事件
 
