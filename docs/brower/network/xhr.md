@@ -17,7 +17,7 @@ order: 2
 
 ### GET 请求
 
-用`XMLHttpRequest` 向 `http://www.mocky.io/v2/5e01ea3f2f00007d97dcd401` 接口发出一个 get 请求
+最常用的请求方法是 GET 请求，用于向服务器查询某些信息。下面使用 `XMLHttpRequest` 发送一个 GET 请求
 
 ```js
 const xhr = new XMLHttpRequest();
@@ -27,44 +27,31 @@ xhr.open('get', 'http://www.mocky.io/v2/5e01ea3f2f00007d97dcd401', true);
 xhr.send(null);
 ```
 
-1. 创建一个 xhr 实例
-2. 调用 `open()`方法，`open()`方法并不会真正发送请求， 而只是启动一个请求以备发送。这个方法接收 3 个参数:
-   - 请求类型("get"、"post"等)
-   - 请求 URL
-   - 表示请求是否异步的布尔值。
-3. `send()`方法接收一个参数，是作为请求体发送的数据。如果不需要发送请求体，则必须传 `null`， 因为这个参数在某些浏览器中是必需的。调用 `send()`之后，请求就会发送到服务器。
+调用 `open()`方法，`open()`方法并不会真正发送请求， 而只是启动一个请求以备发送。这个方法接收 3 个参数:
+
+- 请求类型("get"、"post"等)
+- 请求 URL
+- 表示请求是否异步的布尔值。
+
+`send()`方法接收一个参数，是作为请求体发送的数据。如果不需要发送请求体，则必须传 `null`， 因为这个参数在某些浏览器中是必需的。调用 `send()`之后，请求就会发送到服务器。
+
+必要时，需要在 GET 请求的 URL 后面添加查询字符串参数。对 XHR 而言，查询字符串必须正确编码后添加到 URL 后面，然后再传给 `open()`方法。
+发送 GET 请求最常见的一个错误是查询字符串格式不对。查询字符串中的每个名和值都必须使用 `encodeURIComponent()`编码，所有名/值对必须以和号(&)分隔
+
+可以使用以下函数将查询字符串参数添加到现有的 URL 末尾:
 
 ```js
-const xhr = new XMLHttpRequest();
-
-// 获取响应的数据
-xhr.onreadystatechange = function() {
-  if (xhr.readyState === 4) {
-    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
-      console.log(xhr.responseText);
-    }
-  }
-};
-
-// open()方法并不会真正发送请求， 而只是启动一个请求以备发送。
-xhr.open('get', 'http://www.mocky.io/v2/5e01ea3f2f00007d97dcd401', true);
-
-// 如果不需要通过请求主体发送 数据，则必须传入 null，因为这个参数对有些浏览器来说是必需的。
-xhr.send(null);
+function addURLParam(url, name, value) {
+  url += url.indexOf('?') == -1 ? '?' : '&';
+  url += encodeURIComponent(name) + '=' + encodeURIComponent(value);
+  return url;
+}
 ```
 
-可以将查询字符串参数追加 到 URL 的末尾，以便将信息发送给服务器，如 `"http://www.mocky.io/v2/5e01ea3f2f00007d97dcd401?name=jack"`。查询字符串中每个参数的名称和值都必须使用 encodeURIComponent()进行编码，然后才能放到 URL 的末尾;而且所有名-值对 儿都必须由和号(&)分隔，不然 GET 请求会发生的一个错误，就是查询字符串的格式有问题。
+这里定义了一个 `addURLParam()`函数，它接收 3 个参数:要添加查询字符串的 URL、查询参数和 参数值。首先，这个函数会检查 URL 中是否已经包含问号(以确定是否已经存在其他参数)。如果没有， 则加上一个问号;否则就加上一个和号。然后，分别对参数名和参数值进行编码，并添加到 URL 末尾。最后一步是返回更新后的 URL。
 
 ```js
 const xhr = new XMLHttpRequest();
-
-xhr.onreadystatechange = function() {
-  if (xhr.readyState === 4) {
-    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
-      console.log(xhr.responseText);
-    }
-  }
-};
 
 function addURLParam(url, name, value) {
   url += url.indexOf('?') == -1 ? '?' : '&';
@@ -85,7 +72,11 @@ xhr.send(null);
 
 ### POST 请求
 
-首先将 Content-Type 头部信息设置为 application/x-www-form-urlencoded，也就是表单 提交时的内容类型，其次是以适当的格式创建一个字符串。
+第二个最常用的请求是 POST 请求，用于向服务器发送应该保存的数据。每个 POST 请求都应该在 请求体中携带提交的数据。POST 请求的请求体可以包含非常多的数据，而且数据可以是任意格式。
+
+#### XHR 模拟表单提交
+
+默认情况下，对服务器而言，POST 请求与提交表单是不一样的。服务器逻辑需要读取原始 POST 数据才能取得浏览器发送的数据。
 
 ```js
 const xhr = new XMLHttpRequest();
@@ -108,15 +99,16 @@ const data = serialize({ pageNumber: 1, pageSize: 10 });
 xhr.send(data);
 ```
 
+1. 将 `Content-Type` 头部信息设置为 `application/x-www-form-urlencoded`，也就是表单 提交时的内容类型
+2. 创建对应格式的字符串。
+
 #### FormData
 
 FormData 为序列化表单以及创建与表单格式相同的数据(用于通过 XHR 传输)提供了便利。
 
 ```js
-const formData = new FormData(document.forms[0]);
-
-const data = new FormData();
-data.append('name', 'Nicholas');
+const formData = new FormData();
+formData.append('name', 'Nicholas');
 
 // { list: [ 11, 22 ] }
 const formDataList = new FormData();
@@ -149,6 +141,8 @@ xhr.send(data);
 
 ### 超时设定
 
+如果发出去的请求服务器迟迟没有返回相应，我们需要中断请求，并抛出一个超时错误
+
 ```js
 const xhr = new XMLHttpRequest();
 
@@ -166,15 +160,16 @@ xhr.onreadystatechange = function() {
   }
 };
 xhr.open('get', 'timeout.php', true);
-xhr.timeout = 1000; //将超时设置为1秒钟(仅适用于IE8+)
+
+xhr.timeout = 1000;
 xhr.ontimeout = function() {
   alert('Request did not return in a second.');
 };
+
 xhr.send(null);
 ```
 
-将 timeout 属性设置为 1000 毫秒，意味着如果请求在 1 秒钟内还没有返回，就会自动终止。请求终止时，会调用 ontimeout 事件处理程序。但此时 readyState 可能已经改变为 4 了，这意味着会调用 onreadystatechange 事件处理程序。可是，如果在超时终止 请求之后再访问 status 属性，就会导致错误。为避免浏览器报告错误，可以将检查 status 属性的语
-句封装在一个 try-catch 语句当中。
+将 `timeout` 属性设置为 1000 毫秒，意味着如果请求在 1 秒钟内还没有返回，就会自动终止。请求终止时，会调用 `ontimeout` 事件处理程序。但此时 `readyState` 可能已经改变为 4 了，这意味着会调用 `onreadystatechange` 事件处理程序。可是，如果在超时终止 请求之后再访问 `status` 属性，就会导致错误。为避免浏览器报告错误，可以将检查 `status` 属性的语句封装在一个 `try-catch` 语句当中。
 
 ### 取消请求
 
@@ -394,6 +389,8 @@ xhr.send(null);
 为了保证正确执行，必须在调用 `open()` 之前添加 `onprogress` 事件处理程序。假设响应有 `Content-Length` 头部，就可以 利用这些信息计算出已经收到响应的百分比。
 
 ## 优质代码
+
+antd 组件库中 upload 组件的请求代码 [Upload](https://github.com/react-component/upload/blob/master/src/request.ts)
 
 ```js
 function getError(option, xhr) {
