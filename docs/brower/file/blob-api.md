@@ -1,15 +1,13 @@
 ---
 title: Blob API
-order: 2
+order: 1
 group:
   title: 文件
 ---
 
-- [存储引擎及如何选择合适的存储 API](https://github.com/Troland/how-javascript-works/blob/master/storage.md)
+## 前言
 
-## 简介
-
-Blob（Binary Large Object）表示二进制类型的大对象。Blob 通常是影像、声音或多媒体文件。在 JavaScript 中 Blob 类型的对象表示不可变的类似文件对象的原始数据。
+**Blob（Binary Large Object）表示二进制类型的大对象**。Blob 通常是影像、声音或多媒体文件。在 JavaScript 中 Blob 类型的对象表示不可变的类似文件对象的原始数据。
 
 Blob 由一个可选的字符串 type（通常是 [MIME 类型](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types)）和 blobParts 组成 —— 一系列其他 Blob 对象，字符串和 BufferSource。
 
@@ -123,55 +121,14 @@ export default () => {
 - 浏览器内部为每个通过 URL.createObjectURL 生成的 URL 存储了一个 URL → Blob 映射。因此，此类 URL 很短，但可以访问 Blob。
 - URL.revokeObjectURL(url) 从内部映射中移除引用，因此允许 Blob 被删除（如果没有其他引用的话），并释放内存。
 
-## Blob 转换为 base64
-
 ## Image 转换为 blob
 
-```jsx
-/**
- * title: 点击图片下载
- */
-import React, { useState } from 'react';
+<code src='../../../demos/file/ImageToBlob.jsx' inline />
 
-export default () => {
-  const handleDownload = event => {
-    const img = event.target;
+1. 使用
+2. 使用 [canvas.drawImage](https://developer.mozilla.org/zh-CN/docs/Web/api/CanvasRenderingContext2D/drawImage) 在 `canvas` 上绘制图像（或图像的一部分）。
+3. 调用 `canvas` 方法 [.toBlob(callback, format, quality)](https://developer.mozilla.org/zh-CN/docs/Web/api/HTMLCanvasElement/toBlob) 创建一个 `Blob`，并在创建完成后使用其运行 `callback`。
 
-    // 生成同尺寸的 <canvas>
-    let canvas = document.createElement('canvas');
-    canvas.width = img.clientWidth;
-    canvas.height = img.clientHeight;
+#### 参考文章
 
-    let context = canvas.getContext('2d');
-
-    // 向其中复制图像（此方法允许剪裁图像）
-    context.drawImage(img, 0, 0);
-    // 我们 context.rotate()，并在 canvas 上做很多其他事情
-
-    // toBlob 是异步操作，结束后会调用 callback
-    canvas.toBlob(function(blob) {
-      console.log('blob: ', blob);
-      //   blob 创建完成，下载它
-      let link = document.createElement('a');
-      link.download = 'example.png';
-      link.href = URL.createObjectURL(blob);
-      link.click();
-      // 删除内部 blob 引用，这样浏览器可以从内存中将其清除
-      URL.revokeObjectURL(link.href);
-    }, 'image/png');
-  };
-
-  return (
-    <div>
-      <img
-        src="https://source.unsplash.com/random/800x600"
-        onClick={handleDownload}
-        crossOrigin="anonymous"
-      />
-    </div>
-  );
-};
-```
-
-使用 canvas.drawImage 在 canvas 上绘制图像（或图像的一部分）。
-调用 canvas 方法 .toBlob(callback, format, quality) 创建一个 Blob，并在创建完成后使用其运行 callback。
+- [存储引擎及如何选择合适的存储 API](https://github.com/Troland/how-javascript-works/blob/master/storage.md)

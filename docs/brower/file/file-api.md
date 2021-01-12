@@ -1,6 +1,6 @@
 ---
 title: File API
-order: 1
+order: 2
 ---
 
 ```jsx | inline
@@ -96,62 +96,9 @@ File API(文件 API)的宗旨是**为 Web 开发人员提供一种安全的方�
 
 ## 获取 File 对象
 
-```jsx | inline
-import React, { useState } from 'react';
-import { Button } from 'antd';
+<code src='../../../demos/file/GetFile.jsx' inline />
 
-export default () => {
-  const [files, setFiles] = useState([]);
-
-  const handleChange = e => {
-    console.log('files: ', e.target.files);
-    setFiles(Array.from(e.target.files));
-  };
-
-  const handleDrop = event => {
-    event.preventDefault();
-    if (event.type === 'drop') {
-      const files = event.dataTransfer.files;
-      console.log('files: ', files);
-      setFiles(Array.from(files));
-    }
-  };
-
-  return (
-    <div>
-      <div className="flex">
-        <input
-          id="fileInput"
-          type="file"
-          style={{ display: 'none' }}
-          multiple
-          onChange={handleChange}
-        />
-        <label
-          htmlFor="fileInput"
-          className="flex-auto p-6 border-dashed border-4 border-gray-400 hover:border-gray-500"
-          onDragOver={event => event.preventDefault()}
-          onDrop={handleDrop}
-        >
-          <h2 className="text-center">
-            Click or drag file to this area to upload
-          </h2>
-          <p className="text-center">
-            Support for a single or bulk upload. Strictly prohibit from
-            uploading company data or other band files
-          </p>
-        </label>
-      </div>
-
-      <ul>
-        {files.map(file => (
-          <li key={file.name}>{file.name}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-```
+`type=file`表单元素，假设 DOM 元素是 eleFile，则 file 对象（假设非多选模式）为 eleFile.files[0]。或者也可以在 change 事件中获取
 
 通常我们选择文件可以同过点击和拖放两种方式，如上面这个例子，点击然后选择文件，或者直接将文件拖入
 
@@ -168,11 +115,6 @@ HTML5 在 DOM 中为文件输入元素添加了一个 files 集合。在通过�
 const filesList = document.getElementById('filesList');
 
 filesList.onchange = function onChange(event) {
-  const { files } = event.target;
-  console.log('files: ', files);
-};
-
-filesList.oninput = function onInput(event) {
   const { files } = event.target;
   console.log('files: ', files);
 };
@@ -427,3 +369,29 @@ reader.onloadend = event => {
   console.log('onloadend', event);
 };
 ```
+
+## 解析文本类文件
+
+<code src='../../../demos/file/TextFile.jsx' inline />
+
+**文本类文件**指 MIME Type 为 `text/*` 文件，例如，CSS 文件（text/stylesheet），JS 文件（text/javascript），HTML 文件（text/html），txt 文本（text/plain）等等。
+
+```js
+const getTextFileContent = file => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.readAsText(file);
+
+    reader.onload = () => {
+      resolve(reader.result);
+    };
+
+    reader.onerror = () => {
+      reject(reader.error);
+    };
+  });
+};
+```
+
+对于非文本类文件，`readAsText()`方法也是可以用的，但是读出来的东西怕是用不起来，可以尝试读取 Excel 文件看看最终的读取结果是什么
