@@ -1,7 +1,8 @@
 ---
-title: Blob
+title: Blob API
+order: 2
 group:
-  title: 数据存储
+  title: 文件
 ---
 
 - [存储引擎及如何选择合适的存储 API](https://github.com/Troland/how-javascript-works/blob/master/storage.md)

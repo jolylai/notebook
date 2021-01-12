@@ -107,8 +107,10 @@ xhr.send(data);
 FormData 为序列化表单以及创建与表单格式相同的数据(用于通过 XHR 传输)提供了便利。
 
 ```js
-const formData = new FormData();
-formData.append('name', 'Nicholas');
+const formData = new FormData(document.forms[0]);
+
+const data = new FormData();
+data.append('name', 'Nicholas');
 
 // { list: [ 11, 22 ] }
 const formDataList = new FormData();

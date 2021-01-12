@@ -32,10 +32,19 @@ features:
 - [ ] ES6+
 - [ ] 正则表达式
 
-## TODO
+### 📚 书籍
 
+- [《你不知道的 JavaScript》](https://github.com/getify/You-Dont-Know-JS)
+- [《How JavaScript Works》](https://github.com/Troland/how-javascript-works)
+- [Understanding ES6](https://github.com/nzakas/understandinges6)
 - [Understanding ES6 中文](https://oshotokill.gitbooks.io/understandinges6-simplified-chinese/content/)
 - [how-javascript-works](https://github.com/Troland/how-javascript-works)
+- 《JavaScript DOM 编程艺术》
+- 《JavaScript 高级程序设计》
+- 《JavaScript 语言精粹》
+- 《JavaScript 设计模式》
+- 《JavaScript 权威指南》
+- 《Secrets of the JavaScript Ninja》
 
 ## 练习题
 
@@ -77,15 +86,3 @@ features:
 ## 📺 视频
 
 待补充...
-
-### 📚 书籍
-
-- 《JavaScript DOM 编程艺术》
-- 《JavaScript 高级程序设计》
-- 《JavaScript 语言精粹》
-- [《你不知道的 JavaScript》](https://github.com/getify/You-Dont-Know-JS)
-- 《JavaScript 设计模式》
-- 《JavaScript 权威指南》
-- 《Secrets of the JavaScript Ninja》
-- [《How JavaScript Works》](https://github.com/Troland/how-javascript-works)
-- [Understanding ES6](https://github.com/nzakas/understandinges6)
