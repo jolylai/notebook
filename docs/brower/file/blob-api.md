@@ -22,104 +22,18 @@ new Blob(blobParts, options);
   - type —— Blob 类型，通常是 MIME 类型，例如 image/png，
   - endings —— 是否转换换行符，使 Blob 对应于当前操作系统的换行符（\r\n 或 \n）。默认为 "transparent"（啥也不做），不过也可以是 "native"（转换）。
 
-```jsx
-import React, { useState } from 'react';
-
-export default () => {
-  const [src, setSrc] = useState();
-
-  const handleFileChange = event => {
-    const reader = new FileReader();
-    reader.onload = function() {
-      setSrc(reader.result);
-    };
-    const file = event.target.files[0];
-    //
-    reader.readAsDataURL(file);
-  };
-
-  return (
-    <div>
-      <input type="file" onChange={handleFileChange} />
-      <p>{src && <img src={src} alt="img" height={200} />}</p>
-    </div>
-  );
-};
-```
-
 ## Blob 用作 URL
+
+对象 `URL` 有时候也称作 `Blob URL`，是指引用存储在 `File` 或 `Blob` 中数据的 `URL`。对象 `URL` 的优点是不用把文件内容读取到 `JavaScript` 也可以使用文件。只要在适当位置提供对象 URL 即可。要创建对象 URL，可以使用 `window.URL.createObjectURL()`方法并传入 `File` 或 `Blob` 对象。这个函数**返回的值是一个指向内存中地址的字符串**。因为这个字符串是 `URL`，所以可以在 `DOM` 中直接使用。
 
 <Alert>
 多亏了 type，让我们也可以下载/上传 Blob 对象，而在网络请求中，type 自然地变成了 Content-Type。
 </Alert>
 
-```jsx
-import React from 'react';
+<code src='../../../demos/file/BlobURL.jsx' inline />
 
-export default () => {
-  const blob = new Blob(['hello', ' ', 'world'], { type: 'text/plain' });
-  const objUrl = URL.createObjectURL(blob);
-
-  return (
-    <div>
-      <a download="hello.text" href={objUrl}>
-        Download
-      </a>
-      <p>{objUrl}</p>
-    </div>
-  );
-};
-```
-
-```jsx
-import React from 'react';
-
-export default () => {
-  const blob = new Blob(['hello', ' ', 'world'], { type: 'text/plain' });
-  const objUrl = URL.createObjectURL(blob);
-
-  return (
-    <div>
-      <a download="hello.text" href={objUrl}>
-        Download
-      </a>
-      <p>{objUrl}</p>
-    </div>
-  );
-};
-```
-
-在 Javascript 中动态创建一个链接，通过 `link.click()` 模拟一个点击，然后便自动下载了。
-
-```jsx
-import React, { useState } from 'react';
-
-export default () => {
-  const [src, setSrc] = useState();
-
-  const handleDownload = event => {
-    const blob = new Blob(['hello', '', 'world'], { type: 'text/plain' });
-    const objUrl = URL.createObjectURL(blob);
-
-    const link = document.createElement('a');
-    link.setAttribute('download', 'hello.txt');
-    link.setAttribute('href', objUrl);
-
-    link.click();
-
-    URL.revokeObjectURL(link.href);
-  };
-
-  return (
-    <a download="hello.text" onClick={handleDownload}>
-      Download
-    </a>
-  );
-};
-```
-
-- 浏览器内部为每个通过 URL.createObjectURL 生成的 URL 存储了一个 URL → Blob 映射。因此，此类 URL 很短，但可以访问 Blob。
-- URL.revokeObjectURL(url) 从内部映射中移除引用，因此允许 Blob 被删除（如果没有其他引用的话），并释放内存。
+- 浏览器内部为每个通过 `URL.createObjectURL` 生成的 `URL` 存储了一个 URL → Blob 映射。因此，此类 `URL` 很短，但可以访问 `Blob`。
+- `URL.revokeObjectURL(url)` 从内部映射中移除引用，因此允许 `Blob` 被删除（如果没有其他引用的话），并释放内存。
 
 ## Image 转换为 blob
 

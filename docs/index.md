@@ -82,6 +82,7 @@ features:
 - [Node.js Best Practices](https://github.com/i0natan/nodebestpractices) <img src="https://img.shields.io/github/stars/i0natan/nodebestpractices.svg?style=social">
 - [简洁的 js 代码](https://github.com/ryanmcdermott/clean-code-javascript) -js 书写风格 <img src="https://img.shields.io/github/stars/ryanmcdermott/clean-code-javascript.svg?style=social">
 - [Project Guidelines](https://github.com/elsewhencode/project-guidelines) <img src="https://img.shields.io/github/stars/elsewhencode/project-guidelines.svg?style=social">
+- [javascript-questions](https://github.com/lydiahallie/javascript-questions)
 
 ## 📺 视频
 

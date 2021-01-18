@@ -5,7 +5,7 @@ group:
   order: 2
 ---
 
-document 对象是 HTMLDocument(继承自 Document 类型)的一个实例，表示整个 HTML 页面。而且，document 对象是 window 对象的一个 属性，因此可以将其作为全局对象来访问。Document 节点具有下列特征:
+`document` 对象是 HTMLDocument(继承自 Document 类型)的一个实例，表示整个 HTML 页面。而且，document 对象是 window 对象的一个 属性，因此可以将其作为全局对象来访问。Document 节点具有下列特征:
 
 - nodeType 的值为 9;
 - nodeName 的值为"#document";
@@ -17,15 +17,9 @@ document 对象是 HTMLDocument(继承自 Document 类型)的一个实例，表�
 
 ## 子节点
 
-```html
-<html>
-  <body></body>
-</html>
-```
+`document.documentElement` 始终指向 HTML 页面中的`<html>`元素。
 
-documentElement 属性，该属性始终指向 HTML 页面中的`<html>`元素。
-
-document 对象还有一个 body 属性，直接指向`<body>`元素。
+`document` 对象还有一个 `body` 属性，直接指向`<body>`元素。因为 这个元素是开发者使用最多的元素，所以 `JavaScript` 代码中经常可以看到 `document.body`
 
 ## 文档信息
 

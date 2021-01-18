@@ -3,94 +3,7 @@ title: File API
 order: 2
 ---
 
-```jsx | inline
-import React from 'react';
-
-export default () => {
-  const handleImageDrag = event => {
-    console.log('event: ', event.target.src);
-    event.dataTransfer.setData('URL', event.target.src);
-  };
-
-  const onChange = e => {
-    console.log('files: ', e.target.files);
-    console.log('value: ', e.target.value);
-  };
-
-  const handleDrop = event => {
-    event.preventDefault();
-    console.log('event: ', event.type);
-    const { type } = event;
-    if (type === 'drop') {
-      const files = event.dataTransfer.files;
-      console.log('files: ', files);
-      for (let file of files) {
-        uploadFile(file);
-      }
-    }
-  };
-
-  function getBody(xhr) {
-    const text = xhr.responseText || xhr.response;
-    if (!text) {
-      return text;
-    }
-    try {
-      return JSON.parse(text);
-    } catch (e) {
-      return text;
-    }
-  }
-
-  const uploadFile = file => {
-    const formData = new FormData();
-
-    formData.append('file', file);
-
-    const xhr = new XMLHttpRequest();
-
-    xhr.onload = function onload() {
-      const response = getBody(xhr);
-      console.log('response: ', response);
-    };
-
-    xhr.open('post', 'https://xrtbeta.321go.com/common/file/upload', true);
-
-    xhr.send(formData);
-  };
-
-  return (
-    <div className="flex">
-      <div className="flex-none w-48 relative">
-        <img
-          className="absolute inset-0 w-full h-full object-cover"
-          src="https://source.unsplash.com/random"
-          alt=""
-          onDrag={handleImageDrag}
-        />
-      </div>
-
-      <div
-        className="flex-auto p-6 border-dashed border-4 border-light-blue-500"
-        onDrop={handleDrop}
-        onDragOver={event => event.preventDefault()}
-      >
-        <input type="file" multiple onChange={onChange} />
-        <div className="flex flex-wrap">
-          <h1 className="flex-auto text-xl font-semibold text-center">
-            Drag & Drop your files here
-          </h1>
-        </div>
-        <div className="flex align-center">
-          <button className="hover:bg-light-blue-200 hover:text-light-blue-800 group flex items-center rounded-md bg-light-blue-100 text-light-blue-600 text-sm font-medium px-4 py-2">
-            New
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-```
+## 前言
 
 File API(文件 API)的宗旨是**为 Web 开发人员提供一种安全的方式，以便在客户端访问用户计算机中的文件，并更好地对这些文件执行操作**。
 
@@ -98,11 +11,9 @@ File API(文件 API)的宗旨是**为 Web 开发人员提供一种安全的方�
 
 <code src='../../../demos/file/GetFile.jsx' inline />
 
-`type=file`表单元素，假设 DOM 元素是 eleFile，则 file 对象（假设非多选模式）为 eleFile.files[0]。或者也可以在 change 事件中获取
-
 通常我们选择文件可以同过点击和拖放两种方式，如上面这个例子，点击然后选择文件，或者直接将文件拖入
 
-### 点击上传
+### 表单元素
 
 ```html
 <input multiple id="filesList" type="file" style="display: none;" />
@@ -120,20 +31,11 @@ filesList.onchange = function onChange(event) {
 };
 ```
 
-可以在控制面板中看到，每个 File 对象都有下列只读属性。
-
-- `name`:本地文件系统中的文件名。
-- `size`:文件的字节大小。
-- `type`:字符串，文件的 MIME 类型。
-- `lastModifiedDate`:字符串，文件上一次被修改的时间(只有 Chrome 实现了这个属性)。
-
 ### 拖放文件
 
 ```html
 <label id="droptarget">
-  <h2 class="text-center">
-    drag file to this area
-  </h2>
+  拖放文件到此区域
 </label>
 ```
 
@@ -156,10 +58,16 @@ droptarget.ondragover = handleEvent;
 droptarget.ondrop = handleEvent;
 ```
 
-这里必须取消 `dragenter`、`dragover` 和 `drop` 的默认行为。在 `drop` 事件中，可以通过 `event.dataTransfer.files` 读取被放置的文件信息。
-此时它是一个 File 对象，与通过文件输入字段取得的 File 对象一样。
+这里必须取消 `dragenter`、`dragover` 和 `drop` 的默认行为。在 `drop` 事件中，可以通过 `event.dataTransfer.files` 读取被放置的文件信息。此时它是一个 `File` 对象，与通过文件输入字段取得的 `File` 对象一样。
 
 ## 处理 File 对象
+
+每个 File 对象都有下列只读属性。
+
+- `name`:本地文件系统中的文件名。
+- `size`:文件的字节大小。
+- `type`:字符串，文件的 MIME 类型。
+- `lastModifiedDate`:字符串，文件上一次被修改的时间(只有 Chrome 实现了这个属性)。
 
 为了读取文件中的数据，FileReader 提供了如下 几个方法。
 
@@ -169,160 +77,6 @@ droptarget.ondrop = handleEvent;
 - `readAsArrayBuffer(file)`:读取文件并将一个包含文件内容的 ArrayBuffer 保存在 result 属性中。
 
 这些读取文件的方法为灵活地处理文件数据提供了极大便利。
-
-读取图像文件并将其保存为数据 URI，以便将其显示给用户
-
-```jsx | inline
-import React, { useState } from 'react';
-import { Button, Card } from 'antd';
-
-export default () => {
-  const [src, setSrc] = useState('https://source.unsplash.com/random');
-
-  const readFile = file => {
-    const { type } = file;
-
-    const reader = new FileReader();
-
-    if (/image/.test(type)) {
-      reader.readAsDataURL(file);
-    } else {
-      reader.readAsText(file);
-    }
-
-    reader.onprogress = event => {
-      console.log('event: ', event);
-      console.log(event.loaded / event.total);
-    };
-
-    reader.onload = () => {
-      console.log('onload');
-      // console.log(reader.result);
-      setSrc(reader.result);
-    };
-
-    reader.onabort = () => {
-      console.log('onabort');
-    };
-
-    reader.onerror = () => {
-      console.error(reader.error);
-    };
-
-    reader.onloadend = () => {
-      console.log('onloadend');
-    };
-  };
-
-  const handleChange = e => {
-    const { files } = e.target;
-    if (files[0]) {
-      readFile(files[0]);
-    }
-  };
-
-  return (
-    <div>
-      <input
-        id="uploadImage"
-        type="file"
-        style={{ display: 'none' }}
-        onChange={handleChange}
-      />
-      <Card
-        hoverable
-        bodyStyle={{ padding: 8 }}
-        style={{ width: 240 }}
-        cover={<img alt="example" src={src} />}
-      >
-        <Button type="primary" block>
-          <label htmlFor="uploadImage">选择图片</label>
-        </Button>
-      </Card>
-    </div>
-  );
-};
-```
-
-为了解析方便，可以将文件读取为文本形式。
-
-文件的处理可以分为
-
-```js
-const readFile = file => {
-  const { type } = file;
-
-  const reader = new FileReader();
-
-  if (/image/.test(type)) {
-    reader.readAsDataURL(file);
-  } else {
-    reader.readAsText(file);
-  }
-
-  // 取消文件读取
-  reader.abort();
-
-  // 文件读取中调用
-  reader.onprogress = event => {
-    console.log('onprogress: ', event);
-    console.log(event.loaded / event.total);
-  };
-
-  // 文件读取成功后调用
-  reader.onload = () => {
-    console.log('onload');
-    // console.log(reader.result);
-    setBase64(reader.result);
-  };
-
-  // 取消文件读取后调用
-  reader.onabort = () => {
-    console.log('onabort');
-  };
-
-  // 文件读取错误调用
-  reader.onerror = () => {
-    console.error(reader.error);
-  };
-
-  // 不管文件读取成功、失败、还是中断都会在最后调用
-  reader.onloadend = () => {
-    console.log('onloadend');
-  };
-};
-```
-
-### 读取进度
-
-每过 50ms 左右，就会触发一次 progress 事件，通过事件对象可以获得 :lengthComputable、loaded 和 total。另外，尽管可能没有包含全部数据， 但每次 progress 事件中都可以通过 FileReader 的 result 属性读取到文件内容。
-
-```js
-const reader = new FileReader();
-reader.onprogress = event => {
-  if (event.lengthComputable) {
-    console.log(event.loaded / event.total);
-  }
-
-  reader.result;
-};
-```
-
-### 中断读取
-
-如果想中断读取过程，可以调用 `abort()`方法，这样就会触发 `abort` 事件。
-
-```js
-const reader = new FileReader();
-
-reader.readAsDataURL(file);
-
-reader.abort();
-
-reader.onabort = () => {
-  console.log('onabort');
-};
-```
 
 ### 读取成功
 
@@ -370,11 +124,42 @@ reader.onloadend = event => {
 };
 ```
 
+### 读取进度
+
+每过 50ms 左右，就会触发一次 `progress` 事件，通过事件对象可以获得 :` lengthComputable``、loaded ` 和 `total`。另外，尽管可能没有包含全部数据， 但每次 `progress` 事件中都可以通过 `FileReader` 的 `result` 属性读取到文件内容。
+
+```js
+const reader = new FileReader();
+reader.onprogress = event => {
+  if (event.lengthComputable) {
+    console.log(event.loaded / event.total);
+  }
+
+  reader.result;
+};
+```
+
+### 中断读取
+
+如果想中断读取过程，可以调用 `abort()`方法，这样就会触发 `abort` 事件。
+
+```js
+const reader = new FileReader();
+
+reader.readAsDataURL(file);
+
+reader.abort();
+
+reader.onabort = () => {
+  console.log('onabort');
+};
+```
+
 ## 解析文本类文件
 
 <code src='../../../demos/file/TextFile.jsx' inline />
 
-**文本类文件**指 MIME Type 为 `text/*` 文件，例如，CSS 文件（text/stylesheet），JS 文件（text/javascript），HTML 文件（text/html），txt 文本（text/plain）等等。
+**文本类文件**指 MIME Type 为 `text/*` 文件，例如，CSS 文件（text/stylesheet），JS 文件（text/javascript），HTML 文件（text/html），txt 文本（text/plain）等等。为了解析方便，可以将文件读取为文本形式。
 
 ```js
 const getTextFileContent = file => {
@@ -395,3 +180,70 @@ const getTextFileContent = file => {
 ```
 
 对于非文本类文件，`readAsText()`方法也是可以用的，但是读出来的东西怕是用不起来，可以尝试读取 Excel 文件看看最终的读取结果是什么
+
+## 读取图片
+
+<code src='../../../demos/file/ImageFile.jsx' inline />
+
+读取图像文件并将其编码为 `base64` 的 data url。 以便将其显示给用户 读取二进制数据，读取图像文件并将其保存为数据 URI，以便将其显示给用户
+
+```js
+const getBase64 = file => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      resolve(reader.result);
+    };
+
+    reader.onerror = reject;
+
+    reader.readAsDataURL(file);
+  });
+};
+```
+
+```js
+const readFile = file => {
+  const { type } = file;
+
+  const reader = new FileReader();
+
+  if (/image/.test(type)) {
+    reader.readAsDataURL(file);
+  } else {
+    reader.readAsText(file);
+  }
+
+  // 取消文件读取
+  reader.abort();
+
+  // 取消文件读取后调用
+  reader.onabort = () => {
+    console.log('onabort');
+  };
+
+  // 文件读取中调用
+  reader.onprogress = event => {
+    console.log('onprogress: ', event);
+    console.log(event.loaded / event.total);
+  };
+
+  // 文件读取成功后调用
+  reader.onload = () => {
+    console.log('onload');
+    // console.log(reader.result);
+    setBase64(reader.result);
+  };
+
+  // 文件读取错误调用
+  reader.onerror = () => {
+    console.error(reader.error);
+  };
+
+  // 不管文件读取成功、失败、还是中断都会在最后调用
+  reader.onloadend = () => {
+    console.log('onloadend');
+  };
+};
+```

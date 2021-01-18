@@ -3,6 +3,8 @@ title: 节点
 order: 1
 ---
 
+<code src="../../../demos/dom/Node.jsx" />
+
 ## 节点类型
 
 `JavaScript` 中的所有节点类型都继承自 `Node` 类型，因此所有节点类型都共享着相同的基本属性和方法。每个节点都有一个 `nodeType` 属性，用于表明节点的类型。
@@ -65,6 +67,8 @@ NodeList 对象转换为数组
 
 ```js
 const arrayOfNodes = Array.prototype.slice.call(someNode.childNodes, 0);
+
+let arrayOfNodes = Array.from(someNode.childNodes);
 ```
 
 ### 父节点
@@ -97,27 +101,48 @@ const nextSibling = btn.nextSibling; // #text
 
 列表中第一个节点的 previousSibling 属性 值为 null，而列表中最后一个节点的 nextSibling 属性的值同样也为 null
 
-## 操作节点
+`ownerDocument` 属性是一个指向代表整个文档的文档节点 的指针。所有节点都被创建它们(或自己所在)的文档所拥有，因为一个节点不可能同时存在于两个或者多个文档中。这个属性为迅速访问文档节点提供了便利，因为无需在文档结构中逐层上溯了。
 
-### appendChild
+## 操纵节点
 
-向 `childNodes` 列表的末尾添加一个节点。添加节点后，`childNodes` 的新增 节点、父节点及以前的最后一个子节点的关系指针都会相应地得到更新。更新完成后，`appendChild()` 返回新增的节点
+### 新增节点
+
+向 `childNodes` 列表的末尾添加一个节点。添加新节点会更新相关的关系指针，包括父节点和之前的最后一个子节点。`appendChild()`方法返回新添加的节点，
 
 ```js
-const btn = document.createElement('button');
-btn.innerText = 'Button';
-const returnNode = document.body.appendChild(btn);
+const li4 = document.createElement('li');
+li4.innerText = 4;
+
+list.appendChild(li4);
 ```
 
-如果传入到 appendChild()中的节点已经是文档的一部分了，那结果就是将该节点从原来的位置 转移到新位置。
+如果传入到 `appendChild()` 中的节点已经是文档的一部分了，那结果就是将该节点从原来的位置转移到新位置。
 
 ```js
 // 将 ul 中的第一个 li 放到 ul 的最后一个
-const ul = document.querySelector('ul');
+const ul = document.getElementById('ul');
 const firstChild = ul.firstElementChild;
 ul.appendChild(firstChild);
 ```
 
-### insertBefore
+如果需要把节点放在 `childNodes` 列表中某个特定的位置上，而不是放在末尾，那么可以使用 `insertBefore()`方法。这个方法接受两个参数:要插入的节点和作为参照的节点。插入节点后，被插入的节点会变成参照节点的前一个同胞节点(previousSibling)，同时被方法返回。
 
-如果需要把节点放在 childNodes 列表中某个特定的位置上，而不是放在末尾，那么可以使用 insertBefore()方法。这个方法接受两个参数:要插入的节点和作为参照的节点。插入节点后，被插 入的节点会变成参照节点的前一个同胞节点(previousSibling)，同时被方法返回。如果参照节点是 null，则 insertBefore()与 appendChild()执行相同的操作
+```js
+const list = document.getElementById('list');
+
+const newChild = document.createElement('li');
+newChild.innerText = '新增';
+
+list.insertBefore(newChild, list.firstChild);
+```
+
+如果参照节点是 `null`，则 `insertBefore()` 与 `appendChild()` 执行相同的操作
+
+```js
+const list = document.getElementById('list');
+
+const newChild = document.createElement('li');
+newChild.innerText = '新增';
+
+list.insertBefore(newChild, null);
+```

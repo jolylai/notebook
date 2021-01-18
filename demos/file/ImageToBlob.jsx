@@ -79,12 +79,6 @@ function ImageToBlob() {
         onClick={handleDownload}
         crossOrigin="anonymous"
       /> */}
-      <a
-        href="https://source.unsplash.com/random/800x600"
-        download="_5332_.png"
-      >
-        下载
-      </a>
     </div>
   );
 }

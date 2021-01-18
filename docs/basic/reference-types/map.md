@@ -1,6 +1,8 @@
-# Map
+---
+title: Map
+---
 
-## 为什么要用 Map
+## 前言
 
 对象是创建无序键 / 值对数据结构 [ 也称为映射（map）] 的主要机制。但是，对象作为映射的主要缺点是不能使用非字符串值作为键。
 
@@ -10,8 +12,8 @@ const json = {};
 const x = { id: 1 };
 const y = { id: 2 };
 
-json[x] = "foo"; // {[object Object]: "foo"}
-json[y] = "bar"; // {[object Object]: "bar"}
+json[x] = 'foo'; // {[object Object]: "foo"}
+json[y] = 'bar'; // {[object Object]: "bar"}
 
 json[x]; // "bar"
 json[y]; // "bar"
@@ -23,16 +25,22 @@ x 和 y 两个对象字符串化都是 "[object Object]"，所以 m 中只设置
 
 ## 创建 map
 
+如果想在创建的同时初始化实例，可以给 Map 构造函数传入一个可迭代对象，需要包含键/值对数 组。
+可迭代对象中的每个键/值对都会按照迭代顺序插入到新映射实例中。
+
 ```js
 const x = { id: 1 };
 const y = { id: 2 };
 
 // 方法1
-const m = new Map([[x, "foo"], [y, "bar"]]);
+const m = new Map([
+  [x, 'foo'],
+  [y, 'bar'],
+]);
 
 // 方法2
-m.set(x, "foo");
-m.set(y, "bar");
+m.set(x, 'foo');
+m.set(y, 'bar');
 ```
 
 手动指定一个项目（entry）列表（键 / 值数组的数组）, 或者使用 set
@@ -46,8 +54,8 @@ const x = { id: 1 };
 const y = { id: 2 };
 
 // 设置map
-m.set(x, "foo");
-m.set(y, "bar");
+m.set(x, 'foo');
+m.set(y, 'bar');
 
 // 确定一个 map 中是否有给定的键
 m.has(x); // true

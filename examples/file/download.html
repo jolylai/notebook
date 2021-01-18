@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Download</title>
+  </head>
+  <body>
+    <script src="./fileSaver.js"></script>
+    <a
+      rel="noopener"
+      href="https://tailwindcss.com/_next/static/media/jucy-beef-burger.032c3c262707ccb9636fb3c909efeaf6.jpg"
+      download="download"
+      target="_blank"
+    >
+      下载
+    </a>
+    <button id="btn-download">下载</button>
+    <script>
+      const btn = document.getElementById('btn-download');
+      btn.onclick = function() {
+        download(
+          'https://tailwindcss.com/_next/static/media/jucy-beef-burger.032c3c262707ccb9636fb3c909efeaf6.jpg',
+        );
+      };
+
+      function download(url) {
+        const xhr = new XMLHttpRequest();
+
+        xhr.onload = function() {
+          saveBlob(xhr.response, 'name');
+        };
+
+        xhr.onerror = function() {};
+
+        xhr.open('GET', url);
+        xhr.responseType = 'blob';
+        xhr.send(null);
+      }
+
+      function saveBlob(blob, name) {
+        const a = document.createElement('a');
+        name = name || 'download';
+        a.download = name;
+        a.rel = 'noopener';
+
+        a.href = URL.createObjectURL(blob);
+
+        a.click();
+      }
+
+      function saveAsImage(url, name) {
+        const a = document.createElement('a');
+        name = name || 'download';
+        a.download = name;
+        a.rel = 'noopener';
+        a.href = url;
+        a.click();
+      }
+
+      const popup = open('', '_blank');
+      console.log('popup: ', popup);
+    </script>
+  </body>
+</html>

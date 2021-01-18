@@ -1,7 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 function TextFile() {
   const inputRef = useRef();
+
+  const [fileContent, setFileContent] = useState('');
 
   const handleInputClick = () => {
     inputRef.current && inputRef.current.click();
@@ -11,7 +13,7 @@ function TextFile() {
     try {
       const file = e.target.files[0];
       const content = await getTextFileContent(file);
-      console.log('文件内容: ', content);
+      setFileContent(content);
     } catch (error) {
       console.log('error: ', error);
     }
@@ -24,7 +26,7 @@ function TextFile() {
       const files = event.dataTransfer.files;
       try {
         const content = await getTextFileContent(files[0]);
-        console.log('文件内容: ', content);
+        setFileContent(content);
       } catch (error) {
         console.log('error: ', error);
       }
@@ -48,7 +50,7 @@ function TextFile() {
   };
 
   return (
-    <div className="flex">
+    <div>
       <input
         ref={inputRef}
         type="file"
@@ -56,13 +58,16 @@ function TextFile() {
         onChange={handleChange}
       />
       <label
-        className="flex-auto p-6 border-dashed border-4 border-gray-400 hover:border-gray-500"
+        className="block p-6 border-dashed border-4 border-gray-400 hover:border-gray-500"
         onDragOver={event => event.preventDefault()}
         onDrop={handleDrop}
         onClick={handleInputClick}
       >
-        <h2 className="text-center">点击或者拖放文本类文件到此区域</h2>
+        <h2 className="text-center">点击或拖放文本类文件到此区域</h2>
       </label>
+      <p className="whitespace-pre shadow max-h-40 overflow-auto">
+        {fileContent}
+      </p>
     </div>
   );
 }

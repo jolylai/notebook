@@ -4,25 +4,47 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Node</title>
   </head>
   <body>
     <ul id="list">
       <li id="1">1</li>
       <li>2</li>
       <li>3</li>
-      <li>4</li>
-      <li>5</li>
-      <li>6</li>
     </ul>
     <script>
       const list = document.getElementById('list');
-      console.log('list: ', list);
-      console.log('firstChild: ', list.firstChild);
+      // console.log('nodeName', list.nodeName);
+      // console.log('nodeValue', list.nodeValue);
+      // console.log('list: ', list);
+      // console.log('firstChild: ', list.firstChild);
 
       const li1 = document.getElementById('1');
-      console.log('li1: ', li1.previousSibling);
-      console.log('li1: ', li1.nextSibling);
+      // console.log('li1: ', li1.previousSibling);
+      // console.log('li1: ', li1.nextSibling);
+      // console.log('nodeName', li1.nodeName);
+      // console.log('nodeValue', li1.nodeValue);
+
+      //   向 childNodes 列表的末尾添加一个节点
+      // const li4 = document.createElement('li');
+      // li4.innerText = 4;
+
+      // list.appendChild(li4);
+
+      // list.appendChild(li1);
+
+      // const li5 = document.createElement('li');
+      // li5.innerText = '插入到指定';
+
+      // list.insertBefore(li5, li1);
+
+      const newChild = document.createElement('li');
+      newChild.innerText = '新增';
+
+      // list.insertBefore(newChild, null);
+      // list.insertBefore(newChild, list.firstChild);
+
+      list.replaceChild(newChild, list.firstChild);
     </script>
   </body>
 </html>
