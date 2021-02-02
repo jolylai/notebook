@@ -175,6 +175,40 @@ function compare(value1, value2) {
 reverse() 和 sort() 都返回调用它们的数组的引用。
 </Alert>
 
+在一个字符串数组中有红、黄、蓝三种颜色的球，且个数不相等、顺序不一致，请为该数组排序。使得排序后数组中球的顺序为:黄、红、蓝。
+
+例如：红蓝蓝黄红黄蓝红红黄红，排序后为：黄黄黄红红红红红蓝蓝蓝。
+
+```js
+const colors = [
+  '红',
+  '蓝',
+  '蓝',
+  '黄',
+  '红',
+  '黄',
+  '蓝',
+  '红',
+  '红',
+  '黄',
+  '红',
+];
+
+const colorPriorty = {
+  黄: 0,
+  红: 1,
+  蓝: 2,
+};
+
+function sortColors(colors, priorty) {
+  return colors.sort((a, b) => {
+    return priorty[a] - priorty[b];
+  });
+}
+
+console.log('sortColors', sortColors(colors, colorPriorty));
+```
+
 ## 操作方法
 
 `concat()`方法可以在现有数组全部元素基础上 创建一个新数组。它首先会创建一个当前数组的副本，然后再把它的参数添加到副本末尾，最后返回这个新构建的数组。如果传入一个或多个数组，则 `concat()`会把这些数组的每一项都添加到结果数组。 如果参数不是数组，则直接把它们添加到结果数组末尾。

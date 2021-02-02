@@ -5,70 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script> -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.0.0-alpha.5/tailwind.min.css"
-    />
   </head>
-  <style>
-    @keyframes ants {
-      to {
-        background-position: 100%;
-      }
-    }
-    .marching-ants {
-      padding: 1em;
-      border: 4px solid transparent;
-      background: linear-gradient(white, white) padding-box,
-        repeating-linear-gradient(
-            -45deg,
-            black 0,
-            black 25%,
-            white 0,
-            white 50%
-          )
-          0 / 0.6em 0.6em;
-      animation: ants 24s linear infinite;
-    }
-  </style>
   <body>
-    <input id="fileInput" type="file" style="display: none;" />
-    <div class="flex animate-pulse">
-      <label
-        id="droptarget"
-        for="fileInput"
-        class="flex-auto p-6 border-dashed border-4 border-gray-400 hover:border-gray-500"
-      >
-        <h2 class="text-center">
-          Click or drag file to this area to upload
-        </h2>
-        <p class="text-center">
-          Support for a single or bulk upload. Strictly prohibit from uploading
-          company data or other band files
-        </p>
-      </label>
-    </div>
-
     <script>
-      const fileInput = document.getElementById('fileInput');
-      fileInput.onchange = event => {
-        console.log('event: ', event.target.files);
+      const list = [1, 2, 3];
+      const square = num => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(num * num);
+          }, 1000);
+        });
       };
 
-      const droptarget = document.getElementById('droptarget');
-
-      const handleEvent = event => {
-        event.preventDefault();
-
-        if (event.type === 'drop') {
-          const files = event.dataTransfer.files;
-          console.log('files: ', files);
+      async function test() {
+        for (let i = 0; i < list.length; i++) {
+          const value = list[i];
+          const res = await square(value);
+          console.log(res);
         }
-      };
+      }
+      test();
 
-      droptarget.ondragover = handleEvent;
-      droptarget.ondrop = handleEvent;
+      function timeStampToDateString() {}
+
+      function getRangeDate(startDate, endDate) {
+        const msOfDay = 24 * 60 * 60 * 1000;
+        const startStamp = new Date(startDate).getMilliseconds();
+        const endStamp = new Date(endDate).getMilliseconds();
+
+        const result = [];
+
+        while (startStamp < endStamp) {}
+      }
+
+      console.log(getRangeDate('2015-2-8', '2015-3-3'));
     </script>
   </body>
 </html>
