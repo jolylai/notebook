@@ -1,7 +1,7 @@
 ---
 title: 安全
 group:
-  title: 网络
+  title: 网络请求与远程资源
 ---
 
 ## XSS

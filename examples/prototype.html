@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function newOperator(ctor) {
+        if (typeof ctor !== 'function') {
+          throw 'newOperator function the first param must be a function';
+        }
+
+        const newObj = Object.create(ctor.prototype);
+        const args = [].prototype.slice.call(arguments, 1);
+
+        const ctorReturnResult = ctor.apply(newObj, args);
+      }
+    </script>
+  </body>
+</html>

@@ -13,9 +13,7 @@ order: 2
 - 我们需要兼容旧浏览器，并且不想用 polyfill（例如为了使脚本更小）。
 - 我们需要做一些 fetch 目前无法做到的事情，例如跟踪上传进度。
 
-## 发送请求
-
-### GET 请求
+## GET 请求
 
 最常用的请求方法是 GET 请求，用于向服务器查询某些信息。下面使用 `XMLHttpRequest` 发送一个 GET 请求
 
@@ -37,6 +35,8 @@ xhr.send(null);
 
 必要时，需要在 GET 请求的 URL 后面添加查询字符串参数。对 XHR 而言，查询字符串必须正确编码后添加到 URL 后面，然后再传给 `open()`方法。
 发送 GET 请求最常见的一个错误是查询字符串格式不对。查询字符串中的每个名和值都必须使用 `encodeURIComponent()`编码，所有名/值对必须以和号(&)分隔
+
+<!-- todo axios buildURL -->
 
 可以使用以下函数将查询字符串参数添加到现有的 URL 末尾:
 
@@ -70,7 +70,7 @@ xhr.open('get', url, true);
 xhr.send(null);
 ```
 
-### POST 请求
+## POST 请求
 
 第二个最常用的请求是 POST 请求，用于向服务器发送应该保存的数据。每个 POST 请求都应该在 请求体中携带提交的数据。POST 请求的请求体可以包含非常多的数据，而且数据可以是任意格式。
 
@@ -141,7 +141,87 @@ xhr.send(data);
 
 使用 FormData 的方便之处体现在不必明确地在 XHR 对象上设置请求头部。XHR 对象能够识别传 入的数据类型是 FormData 的实例，并配置适当的头部信息。
 
-### 超时设定
+## 获取响应内容
+
+收到响应后，XHR 对象的以下属性会被填充上数据。
+
+- `responseText`:作为响应主体被返回的文本。
+- `responseXML`:如果响应的内容类型是`"text/xml"` 或 `"application/xml"`，这个属性中存包含着响应数据的 XML DOM 文档。
+- `status`:响应的 HTTP 状态。
+- `statusText`:HTTP 状态的说明。
+
+无论内容类型是什么，响应主体的内容都会保存到 `responseText` 属性中;而 对于非 `XML` 数据而言，`responseXML` 属性的值将为 `null`。
+
+```js
+function getBody(xhr) {
+  const text = xhr.responseText || xhr.response;
+  if (!text) {
+    return text;
+  }
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    return text;
+  }
+}
+```
+
+### readyState
+
+XHR 对象的 `readyState` 属性表示请求 /响应过程的当前活动阶段，对应的值如下
+
+- `0`:未初始化。尚未调用 open()方法。
+- `1`:启动。已经调用 open()方法，但尚未调用 send()方法。
+- `2`:发送。已经调用 send()方法，但尚未接收到响应。
+- `3`:接收。已经接收到部分响应数据。
+- `4`:完成。已经接收到全部响应数据，而且已经可以在客户端使用了。
+
+只要 `readyState` 属性的值由一个值变成另一个值，都会触发一次 `readystatechange` 事件，因此可以检测 `XHR` 对象的 `readyState` 属性来判断是否已经接受到响应
+
+```js
+xhr.onreadystatechange = function() {
+  if (xhr.readyState === 4) {
+    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+      console.log(xhr.responseText);
+    }
+  }
+};
+```
+
+### load 事件
+
+`load` 事件，用以替代 `readystatechange` 事件。响应接收完毕后将触发 `load` 事件，因此也就没有必要去检查 `readyState` 属性了。而 `onload` 事件处理程序会接收到一个 `event` 对象，其 `target` 属性 就指向 `XHR` 对象实例，因而可以访问到 `XHR` 对象的所有方法和属性。然而，并非所有浏览器都为这个事件实现了适当的事件对象。结果，开发人员还是要像下面这样被迫使用 `XHR` 对象变量
+
+```js
+const xhr = new XMLHttpRequest();
+
+xhr.load = function() {
+  if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+    console.log(xhr.responseText);
+  }
+};
+
+xhr.open('get', 'http://www.mocky.io/v2/5e01ea3f2f00007d97dcd401', true);
+
+xhr.send(null);
+```
+
+### 重写响应的 MIME 类型
+
+因为响应返回的 `MIME` 类型决定了 `XHR` 对象如何处理响应， 所以如果有办法覆盖服务器返回的类型，那么是有帮助的。
+
+服务器返回的 `MIME` 类型是 `text/plain`，但数据中实际包含的是 `XML`。根据 `MIME` 类型， 即使数据是`XML`，`responseXML` 属性中仍然是 `null`。通过调用 `overrideMimeType()`方法，可以保 证把响应当作 `XML` 而非纯文本来处理。
+
+```js
+const xhr = new XMLHttpRequest();
+xhr.open('get', 'http://www.mocky.io/v2/5e01ea3f2f00007d97dcd401', true);
+xhr.overrideMimeType('text/xml');
+xhr.send(null);
+```
+
+调用 `overrideMimeType()`必须在 `send()`方法之前，才能保证重写响应的 `MIME` 类型。
+
+## 超时设定
 
 如果发出去的请求服务器迟迟没有返回相应，我们需要中断请求，并抛出一个超时错误
 
@@ -173,38 +253,13 @@ xhr.send(null);
 
 将 `timeout` 属性设置为 1000 毫秒，意味着如果请求在 1 秒钟内还没有返回，就会自动终止。请求终止时，会调用 `ontimeout` 事件处理程序。但此时 `readyState` 可能已经改变为 4 了，这意味着会调用 `onreadystatechange` 事件处理程序。可是，如果在超时终止 请求之后再访问 `status` 属性，就会导致错误。为避免浏览器报告错误，可以将检查 `status` 属性的语句封装在一个 `try-catch` 语句当中。
 
-### 取消请求
+## 取消请求
 
 ```js
 xhr.abort();
 ```
 
-## 获取响应内容
-
-收到响应后，XHR 对象的以下属性会被填充上数据。
-
-- `responseText`:作为响应主体被返回的文本。
-- `responseXML`:如果响应的内容类型是`"text/xml"` 或 `"application/xml"`，这个属性中存包含着响应数据的 XML DOM 文档。
-- `status`:响应的 HTTP 状态。
-- `statusText`:HTTP 状态的说明。
-
-无论内容类型是什么，响应主体的内容都会保存到 `responseText` 属性中;而 对于非 `XML` 数据而言，`responseXML` 属性的值将为 `null`。
-
-```js
-function getBody(xhr) {
-  const text = xhr.responseText || xhr.response;
-  if (!text) {
-    return text;
-  }
-  try {
-    return JSON.parse(text);
-  } catch (e) {
-    return text;
-  }
-}
-```
-
-### 状态码
+## 状态码
 
 |     | 类别                             | 原因短语                   |
 | --- | -------------------------------- | -------------------------- |
@@ -281,61 +336,6 @@ function getBody(xhr) {
 
 该状态码表明服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。如果事先得知解除以上状况需要的时间，最好写入 RetryAfter 首部字段再返回给客户端。状态码和状况的不一致不少返回的状态码响应都是错误的，但是用户可能察觉不到这点。比如 Web 应用程序内部发生错误，状态码依然返回 200 OK，这种情况也经常遇到。
 
-### readyState
-
-XHR 对象的 `readyState` 属性表示请求 /响应过程的当前活动阶段，对应的值如下
-
-- `0`:未初始化。尚未调用 open()方法。
-- `1`:启动。已经调用 open()方法，但尚未调用 send()方法。
-- `2`:发送。已经调用 send()方法，但尚未接收到响应。
-- `3`:接收。已经接收到部分响应数据。
-- `4`:完成。已经接收到全部响应数据，而且已经可以在客户端使用了。
-
-只要 `readyState` 属性的值由一个值变成另一个值，都会触发一次 `readystatechange` 事件，因此可以检测 `XHR` 对象的 `readyState` 属性来判断是否已经接受到响应
-
-```js
-xhr.onreadystatechange = function() {
-  if (xhr.readyState === 4) {
-    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
-      console.log(xhr.responseText);
-    }
-  }
-};
-```
-
-### load 事件
-
-`load` 事件，用以替代 `readystatechange` 事件。响应接收完毕后将触发 `load` 事件，因此也就没有必要去检查 `readyState` 属性了。而 `onload` 事件处理程序会接收到一个 `event` 对象，其 `target` 属性 就指向 `XHR` 对象实例，因而可以访问到 `XHR` 对象的所有方法和属性。然而，并非所有浏览器都为这个事件实现了适当的事件对象。结果，开发人员还是要像下面这样被迫使用 `XHR` 对象变量
-
-```js
-const xhr = new XMLHttpRequest();
-
-xhr.load = function() {
-  if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
-    console.log(xhr.responseText);
-  }
-};
-
-xhr.open('get', 'http://www.mocky.io/v2/5e01ea3f2f00007d97dcd401', true);
-
-xhr.send(null);
-```
-
-### 重写响应的 MIME 类型
-
-因为响应返回的 `MIME` 类型决定了 `XHR` 对象如何处理响应， 所以如果有办法覆盖服务器返回的类型，那么是有帮助的。
-
-服务器返回的 `MIME` 类型是 `text/plain`，但数据中实际包含的是 `XML`。根据 `MIME` 类型， 即使数据是`XML`，`responseXML` 属性中仍然是 `null`。通过调用 `overrideMimeType()`方法，可以保 证把响应当作 `XML` 而非纯文本来处理。
-
-```js
-const xhr = new XMLHttpRequest();
-xhr.open('get', 'http://www.mocky.io/v2/5e01ea3f2f00007d97dcd401', true);
-xhr.overrideMimeType('text/xml');
-xhr.send(null);
-```
-
-调用 `overrideMimeType()`必须在 `send()`方法之前，才能保证重写响应的 `MIME` 类型。
-
 ## HTTP 头部
 
 每个 HTTP 请求和响应都会携带一些头部字段，这些字段可能对开发者有用。XHR 对象会通过一 些方法暴露与请求和响应相关的头部字段。
@@ -352,7 +352,11 @@ xhr.send(null);
   性也必须将错就错。(正确的拼写应该是 Referrer。)
 - `User-Agent`:浏览器的用户代理字符串。
 
-### 携带凭证
+## 携带凭证
+
+响应头必须设置 `Access-Control-Allow-Credentials: true`
+
+如果 XMLHttpRequest 请求设置了 withCredentials 属性，那么服务器不得设置 Access-Control-Allow-Origin 的值为\*
 
 ```js
 const xhr = new XMLHttpRequest();

@@ -8,37 +8,36 @@
   </head>
   <body>
     <script>
-      const list = [1, 2, 3];
-      const square = num => {
-        return new Promise((resolve, reject) => {
-          setTimeout(() => {
-            resolve(num * num);
-          }, 1000);
-        });
-      };
+      function makeBankAccount() {
+        // this one is private
+        let balance = 0;
 
-      async function test() {
-        for (let i = 0; i < list.length; i++) {
-          const value = list[i];
-          const res = await square(value);
-          console.log(res);
+        // a "getter", made public via the returned object below
+        function getBalance() {
+          return balance;
         }
+
+        // a "setter", made public via the returned object below
+        function setBalance(amount) {
+          // ... validate before updating the balance
+          balance = amount;
+        }
+
+        return {
+          // ...
+          getBalance,
+          setBalance,
+        };
       }
-      test();
 
-      function timeStampToDateString() {}
+      const account = makeBankAccount();
+      account.setBalance(100);
+      console.log('account: ', account.getBalance());
 
-      function getRangeDate(startDate, endDate) {
-        const msOfDay = 24 * 60 * 60 * 1000;
-        const startStamp = new Date(startDate).getMilliseconds();
-        const endStamp = new Date(endDate).getMilliseconds();
+      const account2 = makeBankAccount();
 
-        const result = [];
-
-        while (startStamp < endStamp) {}
-      }
-
-      console.log(getRangeDate('2015-2-8', '2015-3-3'));
+      account2.setBalance(12);
+      console.log('account2: ', account2.getBalance());
     </script>
   </body>
 </html>

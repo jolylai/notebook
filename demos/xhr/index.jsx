@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Input, Form, Select } from 'antd';
+import { Input, Select, notification } from 'antd';
 
 export default () => {
   const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState('');
   const [method, setMethod] = useState('get');
 
   const onSendRequest = url => {
@@ -11,13 +10,14 @@ export default () => {
 
     xhr.onload = function() {
       setLoading(false);
+      notification.success({
+        message: '响应数据',
+        description: xhr.response,
+      });
+    };
 
-      if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
-        console.log(xhr.responseText);
-        setResponse(xhr.responseText);
-      } else {
-        console.log('Request was unsuccessful: ' + xhr.status);
-      }
+    xhr.onerror = function onError() {
+      setLoading(false);
     };
 
     xhr.open(method, url, true);
@@ -44,12 +44,6 @@ export default () => {
           onSearch={onSendRequest}
         />
       </Input.Group>
-
-      {response && (
-        <Form>
-          <Form.Item label="响应数据">{response}</Form.Item>
-        </Form>
-      )}
     </div>
   );
 };
