@@ -2,6 +2,8 @@
 title: 数据结构
 ---
 
+[clean code](https://github.com/ryanmcdermott/clean-code-javascript)
+
 ## 使用 getters 和 setters
 
 ```js
