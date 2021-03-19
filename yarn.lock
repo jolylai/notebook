@@ -2506,6 +2506,11 @@
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-13.13.0.tgz?cache=0&sync_timestamp=1592987751085&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-13.13.0.tgz#30d2d09f623fe32cde9cb582c7a6eda2788ce4a8"
   integrity sha1-MNLQn2I/4yzenLWCx6btoniM5Kg=
 
+"@types/node@^14.14.28":
+  version "14.14.35"
+  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.35.tgz?cache=0&sync_timestamp=1615834822695&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.35.tgz#42c953a4e2b18ab931f72477e7012172f4ffa313"
+  integrity sha1-QslTpOKxirkx9yR35wEhcvT/oxM=
+
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
   resolved "https://registry.npm.taobao.org/@types/normalize-package-data/download/@types/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
@@ -2653,6 +2658,13 @@
   integrity sha1-udA/CQ7OJjZxiY1Xu3uwBwI6wZ8=
   dependencies:
     "@types/glob" "*"
+    "@types/node" "*"
+
+"@types/sax@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.npm.taobao.org/@types/sax/download/@types/sax-1.2.1.tgz?cache=0&sync_timestamp=1613384595773&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fsax%2Fdownload%2F%40types%2Fsax-1.2.1.tgz#e0248be936ece791a82db1a57f3fb5f7c87e8172"
+  integrity sha1-4CSL6Tbs55GoLbGlfz+198h+gXI=
+  dependencies:
     "@types/node" "*"
 
 "@types/semver@7.1.0":
@@ -3085,10 +3097,10 @@
     umi-webpack-bundle-analyzer "3.5.0"
     zlib "1.0.5"
 
-"@umijs/preset-dumi@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.npm.taobao.org/@umijs/preset-dumi/download/@umijs/preset-dumi-1.1.0.tgz#f5aa2e14115f5c96e8a4049a8139e9810d9f03b6"
-  integrity sha1-9aouFBFfXJbopASagTnpgQ2fA7Y=
+"@umijs/preset-dumi@1.1.9":
+  version "1.1.9"
+  resolved "https://registry.npm.taobao.org/@umijs/preset-dumi/download/@umijs/preset-dumi-1.1.9.tgz?cache=0&sync_timestamp=1616056650561&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40umijs%2Fpreset-dumi%2Fdownload%2F%40umijs%2Fpreset-dumi-1.1.9.tgz#4249e3bc4e344c910bbcb13a322ef7b685e3f25f"
+  integrity sha1-QknjvE40TJELvLE6Mi73toXj8l8=
   dependencies:
     "@babel/core" "^7.7.2"
     "@babel/generator" "^7.7.2"
@@ -3103,8 +3115,8 @@
     "@umijs/utils" "^3.2.28"
     copy-text-to-clipboard "^2.2.0"
     deepmerge "^4.2.2"
-    dumi-assets-types "1.0.0-beta.5"
-    dumi-theme-default "1.0.0"
+    dumi-assets-types "1.0.0"
+    dumi-theme-default "1.0.9"
     enhanced-resolve "^4.1.1"
     github-slugger "^1.3.0"
     hast-util-has-property "^1.0.4"
@@ -3127,7 +3139,9 @@
     remark-parse "^9.0.0"
     remark-rehype "^8.0.0"
     remark-stringify "^9.0.0"
+    sitemap "^6.3.3"
     slash2 "^2.0.0"
+    terser "^5.5.1"
     unified "^8.4.1"
     unist-util-visit "^2.0.1"
     unist-util-visit-parents "^3.0.1"
@@ -3832,6 +3846,11 @@ arch@^2.1.1:
   version "2.1.2"
   resolved "https://registry.npm.taobao.org/arch/download/arch-2.1.2.tgz#0c52bbe7344bb4fa260c443d2cbad9c00ff2f0bf"
   integrity sha1-DFK75zRLtPomDEQ9LLrZwA/y8L8=
+
+arg@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npm.taobao.org/arg/download/arg-5.0.0.tgz#a20e2bb5710e82950a516b3f933fee5ed478be90"
+  integrity sha1-og4rtXEOgpUKUWs/kz/uXtR4vpA=
 
 argparse@^1.0.7:
   version "1.0.10"
@@ -5931,26 +5950,26 @@ dotenv@8.2.0:
   resolved "https://registry.npm.taobao.org/dotenv/download/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
   integrity sha1-l+YZJZradQ7qPk6j4mvO6lQksWo=
 
-dumi-assets-types@1.0.0-beta.5:
-  version "1.0.0-beta.5"
-  resolved "https://registry.npm.taobao.org/dumi-assets-types/download/dumi-assets-types-1.0.0-beta.5.tgz?cache=0&sync_timestamp=1607424310615&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdumi-assets-types%2Fdownload%2Fdumi-assets-types-1.0.0-beta.5.tgz#508c77f08299bb27f4698a7e9cdafea1595e6840"
-  integrity sha1-UIx38IKZuyf0aYp+nNr+oVleaEA=
-
-dumi-theme-default@1.0.0:
+dumi-assets-types@1.0.0:
   version "1.0.0"
-  resolved "https://registry.npm.taobao.org/dumi-theme-default/download/dumi-theme-default-1.0.0.tgz#b1331131e2c468c8ad96aa97658e4da19967e3ba"
-  integrity sha1-sTMRMeLEaMitlqqXZY5NoZln47o=
+  resolved "https://registry.npm.taobao.org/dumi-assets-types/download/dumi-assets-types-1.0.0.tgz?cache=0&sync_timestamp=1610894982983&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdumi-assets-types%2Fdownload%2Fdumi-assets-types-1.0.0.tgz#d5368cb11045b203bf1ef1080e553b2287a2ec81"
+  integrity sha1-1TaMsRBFsgO/HvEIDlU7Ioei7IE=
+
+dumi-theme-default@1.0.9:
+  version "1.0.9"
+  resolved "https://registry.npm.taobao.org/dumi-theme-default/download/dumi-theme-default-1.0.9.tgz#f442cdab7decbfe5e5c51f60c177d6577eece77c"
+  integrity sha1-9ELNq33sv+XlxR9gwXfWV37s53w=
   dependencies:
     prism-react-renderer "^1.1.1"
     prismjs "^1.21.0"
     rc-tabs "^11.7.1"
 
 dumi@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npm.taobao.org/dumi/download/dumi-1.1.0.tgz#287fcb8c58280cc2ca19fda63ccb58e4f833f878"
-  integrity sha1-KH/LjFgoDMLKGf2mPMtY5Pgz+Hg=
+  version "1.1.9"
+  resolved "https://registry.npm.taobao.org/dumi/download/dumi-1.1.9.tgz#11bafd95cb4957150a478151bfc92c9e0fb1a808"
+  integrity sha1-Ebr9lctJVxUKR4FRv8ksng+xqAg=
   dependencies:
-    "@umijs/preset-dumi" "1.1.0"
+    "@umijs/preset-dumi" "1.1.9"
     umi "^3.0.0"
 
 duplexer3@^0.1.4:
@@ -13493,7 +13512,7 @@ sane@^4.0.3:
     minimist "^1.1.1"
     walker "~1.0.5"
 
-sax@~1.2.4:
+sax@^1.2.4, sax@~1.2.4:
   version "1.2.4"
   resolved "https://registry.npm.taobao.org/sax/download/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha1-KBYjTiN4vdxOU1T6tcqold9xANk=
@@ -13746,6 +13765,16 @@ sisteransi@^1.0.4:
   resolved "https://registry.npm.taobao.org/sisteransi/download/sisteransi-1.0.5.tgz#134d681297756437cc05ca01370d3a7a571075ed"
   integrity sha1-E01oEpd1ZDfMBcoBNw06elcQde0=
 
+sitemap@^6.3.3:
+  version "6.4.0"
+  resolved "https://registry.npm.taobao.org/sitemap/download/sitemap-6.4.0.tgz#b4bc4edf36de742405a7572bc3e467ba484b852e"
+  integrity sha1-tLxO3zbedCQFp1crw+RnukhLhS4=
+  dependencies:
+    "@types/node" "^14.14.28"
+    "@types/sax" "^1.2.1"
+    arg "^5.0.0"
+    sax "^1.2.4"
+
 slash2@2.0.0, slash2@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npm.taobao.org/slash2/download/slash2-2.0.0.tgz#f4e0a11708b8545b912695981cf7096f52c63487"
@@ -13858,7 +13887,7 @@ source-map-resolve@^0.5.0:
     source-map-url "^0.4.0"
     urix "^0.1.0"
 
-source-map-support@^0.5.16, source-map-support@^0.5.6, source-map-support@^0.5.9, source-map-support@~0.5.12:
+source-map-support@^0.5.16, source-map-support@^0.5.6, source-map-support@^0.5.9, source-map-support@~0.5.12, source-map-support@~0.5.19:
   version "0.5.19"
   resolved "https://registry.npm.taobao.org/source-map-support/download/source-map-support-0.5.19.tgz#a98b62f86dcaf4f67399648c085291ab9e8fed61"
   integrity sha1-qYti+G3K9PZzmWSMCFKRq56P7WE=
@@ -13881,7 +13910,7 @@ source-map@^0.6.0, source-map@^0.6.1, source-map@~0.6.0, source-map@~0.6.1:
   resolved "https://registry.npm.taobao.org/source-map/download/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
   integrity sha1-dHIq8y6WFOnCh6jQu95IteLxomM=
 
-source-map@^0.7.3:
+source-map@^0.7.3, source-map@~0.7.2:
   version "0.7.3"
   resolved "https://registry.npm.taobao.org/source-map/download/source-map-0.7.3.tgz#5302f8169031735226544092e64981f751750383"
   integrity sha1-UwL4FpAxc1ImVECS5kmB91F1A4M=
@@ -14433,6 +14462,15 @@ terser@^4.1.0, terser@^4.1.2:
     commander "^2.20.0"
     source-map "~0.6.1"
     source-map-support "~0.5.12"
+
+terser@^5.5.1:
+  version "5.6.1"
+  resolved "https://registry.npm.taobao.org/terser/download/terser-5.6.1.tgz#a48eeac5300c0a09b36854bf90d9c26fb201973c"
+  integrity sha1-pI7qxTAMCgmzaFS/kNnCb7IBlzw=
+  dependencies:
+    commander "^2.20.0"
+    source-map "~0.7.2"
+    source-map-support "~0.5.19"
 
 test-exclude@^5.2.3:
   version "5.2.3"
