@@ -44,6 +44,6 @@ nav:
 - 让每个程序都称为过滤器
 - 沉默是金
 
-## 参考
+#### 参考
 
-> [设计模式](https://refactoringguru.cn/design-patterns/builder)
+- [设计模式](https://refactoringguru.cn/design-patterns/builder)
