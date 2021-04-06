@@ -1,0 +1,23 @@
+.container {
+  width: 800px;
+  margin: 0 auto;
+}
+
+.list-group {
+  list-style: none;
+  padding: 0;
+}
+
+.list-group > .list-group-item {
+  border: 1px solid #eeeeee;
+  padding: 8px 16px;
+}
+
+.list-group-item + .list-group-item {
+  margin-top: -1px;
+}
+
+.container-file {
+  border: 1px dashed #d1d5db;
+  text-align: center;
+}

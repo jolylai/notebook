@@ -1,0 +1,25 @@
+.container {
+  width: 800px;
+  margin: 0 auto;
+}
+
+.list-group {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+.list-group > .list-group-item {
+  border: 1px solid #eeeeee;
+  padding: 8px 16px;
+}
+
+.list-group-item + .list-group-item {
+  margin-left: 16px;
+}
+
+.drop {
+  padding: 16px;
+  border: 1px dashed #d1d5db;
+  text-align: center;
+}

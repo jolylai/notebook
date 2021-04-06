@@ -18,5 +18,3 @@
 .umi-production
 .umi-test
 .env.local
-
-index.html

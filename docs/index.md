@@ -73,7 +73,7 @@ features:
 ## Github
 
 - [RoadMap](https://github.com/ObjTube/front-end-roadmap)
-- [vanilla web projects](https://github.com/bradtraversy/vanillawebprojects)
+- [原生 Web 项目](https://github.com/bradtraversy/vanillawebprojects)
 - [JavaScript Style](https://github.com/airbnb/javascript) -js 书写风格 <img src="https://img.shields.io/github/stars/airbnb/javascript.svg?style=social">
 - [javascript-algorithms](https://github.com/trekhleb/javascript-algorithms) <img src="https://img.shields.io/github/stars/trekhleb/javascript-algorithms.svg?style=social">
 - [30-seconds-of-code](https://30secondsofcode.org/) - JavaScript 片段集合 <img src="https://img.shields.io/github/stars/30-seconds/30-seconds-of-code.svg?style=social">
