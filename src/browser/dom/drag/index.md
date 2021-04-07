@@ -141,9 +141,25 @@ dropElement.addEventListener('drop', onDrop, false);
 
 `dataTransfer` 对象，它是事件对象的一个属性，用于从被拖动元素向放置目标传递字符串格式的数据。
 
+在拖动文本框中的文本时，浏览器会调用 `setData()`方法，将拖动的文本以`"text"`格式保存在 `dataTransfer` 对象中。类似地，在拖放链接或图像时，会调用 `setData()`方法并保存 `URL`。然后， 在这些元素被拖放到放置目标时，就可以通过 `getData()`读到这些数据。
+
+dataTransfer 对象可以为每种 MIME 类型都保存一个值。换句话说，同时在这个对象中保存一段文本和一个 URL 不会有任何问题。
+
 ### 拖拽文字
 
+```js
+dropElement.ondrop = function(event) {
+  const text = event.dataTransfer.getData('text/plain');
+};
+```
+
 ### 拖拽链接
+
+```js
+dropElement.ondrop = function(event) {
+  const url = event.dataTransfer.getData('text/uri-list');
+};
+```
 
 ### 自定义
 
@@ -180,7 +196,7 @@ dropElement.ondrop = function(event) {
 };
 ```
 
-HTML5 则对此加以扩展，允许指定各种 MIME 类型。考虑到向后兼容，HTML5 也支持"text"和"URL"，但这两种类型会被映射为"text/plain"和 "text/uri-list"。
+HTML5 则对此加以扩展，允许指定各种 MIME 类型。考虑到向后兼容，HTML5 也支持`"text"`和`"URL"`，但这两种类型会被映射为`"text/plain"`和 `"text/uri-list"`。
 
 ```js
 dropElement.ondrop = function(event) {
@@ -188,10 +204,6 @@ dropElement.ondrop = function(event) {
   const url = event.dataTransfer.getData('text/uri-list');
 };
 ```
-
-在拖动文本框中的文本时，浏览器会调用 setData()方法，将拖动的文本以"text"格式保存在 dataTransfer 对象中。类似地，在拖放链接或图像时，会调用 setData()方法并保存 URL。然后， 在这些元素被拖放到放置目标时，就可以通过 getData()读到这些数据。
-
-dataTransfer 对象可以为每种 MIME 类型都保存一个值。换句话说，同时在这个对象 中保存一段文本和一个 URL 不会有任何问题。
 
 ### 拖拽文件
 
@@ -219,3 +231,94 @@ function handleDragFile(event) {
 ```
 
 [File](https://developer.mozilla.org/zh-CN/docs/Web/API/File)接口提供有关文件的信息，并允许网页中的 JavaScript 访问其内容。
+
+```js
+function createDragHandler(data) {
+  function handleDrag(event) {
+    if (event.type === 'dragstart') {
+      event.dataTransfer.setData('custom', data);
+    }
+  }
+
+  return handleDrag;
+}
+
+function createDropHandler(options) {
+  function handleDrop(event) {
+    event.preventDefault();
+    if (event.type === 'drop') {
+      // 拖拽链接的回调
+      const uri = event.dataTransfer.getData('text/uri-list');
+      if (uri && options.onUri) {
+        options.onUri(uri, event);
+      }
+
+      // 拖拽自定义 dom 节点的回调
+      const dom = event.dataTransfer.getData('custom');
+      if (dom && options.onDom) {
+        options.onDom(dom, event);
+      }
+
+      // 拖拽文件的回调
+      const files = event.dataTransfer.files || [];
+      if (files && files.length > 0 && options.onFiles) {
+        options.onFiles(files, event);
+      }
+
+      // 	拖拽文字的回调
+      const items = event.dataTransfer.items;
+      if (items && items.length && options.onText) {
+        items[0].getAsString(text => {
+          options.onText(text, event);
+        });
+      }
+    }
+  }
+
+  return handleDrop;
+}
+
+(function() {
+  // drag
+  const dragElements = document.querySelectorAll('.drag');
+
+  for (let i = 0; i < dragElements.length; i++) {
+    dragElements[i].setAttribute('draggable', true);
+
+    const dragHandler = createDragHandler('custom data');
+    dragElements[i].addEventListener('dragstart', dragHandler, false);
+    dragElements[i].addEventListener('drag', dragHandler, false);
+    dragElements[i].addEventListener('dragend', dragHandler, false);
+  }
+
+  // drop
+  const options = {
+    // 	拖拽文字的回调
+    onText(text, event) {
+      console.log('onText', { text, event });
+    },
+    // 拖拽文件的回调
+    onFiles(files, event) {
+      console.log('onFiles', { files, event });
+    },
+    // 拖拽链接的回调
+    onUri(text, event) {
+      console.log('onUri', { text, event });
+    },
+    // 拖拽自定义 dom 节点的回调
+    onDom(content, event) {
+      console.log('onDom', { content, event });
+    },
+  };
+
+  const dropElement = document.querySelector('.drop');
+
+  const dropHandler = createDropHandler(options);
+
+  dropElement.addEventListener('dragenter', dropHandler, false);
+  dropElement.addEventListener('dragover', dropHandler, false);
+  dropElement.addEventListener('dragleave', dropHandler, false);
+  dropElement.addEventListener('drop', dropHandler, false);
+  dropElement.addEventListener('paste', dropHandler, false);
+})();
+```
