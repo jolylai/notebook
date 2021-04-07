@@ -141,6 +141,53 @@ dropElement.addEventListener('drop', onDrop, false);
 
 `dataTransfer` 对象，它是事件对象的一个属性，用于从被拖动元素向放置目标传递字符串格式的数据。
 
+### 属性和方法
+
+DataTransfer 对象包含下面 5 个标准属性和 4 个标准方法。
+
+#### 标准属性
+
+`DataTransfer.dropEffect`
+
+获取当前所选拖放操作的类型，或将拖拽操作设置为新类型。值必须为 none，copy，link 或 move 中的一个。
+
+`DataTransfer.effectAllowed`
+
+提供可能的所有类型的操作。必须是 none，copy，copyLink，copyMove，link，linkMove，move，all 或 uninitialized 中的一个。
+
+`DataTransfer.files`
+
+拖拽的本地文件列表。如果拖动操作不涉及拖动文件，则此属性为空列表。
+
+`DataTransfer.items` （只读）
+
+提供 DataTransferItemList 对象，该对象是所有拖动数据的列表。
+
+`DataTransfer.types`（只读）
+
+在 dragstart 事件中设置数据格式，返回的是一个字符串数组。
+
+#### 标准方法
+
+`DataTransfer.clearData([format])`
+
+删除与给定类型关联的数据。format 参数是可选的。如果类型为空或未指定，则删除所有关联的数据。如果指定类型的数据不存在，或者数据传输不包含任何数据，则此方
+法无效。
+
+`DataTransfer.getData(format)`
+
+返回给定类型的数据，如果该类型的数据不存在或数据传输不包含数据，则返回空字符串。
+
+`DataTransfer.setData(format, data)`
+
+设置给定类型的数据。如果该类型的数据不存在，则在末尾添加，以使列表中的最后一项成为新格式类型。如果该类型的数据已存在，则在相同位置把现有数据替换掉。
+
+`DataTransfer.setDragImage(img, xOffset, yOffset)`
+
+设置用于拖动的自定义图像。
+
+DataTransfer 对象出现在拖拽事件中，具体包括开始拖拽 dragstart 事件，拖拽进入 dragenter 事件，拖拽离开 dragleave 事件，拖拽经过 dragover 事件，拖拽释放 drop 事件以及拖拽结束 dragend 事件。
+
 在拖动文本框中的文本时，浏览器会调用 `setData()`方法，将拖动的文本以`"text"`格式保存在 `dataTransfer` 对象中。类似地，在拖放链接或图像时，会调用 `setData()`方法并保存 `URL`。然后， 在这些元素被拖放到放置目标时，就可以通过 `getData()`读到这些数据。
 
 dataTransfer 对象可以为每种 MIME 类型都保存一个值。换句话说，同时在这个对象中保存一段文本和一个 URL 不会有任何问题。
@@ -322,3 +369,7 @@ function createDropHandler(options) {
   dropElement.addEventListener('paste', dropHandler, false);
 })();
 ```
+
+#### Reference
+
+- [DataTransfer 对象](https://www.zhangxinxu.com/wordpress/2018/09/drag-drop-datatransfer-js/)
