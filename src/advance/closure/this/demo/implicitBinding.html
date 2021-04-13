@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>隐式绑定</title>
+  </head>
+  <body>
+    <script>
+      function foo() {
+        console.log(this.a);
+      }
+
+      const obj = {
+        a: 2,
+        foo,
+      };
+
+      var a = 'opps, global';
+
+      obj.foo();
+
+      // 函数别名
+      const bar = obj.foo;
+
+      bar();
+    </script>
+  </body>
+</html>
