@@ -2,6 +2,18 @@
 title: 栈
 ---
 
+栈(stack) 是一种抽象数据类型,用作表示元素的集合,具有两种主要操作:
+
+push, 添加元素到栈的顶端(末尾);
+pop, 移除栈最顶端(末尾)的元素.
+以上两种操作可以简单概括为“后进先出(LIFO = last in, first out)”。
+
+此外,应有一个 peek 操作用于访问栈当前顶端(末尾)的元素。
+
+"栈"这个名称,可类比于一组物体的堆叠(一摞书,一摞盘子之类的)。
+
+![](https://cy-picgo.oss-cn-hangzhou.aliyuncs.com/stack.png)
+
 栈是一种 LIFO(Last-In-First-Out， 后进先出)的数据结构，也就是最新添加的项最早被移除。类似蜂窝煤炉。
 
 JavaScript 没有栈的数据结构，但可以使用 Array 实现栈的所有功能

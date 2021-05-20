@@ -1,6 +1,6 @@
 ---
 title: 链表
-nav:
+group:
   title: 数据结构
 ---
 
