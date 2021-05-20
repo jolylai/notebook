@@ -1,8 +1,5 @@
 ---
 title: 栈
-nav:
-  title: 数据结构
-  order: 1
 ---
 
 栈是一种 LIFO(Last-In-First-Out， 后进先出)的数据结构，也就是最新添加的项最早被移除。类似蜂窝煤炉。
