@@ -1,9 +1,11 @@
 import LinkedListNode from './LinkedListNode';
 
 export default class LinkedList {
-  constructor() {
+  constructor(comparatorFunction) {
     this.head = null;
     this.tail = null;
+
+    this.compare = comparatorFunction;
   }
 
   /**
@@ -67,7 +69,7 @@ export default class LinkedList {
           deleteNode = currentNode.next;
           currentNode.next = currentNode.next.next;
         } else {
-          currentNode.next = next;
+          currentNode = currentNode.next;
         }
       }
     }
@@ -97,8 +99,12 @@ export default class LinkedList {
         return currentNode;
       }
 
-      if (value !== undefined && currentNode.value === value) {
-        return currentNode;
+      if (value !== undefined) {
+        if (this.compare && this.compare(currentNode.value, value) === 0) {
+          return currentNode;
+        } else if (currentNode.value === value) {
+          return currentNode;
+        }
       }
 
       currentNode = currentNode.next;
@@ -148,7 +154,7 @@ export default class LinkedList {
     return deletedHead;
   }
 
-  formArray(values) {
+  fromArray(values) {
     values.forEach(value => this.append(value));
 
     return this;

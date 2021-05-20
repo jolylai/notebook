@@ -2,7 +2,13 @@
 title: 队列
 ---
 
-队列数据结构的访问规则是 FIFO(First-In-First-Out， 先进先出)。
+队列(queue) 是一种特殊类型的抽象数据类型或集合。集合中的实体按顺序保存。
+
+队列基本操作有两种：入队和出队。从队列的后端位置添加实体，称为入队；从队列的前端位置移除实体，称为出队。
+
+队列中元素先进先出 FIFO (first in, first out)的示意
+
+![](https://cy-picgo.oss-cn-hangzhou.aliyuncs.com/queue.svg)
 
 ## 队列方法
 

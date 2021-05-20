@@ -1,4 +1,4 @@
-import BinaryTreeNode from '../../data-structrue/demo/BinaryTreeNode';
+import BinaryTreeNode from '../../../../data-structures/tree/binary-search-tree/demo/BinaryTreeNode';
 import deepFirstSearch from '../index';
 
 describe('deepFirstSearch', () => {
