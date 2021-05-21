@@ -3,6 +3,8 @@ title: location
 order: 2
 ---
 
+## 前言
+
 `location` 既是 `window` 对象的属性，也是 `document` 对象的属性;
 
 ```js
@@ -22,71 +24,6 @@ window.location === document.location; // true
 | protocol | 返回页面使用的协议。通常是 `http:`或 `https:`                                  |
 | search   | 返回 URL 的查询字符串。这个字符串以问号开头                                    |
 
-```jsx | inline
-import React, { useState } from 'react';
-import { Input } from 'antd';
-
-export default () => {
-  const parseLocation = href => {
-    const link = document.createElement('a');
-    link.href = href;
-
-    const keys = [
-      'href',
-      'protocol',
-      'host',
-      'hostname',
-      'port',
-      'pathname',
-      'search',
-      'hash',
-      'origin',
-    ];
-
-    const result = {};
-
-    keys.forEach(key => {
-      result[key] = link[key];
-    });
-
-    return result;
-  };
-
-  const [location, setLocation] = useState({});
-
-  const handleParse = value => {
-    const location = parseLocation(value);
-    setLocation(location);
-  };
-
-  return (
-    <div>
-      <Input.Search
-        defaultValue="https://developer.mozilla.org:80/en-US/search?q=URL#search-results-close-container"
-        placeholder="请输入URL"
-        enterButton="解析"
-        onSearch={handleParse}
-      />
-
-      <table className="mt-2">
-        {Object.entries(location).map(([key, value]) => {
-          return (
-            <tr>
-              <td className="border-solid border border-gray-300 p-2 font-semibold text-black">
-                {key}
-              </td>
-              <td className="border-solid border border-gray-300 p-2">
-                {value}
-              </td>
-            </tr>
-          );
-        })}
-      </table>
-    </div>
-  );
-};
-```
-
 ## 位置操作
 
 使用 `location` 对象可以通过很多方式来改变浏览器的位置。
@@ -104,4 +41,57 @@ location.hostname = 'www.yahoo.com';
 location.pathname = 'mydir';
 //将 URL 修改为"http://www.yahoo.com:8080/WileyCDA/"
 location.port = 8080;
+```
+
+## 获取 url 参数
+
+```js
+function getUrlParameters(url) {
+  const parts = url.match(/([^?=&]+)(=([^&]*))/g) || [];
+
+  return parts.reduce((paramters, part) => {
+    const [key, value] = part.split('=');
+    paramters[key] = value;
+
+    return paramters;
+  }, {});
+}
+```
+
+## url 参数系列化
+
+```js
+/**
+ *
+ * @param {Object} params
+ */
+function serialize(params) {
+  const parts = [];
+
+  for (let key in params) {
+    let value = params[key];
+
+    if (value == null) return;
+
+    if (Array.isArray(value)) {
+      key = `${key}[]`;
+    } else {
+      value = [value];
+    }
+
+    value.forEach(val => {
+      if (Object.prototype.toString.call(val) === '[object Date]') {
+        val = new Date(val);
+      } else if (Object.prototype.toString.call(val) === '[object Object]') {
+        val = JSON.stringify(val);
+      }
+
+      parts.push(`${encodeURIComponent(key)}=${encodeURIComponent(val)}`);
+    });
+  }
+
+  return parts.join('&');
+}
+
+export default serialize;
 ```
