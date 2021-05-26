@@ -5,6 +5,8 @@ order: 2
 
 ## 前言
 
+<code src="./demo/Location.jsx" inline />
+
 `location` 既是 `window` 对象的属性，也是 `document` 对象的属性;
 
 ```js
