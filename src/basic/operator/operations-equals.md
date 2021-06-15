@@ -2,7 +2,7 @@
 title: 相等操作符
 ---
 
-`==` 和`===` 的区别
+## `==` 和`===` 的区别
 
 == 允许在相等比较中进行强制类型转换，而 === 不允许。（你不知道的 JS）<br>
 相等和不相等——先转换再比较，全等和不全等——仅比较而不转换。(高级程序设计)
@@ -21,6 +21,53 @@ title: 相等操作符
   即使两个操作数都是 NaN，相等操作符也返回 false;因为按照规则，NaN 不等于 NaN。
 - 如果两个操作数都是对象，则比较它们是不是同一个对象。如果两个操作数都指向同一个对象，
   则相等操作符返回 true;否则，返回 false。
+
+## == 比较中的 5 条规则
+
+规则 1：NaN 和其他任何类型比较永远返回 false（包括和他自己 ）。
+
+```js
+NaN == NaN; // false
+```
+
+规则 2：Boolean 和其他任何类型比较，Boolean 首先被转换为 Number 类型。
+
+```js
+true == 1; // true
+true == '2'; // false, 先把 true 变成 1，而不是把 '2' 变成 true
+true == ['1']; // true, 先把 true 变成 1， ['1']拆箱成 '1', 再参考规则3
+true == ['2']; // false, 同上
+undefined == false; // false ，首先 false 变成 0，然后参考规则4
+null == false; // false，同上
+```
+
+规则 3：String 和 Number 比较，先将 String 转换为 Number 类型。
+
+```js
+123 == '123'; // true, '123' 会先变成 123
+'' == 0; // true, '' 会首先变成 0
+```
+
+规则 4：null == undefined 比较结果是 true，除此之外，null、undefined 和其他任何结果的比较值都为 false。
+
+```js
+null == undefined; // true
+null == ''; // false
+null == 0; // false
+null == false; // false
+undefined == ''; // false
+undefined == 0; // false
+undefined == false; // false
+```
+
+规则 5：原始类型和引用类型做比较时，引用类型会依照 ToPrimitive 规则转换为原始类型。
+
+```js
+'[object Object]' == {};
+// true, 对象和字符串比较，对象通过 toString 得到一个基本类型值
+'1,2,3' == [1, 2, 3];
+// true, 同上  [1, 2, 3]通过 toString 得到一个基本类型值
+```
 
 ## 抽象相等
 
@@ -265,3 +312,14 @@ false == []; // true -- 晕!
 
 - 如果两边的值中有 true 或者 false，千万不要使用 ==。
 - 如果两边的值中有 []、"" 或者 0，尽量不要使用 ==。
+
+## 练习题
+
+1. [] == ![]
+
+   - 第一步，![] 会变成 false
+   - 第二步，应用 规则 2 ，题目变成： [] == 0
+   - 第三步，应用 规则 5 ，[]的 valueOf 是 0，题目变成： 0 == 0
+   - 所以， 答案是 true ！//
+
+[JavaScript 隐式类型转换，一篇就够了！](https://chinese.freecodecamp.org/news/javascript-implicit-type-conversion/#-1-)
