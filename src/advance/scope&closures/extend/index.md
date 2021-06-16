@@ -31,3 +31,5 @@ SubType.prototype.getSubValue = function() {
 var instance = new SubType();
 console.log(instance.getSuperValue()); // true
 ```
+
+- [JavaScript 常用八种继承方案](https://juejin.cn/post/6844903696111763470)

@@ -74,3 +74,5 @@ IFE 还有一种变化的用途是倒置代码的运行顺序，将需要运行�
   console.log(a); // 3 console.log( global.a ); // 2
 });
 ```
+
+[JavaScript 高阶函数浅析](https://muyiy.cn/blog/6/6.1.html)

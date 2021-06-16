@@ -2,6 +2,9 @@
 title: 闭包
 group:
   title: 作用域与闭包
+nav:
+  title: 进阶
+  order: 30
 ---
 
 ## 前言
