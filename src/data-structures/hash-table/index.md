@@ -1,5 +1,7 @@
 ---
 title: 哈希表
+group:
+  title: 哈希表
 ---
 
 `哈希表(hash table 或hash map)` 是一种实现 关联数组(associative array) 的抽象数据；类型, 该结构可以将 键映射到值。

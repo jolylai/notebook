@@ -1,6 +1,9 @@
 ---
 title: 链表
 group:
+  order: 1
+  title: 链表
+nav:
   title: 数据结构
 ---
 
@@ -13,3 +16,18 @@ group:
 更复杂的变体添加额外的链接，允许有效地插入或删除任意元素引用。链表的一个缺点是访问时间是线性的(而且难以管道化)。
 
 更快的访问，如随机访问，是不可行的。与链表相比，数组具有更好的缓存位置。
+
+## 节点
+
+```js
+class LinkedListNode {
+  constructor(value, next = null) {
+    this.value = value;
+    this.next = next;
+  }
+
+  toString(callback) {
+    return callback ? callback(this.value) : `${this.value}`;
+  }
+}
+```
