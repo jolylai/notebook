@@ -1,7 +1,7 @@
 ---
 title: 进程和线程
 nav:
-  order: 2
+  order: 20
   title: 浏览器
 group:
   order: 1

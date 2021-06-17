@@ -3,7 +3,7 @@ title: 前言
 order: 1
 nav:
   title: 基础
-  order: 2
+  order: 10
 ---
 
 - 摸索出适合自己的前端学习方法；

@@ -1,8 +1,5 @@
 ---
 title: 进程和线程
-nav:
-  order: 2
-  title: 浏览器
 group:
   order: 1
   title: 现代浏览器内部揭秘

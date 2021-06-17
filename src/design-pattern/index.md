@@ -3,6 +3,7 @@ title: 指南
 order: 1
 nav:
   title: 设计模式
+  order: 60
 ---
 
 # 设计模式

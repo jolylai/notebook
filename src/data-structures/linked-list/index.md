@@ -5,6 +5,7 @@ group:
   title: 链表
 nav:
   title: 数据结构
+  order: 40
 ---
 
 ## 链表
