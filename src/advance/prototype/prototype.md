@@ -28,3 +28,21 @@ f.__proto__ === F.prototype; // true
 F.prototype.__proto__ === Object.prototype; // true
 Object.prototype.__proto__ === null; // true
 ```
+
+## instanceOf
+
+instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上
+
+```js
+function myInstanceOf(object, func) {
+  if (typeof object !== 'object' || object === null) return false;
+
+  let proto = Object.getPrototypeOf(object);
+
+  while (true) {
+    if (proto === null) return false;
+    if (proto === func.prototype) return true;
+    proto = Object.getPrototypeOf(proto);
+  }
+}
+```

@@ -3,7 +3,7 @@ title: 节点
 order: 1
 ---
 
-<code src="../../../demos/dom/Node.jsx" />
+<code src="./demos/Node.jsx" />
 
 ## 节点类型
 

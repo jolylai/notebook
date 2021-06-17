@@ -9,7 +9,7 @@ File API(文件 API)的宗旨是**为 Web 开发人员提供一种安全的方�
 
 ## 获取 File 对象
 
-<code src='../../../demos/file/GetFile.jsx' inline />
+<code src='./demos/GetFile.jsx' inline />
 
 通常我们选择文件可以同过点击和拖放两种方式，如上面这个例子，点击然后选择文件，或者直接将文件拖入
 
@@ -157,7 +157,7 @@ reader.onabort = () => {
 
 ## 解析文本类文件
 
-<code src='../../../demos/file/TextFile.jsx' inline />
+<code src='./demos/TextFile.jsx' inline />
 
 **文本类文件**指 MIME Type 为 `text/*` 文件，例如，CSS 文件（text/stylesheet），JS 文件（text/javascript），HTML 文件（text/html），txt 文本（text/plain）等等。为了解析方便，可以将文件读取为文本形式。
 
@@ -183,7 +183,7 @@ const getTextFileContent = file => {
 
 ## 读取图片
 
-<code src='../../../demos/file/ImageFile.jsx' inline />
+<code src='./demos/ImageFile.jsx' inline />
 
 读取图像文件并将其编码为 `base64` 的 data url。 以便将其显示给用户 读取二进制数据，读取图像文件并将其保存为数据 URI，以便将其显示给用户
 

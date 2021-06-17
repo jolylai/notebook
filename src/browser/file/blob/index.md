@@ -50,7 +50,7 @@ URL.revokeObjectURL(url) 从内部映射中移除引用，因此允许 Blob 被�
 
 对象 `URL` 有时候也称作 `Blob URL`，是指引用存储在 `File` 或 `Blob` 中数据的 `URL`。对象 `URL` 的优点是不用把文件内容读取到 `JavaScript` 也可以使用文件。只要在适当位置提供对象 URL 即可。要创建对象 URL，可以使用 `window.URL.createObjectURL()`方法并传入 `File` 或 `Blob` 对象。这个函数**返回的值是一个指向内存中地址的字符串**。因为这个字符串是 `URL`，所以可以在 `DOM` 中直接使用。
 
-<code src='../../../demos/file/BlobURL.jsx' inline />
+<code src='./demos/BlobURL.jsx' inline />
 
 - 浏览器内部为每个通过 `URL.createObjectURL` 生成的 `URL` 存储了一个 URL → Blob 映射。因此，此类 `URL` 很短，但可以访问 `Blob`。
 - `URL.revokeObjectURL(url)` 从内部映射中移除引用，因此允许 `Blob` 被删除（如果没有其他引用的话），并释放内存。
@@ -70,7 +70,7 @@ URL.revokeObjectURL(link.href);
 
 ## Image 转换为 blob
 
-<code src='../../../demos/file/ImageToBlob.jsx' inline />
+<code src='./demos/ImageToBlob.jsx' inline />
 
 获取图片，因为图片为异步加载，所以需要在图片加载成功后再将图片
 

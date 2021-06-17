@@ -5,7 +5,7 @@ order: 3
 
 ## 剪切板
 
-<code src='../../../demos/bom/Clipboard.jsx' inline />
+<code src='./demos/Clipboard.jsx' inline />
 
 查看是否能够有读取剪贴板的权限
 
