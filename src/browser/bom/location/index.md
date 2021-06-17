@@ -28,7 +28,7 @@ window.location === document.location; // true
 
 ## 位置操作
 
-使用 `location` 对象可以通过很多方式来改变浏览器的位置。
+使用 `location` 对象可以通过很多方式来改变浏览器的位置。除了 `hash` 之外，只要修改 `location` 的一个属性，就会导致页面重新加载新 `URL`
 
 ```js
 //假设初始 URL 为 http://www.wrox.com/WileyCDA/
@@ -44,6 +44,8 @@ location.pathname = 'mydir';
 //将 URL 修改为"http://www.yahoo.com:8080/WileyCDA/"
 location.port = 8080;
 ```
+
+`location.reload()`，此方法可以重新刷新当前页面。这个方法会根据最有效的方式刷新页面，如果页面自上一次请求以来没有改变过，页面就会从浏览器缓存中重新加载。如果要强制从服务器中重新加载，传递一个参数 true 即可
 
 ## 获取 url 参数
 
