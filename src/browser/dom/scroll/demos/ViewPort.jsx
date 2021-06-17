@@ -44,7 +44,11 @@ export default function ViewPort() {
   };
 
   const lis = Array.from({ length: 100 }).map((_, index) => (
-    <li className={`viewport-item`} key={index} style={liStyle}>
+    <li
+      className={`viewport-item`}
+      key={index}
+      style={index === 9 ? { ...liStyle, backgroundColor: 'skyblue' } : liStyle}
+    >
       {index + 1}
     </li>
   ));

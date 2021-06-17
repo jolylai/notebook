@@ -142,4 +142,51 @@ function isInViewPort(element) {
 }
 ```
 
+### Intersection Observer
+
+Intersection Observer 即重叠观察者，从这个命名就可以看出它用于判断两个元素是否重叠，因为不用进行事件的监听，性能方面相比 getBoundingClientRect 会好很多
+
+使用步骤主要分为两步：创建观察者和传入被观察者
+
+创建观察者
+
+```js
+const options = {
+  // 表示重叠面积占被观察者的比例，从 0 - 1 取值，
+  // 1 表示完全被包含
+  threshold: 1.0,
+  root:document.querySelector('#scrollArea') // 必须是目标元素的父级元素
+};
+
+const callback = (entries, observer) => { ....}
+
+const observer = new IntersectionObserver(callback, options);
+```
+
+通过 new IntersectionObserver 创建了观察者 observer，传入的参数 callback 在重叠比例超过 threshold 时会被执行`
+
+关于 callback 回调函数常用属性如下：
+
+```js
+// 上段代码中被省略的 callback
+const callback = function(entries, observer) {
+  entries.forEach(entry => {
+    entry.time; // 触发的时间
+    entry.rootBounds; // 根元素的位置矩形，这种情况下为视窗位置
+    entry.boundingClientRect; // 被观察者的位置举行
+    entry.intersectionRect; // 重叠区域的位置矩形
+    entry.intersectionRatio; // 重叠区域占被观察者面积的比例（被观察者不是矩形时也按照矩形计算）
+    entry.target; // 被观察者
+  });
+};
+```
+
+传入被观察者
+通过 observer.observe(target) 这一行代码即可简单的注册被观察者
+
+```js
+const target = document.querySelector('.target');
+observer.observe(target);
+```
+
 - [CSSOM 视图模式(CSSOM View Module)相关整理](https://www.zhangxinxu.com/wordpress/2011/09/cssom%e8%a7%86%e5%9b%be%e6%a8%a1%e5%bc%8fcssom-view-module%e7%9b%b8%e5%85%b3%e6%95%b4%e7%90%86%e4%b8%8e%e4%bb%8b%e7%bb%8d/)
