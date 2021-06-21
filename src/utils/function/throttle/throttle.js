@@ -1,4 +1,4 @@
-export default function throttle(func, wait = 50) {
+function throttle(func, wait = 50) {
   let previousCallTimeStamp;
 
   return function() {
@@ -10,3 +10,5 @@ export default function throttle(func, wait = 50) {
     }
   };
 }
+
+export default throttle;
