@@ -18,6 +18,7 @@
   throw(){}
 }
 ```
+
 ### return(...)
 
 return(..) 被定义为向迭代器发送一个信号，表明消费者代码已经完毕，不会再从其中提
@@ -29,7 +30,7 @@ return(..) 就 像 next(..) 一样会返回一个 IteratorResult 对 象。 一 
 return(..) 的可选值将会在这个 IteratorResult 中作为 value 返回，但在一些微妙的情况
 下并非如此。
 
-### throw(..) 
+### throw(..)
 
 throw(..) 用于向迭代器报告一个异常 / 错误，迭代器针对这个信号的反应可能不同于针对
 return(..) 意味着的完成信号。和对于 return(..) 的反应不一样，它并不一定意味着迭代
@@ -39,6 +40,7 @@ return(..) 意味着的完成信号。和对于 return(..) 的反应不一样，
 成器迭代器。
 
 ### IteratorResult
+
 `IteratorResult` 接口指定了从任何迭代器操作返回的值必须是下面这种形式的对象：`{ value: .. , done: true / false }`
 内置迭代器总是返回这种形式的值，当然如果需要的话，返回值还可以有更多的属性。
 例如，自定义迭代器可能在结果对象上增加额外的元数据（比如数据的来源、获取数据的时间长度、缓存过期时长、下次请求的适当频率，等等）。
@@ -62,7 +64,7 @@ it.next(); // { value: undefined, done: true }
 字符串迭代
 
 ```js
-const greeting = "hello world";
+const greeting = 'hello world';
 const it = greeting[Symbol.iterator]();
 it.next(); // { value: "h", done: false }
 it.next(); // { value: "e", done: false }
@@ -75,8 +77,8 @@ Map
 
 ```js
 const m = new Map();
-m.set("foo", 42);
-m.set({ cool: true }, "hello world");
+m.set('foo', 42);
+m.set({ cool: true }, 'hello world');
 
 const it1 = m[Symbol.iterator]();
 // api 产生迭代器
@@ -109,7 +111,7 @@ it2.next(); // { value: [ 1, 1 ], done: false }
 ```js
 const a = [4, 3, 2, 1];
 for (v of a) {
-  console.log("value", v);
+  console.log('value', v);
 }
 ```
 
@@ -155,11 +157,11 @@ const Fib = {
         return { value: current, done: false };
       },
       return(v) {
-        console.log("Fibonacci sequence abandoned.");
+        console.log('Fibonacci sequence abandoned.');
         return { value: v, done: true };
-      }
+      },
     };
-  }
+  },
 };
 for (const v of Fib) {
   console.log(v);

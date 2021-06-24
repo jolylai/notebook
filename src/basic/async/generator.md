@@ -86,7 +86,7 @@ var something = (function() {
         nextVal = 3 * nextVal + 6;
       }
       return { done: false, value: nextVal };
-    }
+    },
   };
 })();
 something.next().value; // 1
@@ -139,10 +139,10 @@ for..of 循环在每次迭代中自动调用 next()，它不会向 next() 传入
 
 ```js
 function* foo() {
-  console.log("*foo() starting");
+  console.log('*foo() starting');
   yield 3;
   yield 4;
-  console.log("*foo() finished");
+  console.log('*foo() finished');
 }
 function* bar() {
   // yield *[1,2] 会消耗数组值 [1,2] 的默认迭代器。
@@ -169,20 +169,20 @@ it.next().value; // *foo()完成
 ```js
 function* foo() {
   // it.next(2)
-  console.log("inside *foo():", yield "B");
+  console.log('inside *foo():', yield 'B');
   // it.next(3)
-  console.log("inside *foo():", yield "C");
-  return "D";
+  console.log('inside *foo():', yield 'C');
+  return 'D';
 }
 function* bar() {
   // it.next(1)
-  console.log("inside *bar():", yield "A");
+  console.log('inside *bar():', yield 'A');
   // yield委托！
   // *bar() 中return "D"
-  console.log("inside *bar():", yield* foo());
+  console.log('inside *bar():', yield* foo());
   // it.next(4)
-  console.log("inside *bar():", yield "E");
-  return "F";
+  console.log('inside *bar():', yield 'E');
+  return 'F';
 }
 var it = bar();
 
@@ -212,64 +212,64 @@ console.log(it.next(4).value);
 ```js
 function* foo() {
   try {
-    yield "B";
+    yield 'B';
   } catch (err) {
     // 捕获 it.throw(2) 中传进来的值
-    console.log("error caught inside *foo():", err);
+    console.log('error caught inside *foo():', err);
   }
-  yield "C";
-  throw "D";
+  yield 'C';
+  throw 'D';
 }
 function* bar() {
-  yield "A";
+  yield 'A';
   try {
     yield* foo();
   } catch (err) {
     // 捕获 *foo() 中 throw "D"
-    console.log("error caught inside *bar():", err);
+    console.log('error caught inside *bar():', err);
   }
-  yield "E";
+  yield 'E';
   yield* baz();
   // 注：不会到达这里！
   // 从 *baz() throw 出来的异常并没有在 *bar() 内被捕获——所以 *baz() 和 *bar()
   // 都被设置为完成状态。这段代码之后，就再也无法通过任何后续的 next(..) 调用得到
   // 值 "G"，next(..) 调用只会给 value 返回 undefined。
-  yield "G";
+  yield 'G';
 }
 function* baz() {
-  throw "F";
+  throw 'F';
 }
 var it = bar();
 
-console.log("outside:", it.next().value);
+console.log('outside:', it.next().value);
 // outside: A
-console.log("outside:", it.next(1).value);
+console.log('outside:', it.next(1).value);
 // outside: B
-console.log("outside:", it.throw(2).value);
+console.log('outside:', it.throw(2).value);
 // error caught inside *foo(): 2
 // outside: C
-console.log("outside:", it.next(3).value);
+console.log('outside:', it.next(3).value);
 // error caught inside *bar(): D
 // outside: E
 try {
-  console.log("outside:", it.next(4).value);
+  console.log('outside:', it.next(4).value);
 } catch (err) {
-  console.log("error caught outside:", err);
+  console.log('error caught outside:', err);
 }
 // error caught outside: F
-console.log("it.next().value: ", it.next().value);
+console.log('it.next().value: ', it.next().value);
 ```
 
 ### 异步委托
 
 ```js
 function* foo() {
-  var r2 = yield request("http://some.url.2");
-  var r3 = yield request("http://some.url.3/?v=" + r2);
+  var r2 = yield request('http://some.url.2');
+  var r3 = yield request('http://some.url.3/?v=' + r2);
   return r3;
 }
 function* bar() {
-  var r1 = yield request("http://some.url.1");
+  var r1 = yield request('http://some.url.1');
   var r3 = yield* foo();
   console.log(r3);
 }
@@ -284,7 +284,7 @@ function* foo(val) {
     // 生成器递归
     val = yield* foo(val - 1);
   }
-  return yield request("http://some.url/?v=" + val);
+  return yield request('http://some.url/?v=' + val);
 }
 function* bar() {
   var r1 = yield* foo(3);
