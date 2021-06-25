@@ -2,23 +2,31 @@
 title: 滚动
 ---
 
+## 概览
+
+![](https://javascript.info/article/size-and-scroll/metric-all.svg)
+
 ## 元素视图属性
 
 ### clientLeft 和 clientTop
 
-<code src="./demos/ClientLeftTop.jsx" inline />
+<code src="./demos/ClientLeft.jsx" inline />
 
-表示一个元素的左边框的宽度，以像素表示。如果元素的文本方向是从右向左（RTL, right-to-left），并且由于内容溢出导致左边出现了一个垂直滚动条，则该属性包括滚动条的宽度。clientLeft 不包括左外边距和左内边距。
+表示一个元素的左边框的宽度，以像素表示。**clientLeft = 左边框宽度 + 滚动条宽度**,不包括左外边距和左内边距。
+
+如果元素的文本方向是从右向左（RTL, right-to-left），并且由于内容溢出导致左边出现了一个垂直滚动条，则该属性包括滚动条的宽度。
+
+<code src="./demos/ClientLeftRtl.jsx" inline />
 
 ### clientWidth 和 clientHeight
 
-<code src="./demos/ClientWidthHeight.jsx" inline />
+<code src="./demos/ClientWidth.jsx" inline />
 
-内联元素以及没有 CSS 样式的元素的 clientWidth 属性值为 0。Element.clientWidth 属性表示元素的内部宽度，以像素计。该属性包括内边距 padding，但不包括边框 border、外边距 margin 和垂直滚动条。
+表示元素的内部宽度，以像素表示。该属性包括内边距 padding，但不包括边框 border、外边距 margin 和垂直滚动条。**clientWidth = content + padding**。
+
+内联元素以及没有 CSS 样式的元素的 clientWidth 属性值为 0。
 
 当在根元素(`<html>`元素)上使用 clientWidth 时(或者在`<body>`上，如果文档是在 quirks(怪异)模式下)，将返回 viewport 的宽度(不包括任何滚动条)
-
-![](https://cy-picgo.oss-cn-hangzhou.aliyuncs.com/dimensions-client.png)
 
 ## offset
 
@@ -75,10 +83,26 @@ HTMLElement.offsetHeight 是一个只读属性，它返回该元素的像素高�
 
 ### scrollLeft 和 scrollTop
 
+`Element.scrollTop` 属性可以获取或设置一个元素的内容垂直滚动的像素数。
+
+一个元素的 scrollTop 值是这个元素的顶部到视口可见内容（的顶部）的距离的度量。当一个元素的内容没有产生垂直方向的滚动条，那么它的 scrollTop 值为 0。
+
+`Element.scrollLeft` 属性可以读取或设置元素滚动条到元素左边的距离。
+
+注意如果这个元素的内容排列方向（direction） 是 rtl (right-to-left) ，那么滚动条会位于最右侧（内容开始处），并且 scrollLeft 值为 0。此时，当你从右到左拖动滚动条时，scrollLeft 会从 0 变为负数（这个特性在 chrome 浏览器中不存在）。
+
 ### scrollWidth 和 scrollHeight
 
 包括由于 overflow 溢出而在屏幕上不可见的内容。
 scrollHeight 的值等于该元素在不使用滚动条的情况下为了适应视口中所用内容所需的最小高度。 没有垂直滚动条的情况下，scrollHeight 值与元素视图填充所有内容所需要的最小值 clientHeight 相同。**包括元素的 padding，但不包括元素的 border 和 margin**。scrollHeight 也包括 ::before 和 ::after 这样的伪元素。
+
+`Element.scrollWidth` 是只读属性，表示元素内容的宽度，包括由于滚动而未显示在屏幕中内容
+
+scrollWidth 值等于元素在不使用水平滚动条的情况下适合视口中的所有内容所需的最小宽度。 宽度的测量方式与 clientWidth 相同：它包含元素的内边距，但不包括边框，外边距或垂直滚动条（如果存在）。 它还可以包括伪元素的宽度，例如::before 或::after。 如果元素的内容可以适合而不需要水平滚动条，则其 scrollWidth 等于 clientWidth
+
+`Element.scrollHeight` 这个只读属性是一个元素内容高度的度量，包括由于溢出导致的视图中不可见内容。
+
+scrollHeight 的值等于该元素在不使用滚动条的情况下为了适应视口中所用内容所需的最小高度。 没有垂直滚动条的情况下，scrollHeight 值与元素视图填充所有内容所需要的最小值 clientHeight 相同。包括元素的 padding，但不包括元素的 border 和 margin。scrollHeight 也包括 ::before 和 ::after 这样的伪元素。
 
 ## getBoundingClientRect
 

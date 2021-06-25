@@ -10,19 +10,39 @@ group:
 
 BOM(浏览器对象模型)
 
-## 窗口大小
+## Window 视图属性
+
+### innerWidth 和 innerHeight
+
+innerWidth 表示获取 window 窗体的内部宽度，不包括用户界面元素，比如窗框。
 
 ```js
-// 窗口本身的尺寸
-window.outerWidth;
-window.outerHeight;
-
 // 视图容器尺寸
 window.innerWidth;
 window.innerHeight;
 ```
 
-IE8 及更早版本没有提供取得当前浏览器窗口尺寸的属性;不过，它通过 DOM 提供了页面可见区域 的相关信息。
+### outerWidth 和 outerHeight
+
+outerWidth/outerHeight 表示整个浏览器窗体的大小，包括任务栏等。
+
+```js
+// 窗口本身的尺寸
+window.outerWidth;
+window.outerHeight;
+```
+
+### pageXOffset 和 pageYOffset
+
+表示整个页面滚动的像素值（水平方向的和垂直方向的）。
+
+### screenX 和 screenY
+
+浏览器窗口在显示器中的位置，screenX 表示水平位置，screenY 表示垂直位置。
+
+### 获取视图窗口大小
+
+IE8 及更早版本没有提供取得当前浏览器窗口尺寸的属性;不过，它通过 DOM 提供了页面可见区域的相关信息。
 在 IE、Firefox、Safari、Opera 和 Chrome 中，`document.documentElement.clientWidth` 和 `document.documentElement.clientHeight` 中保存了页面视口的信息。在 IE6 中，这些属性必须在 标准模式下才有效;如果是混杂模式，就必须通过 `document.body.clientWidth` 和 `document.body. clientHeight` 取得相同信息。而对于混杂模式下的 Chrome，则无论通过 `document.documentElement` 还是 `document.body` 中的 `clientWidth` 和 `clientHeight` 属性，都可以取得视口的大小。
 
 ```js
@@ -109,29 +129,3 @@ export default () => {
 ```
 
 [HTML 的各种宽高](https://www.jianshu.com/p/60332df38393)
-
-## scroll
-
-### Element.scrollWidth
-
-`Element.scrollWidth` 是只读属性，表示元素内容的宽度，包括由于滚动而未显示在屏幕中内容
-
-scrollWidth 值等于元素在不使用水平滚动条的情况下适合视口中的所有内容所需的最小宽度。 宽度的测量方式与 clientWidth 相同：它包含元素的内边距，但不包括边框，外边距或垂直滚动条（如果存在）。 它还可以包括伪元素的宽度，例如::before 或::after。 如果元素的内容可以适合而不需要水平滚动条，则其 scrollWidth 等于 clientWidth
-
-### Element.scrollHeight
-
-`Element.scrollHeight` 这个只读属性是一个元素内容高度的度量，包括由于溢出导致的视图中不可见内容。
-
-scrollHeight 的值等于该元素在不使用滚动条的情况下为了适应视口中所用内容所需的最小高度。 没有垂直滚动条的情况下，scrollHeight 值与元素视图填充所有内容所需要的最小值 clientHeight 相同。包括元素的 padding，但不包括元素的 border 和 margin。scrollHeight 也包括 ::before 和 ::after 这样的伪元素。
-
-### Element.scrollTop
-
-`Element.scrollTop` 属性可以获取或设置一个元素的内容垂直滚动的像素数。
-
-一个元素的 scrollTop 值是这个元素的顶部到视口可见内容（的顶部）的距离的度量。当一个元素的内容没有产生垂直方向的滚动条，那么它的 scrollTop 值为 0。
-
-### Element.scrollLeft
-
-`Element.scrollLeft` 属性可以读取或设置元素滚动条到元素左边的距离。
-
-注意如果这个元素的内容排列方向（direction） 是 rtl (right-to-left) ，那么滚动条会位于最右侧（内容开始处），并且 scrollLeft 值为 0。此时，当你从右到左拖动滚动条时，scrollLeft 会从 0 变为负数（这个特性在 chrome 浏览器中不存在）。

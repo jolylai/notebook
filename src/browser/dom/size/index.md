@@ -32,8 +32,6 @@ const body = document.body;
 const borderLeft = body.clientTop; // -> 20
 ```
 
-![](https://zh.javascript.info/article/size-and-scroll/metric-client-left-top.svg)
-
 ```jsx | inline
 import React, { useState } from 'react';
 import styled from 'styled-components';
