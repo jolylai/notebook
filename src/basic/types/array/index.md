@@ -2,6 +2,22 @@
 title: Array
 ---
 
+## 扩展运算符
+
+主要用于函数调用的时候，将一个数组变为参数序列
+
+```js
+function push(array, ...items) {
+  array.push(...items);
+}
+```
+
+将类数组转换成数组
+
+```js
+[...document.querySelectorAll('div')];
+```
+
 ## 迭代器方法
 
 在 ES6 中，Array 的原型上暴露了 3 个用于检索数组内容的方法

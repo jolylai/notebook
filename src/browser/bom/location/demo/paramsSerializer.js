@@ -1,8 +1,9 @@
 /**
- *
+ * Serializ an object to url params
  * @param {Object} params
+ * @param {String} Returns serialied url string
  */
-function serialize(params) {
+function paramsSerializer(params) {
   const parts = [];
 
   for (let key in params) {
@@ -18,7 +19,7 @@ function serialize(params) {
 
     value.forEach(val => {
       if (Object.prototype.toString.call(val) === '[object Date]') {
-        val = new Date(val);
+        val = val.toISOString();
       } else if (Object.prototype.toString.call(val) === '[object Object]') {
         val = JSON.stringify(val);
       }
@@ -30,4 +31,4 @@ function serialize(params) {
   return parts.join('&');
 }
 
-export default serialize;
+export default paramsSerializer;

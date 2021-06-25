@@ -1,13 +1,13 @@
-import serializeUrlParameters from '../demo/serializeUrlParameters';
+import paramsSerializer from '../demo/paramsSerializer';
 
-describe('serializeUrlParameters', () => {
+describe('paramsSerializer', () => {
   test('should support params', () => {
-    expect(serializeUrlParameters({ a: 'foo' })).toBe('a=foo');
+    expect(paramsSerializer({ a: 'foo' })).toBe('a=foo');
   });
 
   test('should serialize object params', function() {
     expect(
-      serializeUrlParameters({
+      paramsSerializer({
         foo: {
           bar: 'baz',
         },

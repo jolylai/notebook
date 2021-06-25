@@ -1,4 +1,9 @@
-export default function getUrlParameters(url) {
+/**
+ * Creates an object containing the parameters of the current URL.
+ * @param {String} url
+ * @returns {Object}
+ */
+function getUrlParameters(url) {
   const parts = url.match(/([^?=&]+)(=([^&]*))/g) || [];
 
   return parts.reduce((paramters, part) => {
@@ -8,3 +13,5 @@ export default function getUrlParameters(url) {
     return paramters;
   }, {});
 }
+
+export default getUrlParameters;

@@ -47,7 +47,10 @@ location.port = 8080;
 
 `location.reload()`，此方法可以重新刷新当前页面。这个方法会根据最有效的方式刷新页面，如果页面自上一次请求以来没有改变过，页面就会从浏览器缓存中重新加载。如果要强制从服务器中重新加载，传递一个参数 true 即可
 
-## 获取 url 参数
+## url 参数获取
+
+1. 使用 `String.prototype.match()`传入 `/([^?=&]+)(=([^&]*))/g` 正则所有的键值对部分
+2. 使用 `Array.prototype.reduce()` 迭代键值对到 对象中
 
 ```js
 function getUrlParameters(url) {
@@ -55,7 +58,7 @@ function getUrlParameters(url) {
 
   return parts.reduce((paramters, part) => {
     const [key, value] = part.split('=');
-    paramters[key] = value;
+    paramters[key] = decodeURIComponent(value);
 
     return paramters;
   }, {});
@@ -64,12 +67,21 @@ function getUrlParameters(url) {
 
 ## url 参数系列化
 
+查询字符串中的每个名和值都必须使用 `encodeURIComponent()`编码，所有名/值对必须以和号(&)分隔，
+
+需要对几个数据类型进行特殊转换，如果值为 undefined 或 null 则跳过
+
+- 数组: `{list: [1,2]}` 转换 `list[]=1&list[]=2`
+- 对象：使用 `JSON.stringify()`转成 Json 字符串
+- 时间：使用 `.toISOString()` 转成字符串
+
 ```js
 /**
- *
+ * Serializ an object to url params
  * @param {Object} params
+ * @param {String} Returns serialied url string
  */
-function serialize(params) {
+function paramsSerializer(params) {
   const parts = [];
 
   for (let key in params) {
@@ -85,7 +97,7 @@ function serialize(params) {
 
     value.forEach(val => {
       if (Object.prototype.toString.call(val) === '[object Date]') {
-        val = new Date(val);
+        val = val.toISOString();
       } else if (Object.prototype.toString.call(val) === '[object Object]') {
         val = JSON.stringify(val);
       }
@@ -96,6 +108,30 @@ function serialize(params) {
 
   return parts.join('&');
 }
+```
 
-export default serialize;
+## url 创建
+
+1. 调用 paramsSerializer 进行参数序列化
+2. 去除 hash 值
+3. 将序列化后的字符串拼接到 url 尾部
+
+```js
+function buildUrl(url, params, paramsSerializer) {
+  if (!params) {
+    return;
+  }
+
+  const serializedParams = paramsSerializer(params);
+
+  if (serializedParams) {
+    const hashIndex = url.indexOf('#');
+    if (hashIndex !== -1) {
+      url = url.slice(0, hashIndex);
+    }
+
+    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
+  }
+  return url;
+}
 ```
