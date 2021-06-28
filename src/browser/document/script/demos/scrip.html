@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>...content before script...</p>
+    <!-- <img src="https://source.unsplash.com/WLUHO9A_xik/1600x900" /> -->
+    <!-- <script
+      defer
+      src="https://javascript.info/article/script-async-defer/long.js?speed=1"
+    ></script> -->
+
+    <!-- This isn't visible until the script loads -->
+    <p>...content after script...</p>
+    <script>
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+
+      const img = document.createElement('img');
+      img.crossOrigin = '';
+
+      img.onload = function() {
+        context.drawImage(this, 0, 0);
+        context.getImageData(0, 0, this.width, this.height);
+      };
+
+      img.src = 'https://avatars3.githubusercontent.com/u/496048?s=120&v=4';
+      document.body.appendChild(canvas);
+    </script>
+  </body>
+</html>

@@ -2,34 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
   </head>
   <body>
     <script>
-      function BackAccount(balance) {
-        function getBalance() {
-          return balance;
-        }
+      const img = document.createElement('img');
 
-        function setBalance(value) {
-          balance = value;
-        }
-
-        return {
-          getBalance,
-          setBalance,
-        };
-      }
-
-      const account1 = BackAccount(100);
-      console.log(account1.getBalance());
-      account1.setBalance(200);
-      console.log(account1.getBalance());
-
-      const account2 = BackAccount(50);
-      console.log(account2.getBalance());
+      img.src = 'https://source.unsplash.com/WLUHO9A_xik/1600x900';
     </script>
   </body>
 </html>
