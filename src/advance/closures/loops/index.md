@@ -1,10 +1,5 @@
 ---
-title: 闭包
-group:
-  title: 作用域与闭包
-nav:
-  title: 进阶
-  order: 30
+title: 循环与闭包
 ---
 
 ## 前言
@@ -92,32 +87,3 @@ for (var i = 0; i < 5; i++) {
   }, i * 1000);
 }
 ```
-
-## 模块
-
-```js
-function CoolModule() {
-  var something = 'cool';
-  var another = [1, 2, 3];
-  function doSomething() {
-    console.log(something);
-  }
-  function doAnother() {
-    console.log(another.join(' ! '));
-  }
-  return {
-    doSomething: doSomething,
-    doAnother: doAnother,
-  };
-}
-var foo = CoolModule();
-foo.doSomething(); // cool
-foo.doAnother(); // 1 ! 2 ! 3
-```
-
-模块模式需要具备两个必要条件。
-
-1. 必须有外部的封闭函数，该函数必须至少被调用一次(每次调用都会创建一个新的模块实例)。
-2. 封闭函数必须返回至少一个内部函数，这样内部函数才能在私有作用域中形成闭包，并且可以访问或者修改私有的状态。
-
-一个具有函数属性的对象本身并不是真正的模块。一个从函数调用所返回的，只有数据属性而没有闭包函数的对象并不是真正的模块。
