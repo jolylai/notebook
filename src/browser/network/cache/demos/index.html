@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>server</title>
+  </head>
+  <body>
+    <button id="btn-no-cache">禁止缓存</button>
+    <button id="btn-public-cache">缓存静态资源</button>
+    <button id="btn-revalidate-cache">需要重新效验</button>
+
+    <script>
+      const btnNoCache = document.getElementById('btn-no-cache');
+      const btnPublicCache = document.getElementById('btn-public-cache');
+      const btnRevalidateCache = document.getElementById(
+        'btn-revalidate-cache',
+      );
+
+      btnNoCache.onclick = () => {
+        fetch('/no-cache');
+      };
+
+      btnPublicCache.onclick = () => {
+        fetch('/public-cache');
+      };
+
+      btnRevalidateCache.onclick = () => {
+        fetch('/revalidate-cache');
+      };
+    </script>
+  </body>
+</html>
