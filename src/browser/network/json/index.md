@@ -25,3 +25,5 @@ JSON 的语法可以表示以下三种类型的值。
 **但 JSON 不支持 JavaScript 中的特殊值 `undefined`。**
 
 ### 数组
+
+<code src="./demos/FormatJson.jsx" />
