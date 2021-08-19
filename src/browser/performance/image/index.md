@@ -77,6 +77,8 @@ const load = element => {
 };
 ```
 
+## 压缩
+
 #### Reference
 
 - [lozad.js](https://github.com/ApoorvSaxena/lozad.js)
