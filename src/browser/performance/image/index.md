@@ -77,8 +77,7 @@ const load = element => {
 };
 ```
 
-## 压缩
-
 #### Reference
 
 - [lozad.js](https://github.com/ApoorvSaxena/lozad.js)
+- [Intersection Observer](https://mp.weixin.qq.com/s/fu6VqPfWn7mB7evopnDeLA)

@@ -1,90 +1,56 @@
 ---
 hero:
   title: JavaScript
-  desc: JS 修炼手册
+  desc: JavaScript 修炼手册
   actions:
     - text: Getting Started
       link: /basic
 features:
   - icon: https://gw.alipayobjects.com/zos/bmw-prod/881dc458-f20b-407b-947a-95104b5ec82b/k79dm8ih_w144_h144.png
-    title: Feature 1
-    desc: Balabala
+    title: JavaScript
+    # desc: Balabala
   - icon: https://gw.alipayobjects.com/zos/bmw-prod/d60657df-0822-4631-9d7c-e7a869c2f21c/k79dmz3q_w126_h126.png
-    title: Feature 2
-    desc: Balabala
+    title: 数据结构与算法
+    # desc: Balabala
   - icon: https://gw.alipayobjects.com/zos/bmw-prod/d1ee0c6f-5aed-4a45-a507-339a4bfe076c/k7bjsocq_w144_h144.png
-    title: Feature 3
-    desc: Balabala
+    title: 设计模式
+    # desc: Balabala
 # footer: Open-source MIT Licensed | Copyright © 2020<br />Powered by [dumi](https://d.umijs.org)
 ---
 
-## 💥 重点掌握
+## 费曼学习法
 
-- [ ] ECMAScript 基本语法
-- [ ] DOM 编程
-- [ ] BOM 的使用
-- [ ] 作用域、闭包、原型链
-- [ ] 事件代理/委托
-- [ ] 错误处理/异常处理
-- [ ] 事件队列 (setTimeout/setInterval/Promise)
-- [ ] JSON
-- [ ] Ajax/Fetch
-- [ ] ES6+
-- [ ] 正则表达式
+#### 第一步：建立自己的目标
 
-### 📚 书籍
+也就是找到我们要学习的东西具体是什么，比如我，我想整理交互设计基本原则的菲兹定律
 
-- [《你不知道的 JavaScript》](https://github.com/getify/You-Dont-Know-JS)
-- [《How JavaScript Works》](https://github.com/Troland/how-javascript-works)
-- [Understanding ES6](https://github.com/nzakas/understandinges6)
-- [Understanding ES6 中文](https://oshotokill.gitbooks.io/understandinges6-simplified-chinese/content/)
-- [how-javascript-works](https://github.com/Troland/how-javascript-works)
-- 《JavaScript DOM 编程艺术》
-- 《JavaScript 高级程序设计》
-- 《JavaScript 语言精粹》
-- 《JavaScript 设计模式》
-- 《JavaScript 权威指南》
-- 《Secrets of the JavaScript Ninja》
+#### 第二步：寻找相关资料
 
-## 练习题
+首先把自己的理解，整理到一个文档中，再去百度、人人都是产品经理、PMTALK、微信、知乎、简书等等可以上网冲浪找资料的任何途径，大量阅读别人书写的文章（文章有好有坏，要学会自己分辨）把好的文章收集到一起，再进行二次阅读
 
-- [前端小测](https://github.com/zhangxinxu/quiz)
-- [每日一题](https://muyiy.cn/)
-- [nestjs+vue+ts 打造一个酷炫的星空聊天室](https://mp.weixin.qq.com/s/M6JMm5dWnFwppRNnmfoKOg)
-- [手写 webpack 核心原理](https://mp.weixin.qq.com/s/1xpEhYtvDH7vS7s8XrJerg)
-- [用 jQuery 手写一个小游戏](https://mp.weixin.qq.com/s/ZAdavmcVMPyWOlRmFRuLag)
-- [一篇文章搞定 babel-plugin-import 插件](https://mp.weixin.qq.com/s/aBTODfHAG9p_z2A1ikVoug)
-- [HTML5 画布](https://mp.weixin.qq.com/s/lS8HP67y3ufWd0buEcN4Gg)
-- [GraphQL + Koa + React 项目实践](https://mp.weixin.qq.com/s/UiT9upPTVkxHDREsHsp32g)
-- [手写 Promise](https://mp.weixin.qq.com/s/ek41c2qoWg7WCCNyVvd2eA)
+#### 第三步：整理消化
 
-## 📄 文章&教程
+将自己阅读的资料进行消化理解，从而形成自己对于这个内容的理解，然后书写到文档中
 
-- [JavaScript 教程](https://www.runoob.com/js/js-tutorial.html)
-- [Eloquent Javascript](https://eloquentjavascript.net/)
-- [ECMAScript 6 入门-阮一峰](https://es6.ruanyifeng.com/)
-- [现代 JavaScript 教程](https://zh.javascript.info/)
-- [记录前端开发中的技巧以及算法知识](https://github.com/louzhedong/blog)
-- [缓存](https://www.jianshu.com/p/54cc04190252)
-- [如何在 JS 循环中正确使用 async 与 await](https://juejin.im/post/5cf7042df265da1ba647d9d1)
-- [axios](https://zhuanlan.zhihu.com/p/50859466)
-- [掘金翻译计划](https://github.com/xitu/gold-miner)
+#### 第四步：相关案例
 
-## Github
+回想自己的工作中或者使用过的 App 是不是有存在相似的内容，你是如何想的，如何运用这块内容的，有什么收获和感想去整理案例
 
-- [RoadMap](https://github.com/ObjTube/front-end-roadmap)
-- [原生 Web 项目](https://github.com/bradtraversy/vanillawebprojects)
-- [JavaScript Style](https://github.com/airbnb/javascript) -js 书写风格 <img src="https://img.shields.io/github/stars/airbnb/javascript.svg?style=social">
-- [javascript-algorithms](https://github.com/trekhleb/javascript-algorithms) <img src="https://img.shields.io/github/stars/trekhleb/javascript-algorithms.svg?style=social">
-- [30-seconds-of-code](https://30secondsofcode.org/) - JavaScript 片段集合 <img src="https://img.shields.io/github/stars/30-seconds/30-seconds-of-code.svg?style=social">
-- [Front-End Checklist](https://github.com/thedaviddias/Front-End-Checklist) <img src="https://img.shields.io/github/stars/thedaviddias/Front-End-Checklist.svg?style=social">
-- [Tech Interview Handbook](https://github.com/yangshun/tech-interview-handbook) <img src="https://img.shields.io/github/stars/yangshun/tech-interview-handbook.svg?style=social">
-- [33-js-concepts](https://github.com/leonardomso/33-js-concepts) <img src="https://img.shields.io/github/stars/leonardomso/33-js-concepts.svg?style=social">
-- [Node.js Best Practices](https://github.com/i0natan/nodebestpractices) <img src="https://img.shields.io/github/stars/i0natan/nodebestpractices.svg?style=social">
-- [简洁的 js 代码](https://github.com/ryanmcdermott/clean-code-javascript) -js 书写风格 <img src="https://img.shields.io/github/stars/ryanmcdermott/clean-code-javascript.svg?style=social">
-- [Project Guidelines](https://github.com/elsewhencode/project-guidelines) <img src="https://img.shields.io/github/stars/elsewhencode/project-guidelines.svg?style=social">
-- [javascript-questions](https://github.com/lydiahallie/javascript-questions)
+#### 第五步：后续回顾
 
-## 📺 视频
+自己总结输出后会消化大部分，但是还是要经常复盘，让自己记忆的更牢固。
 
-待补充...
+## 建立知识架构
+
+<iframe height="260" width="800" src="//player.bilibili.com/player.html?aid=669025757&bvid=BV12a4y1E7mz&cid=219030782&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+建立自己的知识架构，并且在这个架构上，不断地进行优化。**它能够帮助我们把零散的知识组织起来，也能够帮助我们发现一些知识上的盲区。**
+
+知识的架构是有优劣之分的，最重要的就是**逻辑性**和**完备性**。
+
+我们获取知识的途径可以有 书籍、视频、文章教程，笔者比较推荐
+
+- 应用场景知识
+- 利用好官网资源
+- 自己不看教程重新来一遍
+- 探索最佳实践的模板（ \*\*\* + boilerplate）
