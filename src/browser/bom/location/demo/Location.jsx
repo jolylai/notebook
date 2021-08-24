@@ -44,18 +44,20 @@ export default () => {
       />
 
       <table className="mt-2">
-        {Object.entries(location).map(([key, value]) => {
-          return (
-            <tr>
-              <td className="border-solid border border-gray-300 p-2 font-semibold text-black">
-                {key}
-              </td>
-              <td className="border-solid border border-gray-300 p-2">
-                {value}
-              </td>
-            </tr>
-          );
-        })}
+        <tbody>
+          {Object.entries(location).map(([key, value]) => {
+            return (
+              <tr key={key}>
+                <td className="border-solid border border-gray-300 p-2 font-semibold text-black">
+                  {key}
+                </td>
+                <td className="border-solid border border-gray-300 p-2">
+                  {value}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
     </div>
   );

@@ -42,7 +42,7 @@ features:
 
 ## 建立知识架构
 
-<iframe height="260" width="800" src="//player.bilibili.com/player.html?aid=669025757&bvid=BV12a4y1E7mz&cid=219030782&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe height="280" style="width: 100%" src="//player.bilibili.com/player.html?aid=669025757&bvid=BV12a4y1E7mz&cid=219030782&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen={true}> </iframe>
 
 建立自己的知识架构，并且在这个架构上，不断地进行优化。**它能够帮助我们把零散的知识组织起来，也能够帮助我们发现一些知识上的盲区。**
 
