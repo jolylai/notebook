@@ -6,7 +6,7 @@ export default function NumberFormat() {
   const [number, setNumber] = useState('123456789');
 
   const format = number => {
-    const reg = /(?=\d{3}$)/g;
+    const reg = /(?=(\d{3})+$)/g;
     const formateNumber = number.replace(reg, ',');
     console.log('formateNumber: ', formateNumber);
   };

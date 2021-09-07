@@ -9,9 +9,7 @@ export default defineConfig({
   outputPath: 'docs-dist',
   mode: 'site',
   styles: [
-    // 'https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.0.0-alpha.5/base.min.css',
     'https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.0.0-alpha.5/tailwind.min.css',
-    // 'https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.0.0-alpha.5/utilities.min.css',
     'svg, img {display: inline-block}; ol {list-style: decimal}; ul {list-style: disc;}',
   ],
   extraBabelPlugins: [

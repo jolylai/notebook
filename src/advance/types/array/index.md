@@ -1,8 +1,5 @@
 ---
 title: Array
-nav:
-  title: 基础
-  order: 20
 ---
 
 ## 扩展运算符

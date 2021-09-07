@@ -1,8 +1,5 @@
 ---
 title: Object
-group:
-  title: 数据类型
-  order: 2
 ---
 
 ## 属性描述符
