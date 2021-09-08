@@ -1,8 +1,5 @@
 ---
 title: 基础
-nav:
-  title: 基础
-  order: 2
 group:
   title: 表单
 ---
@@ -21,16 +18,18 @@ group:
 
 `HTMLFormElement` 列独有的属性和方法。
 
-- `acceptCharset`:服务器能够处理的字符集;等价于 HTML 中的 accept-charset 特性。
-- `action`:接受请求的 URL;等价于 HTML 中的 action 特性。
-- `elements`:表单中所有控件的集合(HTMLCollection)。
-- `enctype`:请求的编码类型;等价于 HTML 中的 enctype 特性。
-- `length`:表单中控件的数量。
-- `method`:要发送的 HTTP 请求类型，通常是"get"或"post";等价于 HTML 的 method 特性。
-- `name`:表单的名称;等价于 HTML 的 name 特性。
-- `reset`():将所有表单域重置为默认值。
-- `submit`():提交表单。
-- `target`:用于发送请求和接收响应的窗口名称;等价于 HTML 的 target 特性。
+| 属性/方法       | 描述                                                                     |
+| --------------- | ------------------------------------------------------------------------ |
+| `acceptCharset` | 服务器能够处理的字符集;等价于 HTML 中的 accept-charset 特性。            |
+| `action`        | 接受请求的 URL;等价于 HTML 中的 action 特性。                            |
+| `elements`      | 表单中所有控件的集合(HTMLCollection)。                                   |
+| `enctype`       | 请求的编码类型;等价于 HTML 中的 enctype 特性。                           |
+| `length`        | 表单中控件的数量。                                                       |
+| `method`        | 要发送的 HTTP 请求类型，通常是"get"或"post";等价于 HTML 的 method 特性。 |
+| `name`          | 表单的名称;等价于 HTML 的 name 特性。                                    |
+| `reset`()       | 将所有表单域重置为默认值。                                               |
+| `submit`()      | 提交表单。                                                               |
+| `target`        | 用于发送请求和接收响应的窗口名称;等价于 HTML 的 target 特性。            |
 
 ## 获取表单
 
@@ -51,7 +50,7 @@ document.forms['form1'];
 
 ## 提交表单
 
-<code src="./Demo/Submit.jsx" />
+<code src="./demos/Submit.jsx" />
 
 ```html
 <!-- 通用提交按钮 -->
@@ -116,7 +115,7 @@ var field2 = form.elements['textbox1'];
 ### 共有属性
 
 - `disabled`:布尔值，表示当前字段是否被禁用。
-- `form`:指向当前字段所属表单的指针;只读。
+- `form`:指向当前字段所属表单的指针;
 - `name`:当前字段的名称。
 - `readOnly`:布尔值，表示当前字段是否只读。
 - `tabIndex`:表示当前字段的切换(tab)序号。

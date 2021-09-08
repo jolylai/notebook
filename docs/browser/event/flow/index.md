@@ -1,8 +1,8 @@
 ---
-title: 事件
+title: 事件流
 ---
 
-## 事件冒泡
+## 事件流
 
 ```html
 <!DOCTYPE html>
@@ -21,17 +21,22 @@ title: 事件
 
 **事件捕获**的思想 是不太具体的节点应该更早接收到事件，而最具体的节点应该最后接收到事件。事件捕获的用意在于在 事件到达预定目标之前捕获它`document -> <html> -> <body> -> <div>`
 
-<Alert>
-建议读者放心地使用事件冒泡，在有特殊需要时再使用事件捕获。
-</Alert>
-
 **事件流**包括三个阶段:事件捕获阶段、处于目标阶段和事件冒泡阶段。
 
 在 DOM 事件流中，实际的目标(`<div>`元素)在捕获阶段不会接收到事件。这意味着在捕获阶段， 事件从 `document` 到`<html>`再到`<body>`后就停止了。下一个阶段是“处于目标”阶段，于是事件在`<div>` 上发生，并在事件处理(后面将会讨论这个概念)中被看成冒泡阶段的一部分。然后，冒泡阶段发生， 事件又传播回文档。
 
 ## 事件处理程序
 
-HTML 事件处理程序
+### HTML 事件处理程序
+
+```js
+<script>
+  function showMessage() {
+    console.log("Hello world!");
+  }
+</script>
+<input type="button" value="Click Me" onclick="showMessage()"/>
+```
 
 ```html
 <input type="button" value="Click Me" onclick="handleClick()" />
@@ -243,141 +248,3 @@ document.body.onclick = handler;
 - `1`: 事件处理程序处于捕获阶段调用的
 - `2`: 事件处理程序处于目标对象上
 - `3`: 事件处理程序处于冒泡阶段
-
-## 事件类型
-
-- UI(User Interface，用户界面)事件，当用户与页面上的元素交互时触发;
-- 焦点事件，当元素获得或失去焦点时触发;
-- 鼠标事件，当用户通过鼠标在页面上执行操作时触发;
-- 滚轮事件，当使用鼠标滚轮(或类似设备)时触发;
-- 文本事件，当在文档中输入文本时触发;
-- 键盘事件，当用户通过键盘在页面上执行操作时触发;
-- 合成事件，当为 IME(Input Method Editor，输入法编辑器)输入字符时触发;
-- 变动(mutation)事件，当底层 DOM 结构发生变化时触发。
-
-### UI
-
-- `load`:当页面完全加载后在 window 上面触发，当所有框架都加载完毕时在框架集上面触发， 当图像加载完毕时在`<img>`元素上面触发，或者当嵌入的内容加载完毕时在`<object>`元素上面 触发。
-- `unload`:当页面完全卸载后在 window 上面触发，当所有框架都卸载后在框架集上面触发，或 者当嵌入的内容卸载完毕后在`<object>`元素上面触发。
-- `abort`:在用户停止下载过程时，如果嵌入的内容没有加载完，则在`<object>`元素上面触发。
-- `error`:当发生 JavaScript 错误时在 window 上面触发，当无法加载图像时在`<img>`元素上面触 发，当无法加载嵌入内容时在`<object>`元素上面触发，或者当有一或多个框架无法加载时在框
-  架集上面触发。第 17 章将继续讨论这个事件。
-- `select`:当用户选择文本框`(<input>`或`<texterea>`)中的一或多个字符时触发。第 14 章将
-  继续讨论这个事件。
-- `resize`:当窗口或框架的大小变化时在 window 或框架上面触发。
-- `scroll`:当用户滚动带滚动条的元素中的内容时，在该元素上面触发。`<body>`元素中包含所加
-
-#### load
-
-JavaScript 中最常用的一个事件就是 load。当页面完全加载后(包括所有图像、JavaScript 文件、 CSS 文件等外部资源)，就会触发 window 上面的 load 事件。
-
-```js
-window.onload = function() {
-  console.log('Loaded');
-};
-```
-
-一般来说，在 window 上面发生的任何事件都可以在`<body>`元素中通过相应的特性来指定，因为 在 HTML 中无法访问 window 元素。实际上，这只是为了保证向后兼容的一种权宜之计，但所有浏览器 都能很好地支持这种方式。我们建议读者尽可能使用 JavaScript 方式。
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Event</title>
-  </head>
-  <body onload="alert('Loaded!')"></body>
-</html>
-```
-
-图像上面也可以触发 load 事件，无论是在 DOM 中的图像元素还是 HTML 中的图像元素。
-
-```html
-<img src="smile.gif" onload="alert('Image loaded.')" />
-```
-
-同样的功能也可以使用 JavaScript 来实现
-
-```js
-const img = document.getElementById('img');
-img.onload = function() {
-  console.log('ImgLoaded');
-};
-```
-
-完全使用 JavaScript 无 `<img />` 元素
-
-```js
-const img = new Image();
-img.onload = function() {
-  console.log('ImgLoaded');
-};
-img.src = 'smile.gif';
-```
-
-有 的浏览器将 Image 对象实现为`<img>`元素，但并非所有浏览器都如此，所以最好将它们区别对待。
-
-#### unload 事件
-
-与 load 事件对应的是 unload 事件，这个事件在文档被完全卸载后触发。只要用户从一个页面切换到另一个页面，就会发生 unload 事件。而利用这个事件最多的情况是清除引用，以避免内存泄漏。
-
-```js
-window.onunload = function() {
-  console.log('Loaded');
-};
-```
-
-<Alert>
-无论使用哪种方式，都要小心编写onunload事件处理程序中的代码。既然unload事件是在一切 都被卸载之后才触发，那么在页面加载后存在的那些对象，此时就不一定存在了。此时，操作 DOM 节 点或者元素的样式就会导致错误。
-</Alert>
-
-#### resize 事件
-
-当浏览器窗口被调整到一个新的高度或宽度时，就会触发 resize 事件。这个事件在 window(窗 口)上面触发，因此可以通过 JavaScript 或者`<body>`元素中的 onresize 特性来指定事件处理程序。
-
-```js
-window.onresize = function(event) {
-  console.log('event: ', event.target); // windows
-};
-```
-
-<Alert>
-注意不要在这个事件的处理程序中加入 大计算量的代码，因为这些代码有可能被频繁执行，从而导致浏览器反应明显变慢。
-</Alert>
-
-#### scroll 事件
-
-虽然 scroll 事件是在 window 对象上发生的，但它实际表示的则是页面中相应元素的变化。在混 杂模式下，可以通过`<body>`元素的 scrollLeft 和 scrollTop 来监控到这一变化;而在标准模式下， 除 Safari 之外的所有浏览器都会通过`<html>`元素来反映这一变化(Safari 仍然基于`<body>`跟踪滚动位 置)
-
-```js
-window.onscroll = function(event) {
-  if (document.compatMode == 'CSS1Compat') {
-    alert(document.documentElement.scrollTop);
-  } else {
-    alert(document.body.scrollTop);
-  }
-};
-```
-
-`Document.documentElement` 是一个会返回文档对象（document）的根元素的只读属性（如 HTML 文档的 `<html>` 元素）。
-
-### 焦点事件
-
-- `blur`:在元素失去焦点时触发。这个事件不会冒泡;所有浏览器都支持它。
-- `focus`:在元素获得焦点时触发。这个事件不会冒泡;所有浏览器都支持它。
-- `focusin`:在元素获得焦点时触发。这个事件与 HTML 事件 focus 等价，但它冒泡
-- `focusout`:在元素失去焦点时触发。这个事件是 HTML 事件 blur 的通用版本。
-
-当焦点从页面中的一个元素移动到另一个元素，会依次触发下列事件:
-
-1. `focusout`： 在失去焦点的元素上触发;
-2. `focusin`： 在获得焦点的元素上触发;
-3. `blur`： 在失去焦点的元素上触发;
-4. `DOMFocusOut`： 在失去焦点的元素上触发;
-5. `focus`： 在获得焦点的元素上触发;
-6. `DOMFocusIn`： 在获得焦点的元素上触发。
-
-blur、DOMFocusOut 和 focusout 的事件目标是失去焦点的元素;而 focus、DOMFocusIn
-和 focusin 的事件目标是获得焦点的元素。
