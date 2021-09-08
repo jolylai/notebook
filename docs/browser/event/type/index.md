@@ -1,10 +1,168 @@
 ---
-title: 鼠标事件
+title: 事件类型
 ---
 
-## 鼠标事件
+## 用户界面事件
 
-### 事件类型
+### load 事件
+
+在 window 对象上，load 事件会在整个页面(包括所有外部资源如图片、JavaScript 文件和 CSS 文件)加载完成后触发。
+
+<code src="./demos/LoadImage.jsx" inline />
+ 
+使用 JavaScript 也可以为图片指定事件处理程序
+
+```js
+window.addEventListener('load', () => {
+  let image = document.createElement('img');
+
+  image.addEventListener('load', event => {
+    console.log(event.target.src);
+  });
+
+  document.body.appendChild(image);
+
+  image.src = 'https://picsum.photos/200';
+});
+```
+
+<Alert>
+下载图片并不一定要把 img 元素添加到文档，只要给它设置了 `src` 属性就会立即开始下载。
+</Alert>
+
+```html
+<img id="img" src="https://en.js.cx/clipart/train.gif?speed=1&cache=0" />
+<script>
+  function ready() {
+    const img = document.getElementById('img');
+
+    // 此时图片已经加载完成
+    alert(`Image size: ${img.offsetWidth}x${img.offsetHeight}`);
+  }
+
+  window.addEventListener('load', ready, false);
+</script>
+```
+
+可以像 `Image` 对象，只是不能把后者添加到 DOM 树。
+
+```js
+window.addEventListener('load', () => {
+  let image = new Image();
+
+  image.addEventListener('load', event => {
+    console.log(event.target.src);
+  });
+
+  image.src = 'smile.gif';
+});
+```
+
+这里调用 Image 构造函数创建了一个新图片，并给它设置了事件处理程序。有些浏览器会把 Image 对象实现为`<img>` 元素，但并非所有浏览器都如此。所以最好把它们看成是两个东西。
+
+动态创建的`<script>`元素指定事件处理程序
+
+```js
+window.addEventListener('load', () => {
+  let script = document.createElement('script');
+  script.addEventListener('load', event => {
+    console.log('Loaded');
+  });
+  script.src = 'example.js';
+  document.body.appendChild(script);
+});
+```
+
+动态检测样式表是否加载完成
+
+```js
+window.addEventListener('load', () => {
+  let link = document.createElement('link');
+  link.type = 'text/css';
+  link.rel = 'stylesheet';
+  link.addEventListener('load', event => {
+    console.log('css loaded');
+  });
+  link.href = 'example.css';
+  document.getElementsByTagName('head')[0].appendChild(link);
+});
+```
+
+### unload 事件
+
+<code src='./demos/Unload.jsx' inline />
+
+unload 事件会在文档卸载完成后触发。unload 事件一般是 在从一个页面导航到另一个页面时触发，最常用于清理引用，以避免内存泄漏。
+
+```js
+window.addEventListener('unload', event => {
+  console.log('Unloaded!');
+});
+```
+
+当访问者离开页面时，window 对象上的 unload 事件就会被触发。我们可以在那里做一些不涉及延迟的操作，例如关闭相关的弹出窗口。
+
+假设我们收集有关页面使用情况的数据：鼠标点击，滚动，被查看的页面区域等。当用户要离开的时候，我们希望通过 unload 事件将数据保存到我们的服务器上。
+
+```js
+let analyticsData = {
+  /* 带有收集的数据的对象 */
+};
+
+window.addEventListener('unload', function() {
+  navigator.sendBeacon('/analytics', JSON.stringify(analyticsData));
+});
+```
+
+`navigator.sendBeacon`在后台发送数据，转换到另外一个页面不会有延迟：浏览器离开页面，但仍然在执行 sendBeacon。
+
+### beforeunload 事件
+
+如果访问者触发了离开页面的导航（navigation）或试图关闭窗口，beforeunload 处理程序将要求进行更多确认。用意是给开发者提供阻止页面被卸载的机会。
+
+<code src="./demos/BeforeUnload.jsx" inline />
+
+```js
+window.addEventListener('beforeunload', event => {
+  let message = "I'm really going to miss you if you go.";
+  event.returnValue = message;
+  return message;
+});
+```
+
+将 `event.returnValue` 设置为要在确认框中显示的字符串，并将其作为函数值返回
+
+### resize 事件
+
+<code src="./demos/Resize.jsx" inline />
+
+当浏览器窗口被缩放到新高度或宽度时，会触发 resize 事件。
+
+```js
+window.addEventListener('resize', event => {
+  console.log('Resized');
+});
+```
+
+### scroll 事件
+
+<code src="./demos/ScrollPage.jsx" />
+
+在混杂模式下， 可以通过`<body>`元素检测 scrollLeft 和 scrollTop 属性的变化。而在标准模式下，这些变化在 `<html>`元素上。
+
+```js
+window.addEventListener('scroll', event => {
+  if (document.compatMode == 'CSS1Compat') {
+    console.log(document.documentElement.scrollTop);
+  } else {
+    console.log(document.body.scrollTop);
+  }
+});
+```
+
+scrollingElement 返回滚动文档的 Element 对象的引用。 在标准模式下, 这是文档的根元素, document.documentElement.当在怪异模式下， scrollingElement 属性返回 HTML body 元素（若不存在返回 null ）。所以可以直接使用 document.scrollingElement 就可以实现上面代码的效果
+
+## 鼠标事件
 
 | 事件          | 触发时机                                                                                                                                              | 冒泡 | 键盘触发 |
 | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | -------- |
@@ -42,8 +200,6 @@ btn.ondblclick = function() {
   console.log('dbclick');
 };
 ```
-
-## 事件顺序
 
 #### mouseleave 和 mouseout 的区别
 
@@ -117,9 +273,11 @@ div.addEventListener('click', event => {
 
 <code src="./demos/SelectableList.jsx" />
 
-## 防止在鼠标按下时的选择
+### 双击
 
 双击鼠标会产生选择文本的副作用。使用 `preventDefault`阻止默认行为来防止选择文本的副作用
+
+<code src="./demos/MouseDoubleClick.jsx" inline />
 
 ```js
 const onMouseDown = e => {
@@ -127,30 +285,7 @@ const onMouseDown = e => {
 };
 ```
 
-```jsx
-/**
- * title: 用户体验
- * desc: 双击不会选择文本
- */
-import React, { useState, useEffect } from 'react';
-
-export default () => {
-  const [value, setValue] = useState();
-
-  const onMouseDown = e => {
-    e.preventDefault();
-  };
-
-  return (
-    <div>
-      <p>双击会选择文本</p>
-      <p onMouseDown={onMouseDown}>双击不会选择文本</p>
-    </div>
-  );
-};
-```
-
-## 移动鼠标
+### 移动鼠标
 
 ```jsx
 /**
@@ -181,65 +316,15 @@ export default () => {
 };
 ```
 
-## 坐标位置
+### 坐标位置
 
-- 相对于窗口的坐标：clientX 和 clientY。
-- 相对于文档的坐标：pageX 和 pageY。
-- 相对于屏幕：clientX 和 client
+<code src="./demos/MousePosition.jsx" />
 
-### 客户区坐标位置
-
-<code src="./demos/Coordinates.jsx" />
-
-`event` 对象的 `clientX` 和 `clientY` 属性中。这两个属性表示事件发生时鼠标光标在视口中的坐标位置
-
-```js
-document.body.onclick = function(event) {
-  const { clientX, clientY } = event;
-  console.log('Client Coordinates', clientX, clientY);
-};
-```
-
-这些值中不包括页面滚动的距离，因此这个位置并不表示鼠标在页面上的位置。
-
-### 页面坐标位置
-
-通过客户区坐标能够知道鼠标是在视口中什么位置发生的，而页面坐标通过事件对象的 pageX 和 pageY 属性，能告诉你事件是在页面中的什么位置发生的。换句话说，这两个属性表示鼠标光标在页面中的位置，因此坐标是从页面本身而非视口的左边和顶边计算的。
-
-```js
-document.body.onclick = function(event) {
-  const { pageX, pageY } = event;
-  console.log('Page Coordinates', pageX, pageY);
-};
-```
-
-在页面没有滚动的情况下，pageX 和 pageY 的值与 clientX 和 clientY 的值相等。
-
-```js
-document.body.onclick = function(event) {
-  let { pageX, pageY } = event;
-  if (pageX === undefined) {
-    const scrollLeft =
-      document.body.scrollLeft || document.documentElement.scrollLeft;
-    pageX = event.clientX + scrollLeft;
-  }
-
-  if (pageY === undefined) {
-    const scrollTop =
-      document.body.scrollTop || document.documentElement.scrollTop;
-    pageY = event.clientY + scrollTop;
-  }
-  console.log('Page coordinates: ' + pageX + ',' + pageY);
-};
-```
-
-### 屏幕坐标位置
-
-鼠标事件发生时，不仅会有相对于浏览器窗口的位置，还有一个相对于整个电脑屏幕的位置。而通 过 screenX 和 screenY 属性就可以确定鼠标事件发生时鼠标指针相对于整个屏幕的坐标信息。
-
-```js
-document.body.onclick = function(event) {
-  const { screenX, screenY } = event;
-  console.log('Screen Coordinates', screenX, screenY);
-};
-```
+| 参数    | 说明                   | 类型   |
+| ------- | ---------------------- | ------ |
+| screenX | 距离显示器左侧的距离   | number |
+| screenY | 距离显示器顶部的距离   | number |
+| clientX | 距离当前视窗左侧的距离 | number |
+| clientY | 距离当前视窗顶部的距离 | number |
+| pageX   | 距离完整页面顶部的距离 | number |
+| pageY   | 距离完整页面顶部的距离 | number |
