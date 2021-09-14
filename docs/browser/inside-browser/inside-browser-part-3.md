@@ -19,7 +19,7 @@ group:
 
 渲染进程的核心工作是将 HTML、CSS 和 JavaScript 转换为用户可以与之交互的网页。
 
-![Renderer process](https://developers.google.com/web/updates/images/inside-browser/part3/renderer.png)
+![Renderer process](https://cy-picgo.oss-cn-hangzhou.aliyuncs.com/renderer.png)
 
 图 1：渲染进程内部包含主线程、工作线程、合成线程和光栅线程
 
@@ -35,7 +35,7 @@ DOM 是一个页面在浏览器内部表现，也是 Web 开发人员可以通�
 
 ### 子资源加载
 
-网站通常使用图像、CSS 和 JavaScript 等外部资源，这些文件需要从网络或缓存加载。在解析构建 DOM 时，主线程**会**按处理顺序逐个请求它们，但为了加快速度，“预加载扫描器（preload scanner）”会同时运行。如果 HTML 文档中有 `<img>` 或 `<link>` 之类的内容，则预加载扫描器会查看由 HTML 解析器生成的标记，并在浏览器进程中向网络线程发送请求。
+网站通常使用图像、CSS 和 JavaScript 等外部资源，这些文件需要从网络或缓存加载。在解析构建 DOM 时，主线程会按处理顺序逐个请求它们，但为了加快速度，**预加载扫描器（preload scanner**会同时运行。如果 HTML 文档中有 `<img>` 或 `<link>` 之类的内容，则预加载扫描器会查看由 HTML 解析器生成的标记，并在浏览器进程中向网络线程发送请求。
 
 ![DOM](https://developers.google.com/web/updates/images/inside-browser/part3/dom.png)
 

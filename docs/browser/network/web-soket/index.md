@@ -4,6 +4,15 @@ title: Web Socket
 
 <code src="./demos/Socket.jsx" />
 
+## 前言
+
+Web Socket(套接字)的目标是通过一个长时连接实现与服务器全双工、双向的通信。
+
+1. 客户端 `new WebSocket(url [, protocols])` 向服务端建立连接
+2. 升级协议为 websocket
+3. 互发消息
+4. 关闭连接
+
 ## 建立 WebSocket
 
 实例化了 `WebSocket` 对象后，浏览器就会马上尝试创建连接。
@@ -50,6 +59,30 @@ Sec-WebSocket-Accept: heANzFKEt2W2iWRfUX6N0wpV31o=
 ```
 
 这里 `Sec-WebSocket-Accept` 是 `Sec-WebSocket-Key`，是使用特殊的算法重新编码的。浏览器使用它来确保响应与请求相对应。
+
+Express 处理协议升级
+
+```js
+const WebSocket = require('ws');
+const app = express();
+
+const wss = new WebSocket.Server({
+  noServer: true,
+});
+
+const server = http.createServer(app);
+
+server.on('upgrade', (req, socket, head) => {
+  if (req.headers['sec-websocket-protocol'] === HMR_HEADER) {
+    // @ts-ignore
+    wss.handleUpgrade(req, socket, head, ws => {
+      wss.emit('connection', ws, req);
+    });
+  }
+});
+
+server.listen(5000);
+```
 
 ## 发送和接收数据
 
@@ -165,4 +198,62 @@ socket.onclose = event => {
 };
 ```
 
-[web soket](https://www.bilibili.com/video/BV1jy4y1U7UE?p=2&t=691)
+## 服务端
+
+```js
+import WebSocket from 'ws';
+import chalk from 'chalk';
+import { Server } from 'http';
+
+const HMR_HEADER = 'socket';
+
+export function createWebSocketServer(server: Server) {
+  const wss = new WebSocket.Server({
+    noServer: true,
+  });
+
+  // 升级请求
+  server.on('upgrade', (req, socket, head) => {
+    if (req.headers['sec-websocket-protocol'] === HMR_HEADER) {
+      // @ts-ignore
+      wss.handleUpgrade(req, socket, head, ws => {
+        wss.emit('connection', ws, req);
+      });
+    }
+  });
+
+  wss.on('connection', socket => {
+    console.log('connection: ');
+    socket.send(JSON.stringify({ type: 'connected' }));
+  });
+
+  wss.on('error', (e: Error & { code: string }) => {
+    if (e.code !== 'EADDRINUSE') {
+      console.error(
+        chalk.red(`WebSocket server error:\n${e.stack || e.message}`),
+      );
+    }
+  });
+
+  return {
+    send(payload: Object) {
+      const stringified = JSON.stringify(payload);
+
+      // 向所有连接成功的客户端发送请求
+      wss.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(stringified);
+        }
+      });
+    },
+    close() {
+      wss.close();
+    },
+  };
+}
+```
+
+#### Reference
+
+- [web soket](https://www.bilibili.com/video/BV1jy4y1U7UE?p=2&t=691)
+- [协议升级机制](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Protocol_upgrade_mechanism)
