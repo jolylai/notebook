@@ -42,15 +42,13 @@ features:
 
 ## 建立知识架构
 
-<iframe height="280" style="width: 100%" src="//player.bilibili.com/player.html?aid=669025757&bvid=BV12a4y1E7mz&cid=219030782&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen={true}> </iframe>
+<iframe src="//player.bilibili.com/player.html?aid=669025757&bvid=BV12a4y1E7mz&cid=219030782&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width='100%' height='600'> </iframe>
 
 建立自己的知识架构，并且在这个架构上，不断地进行优化。**它能够帮助我们把零散的知识组织起来，也能够帮助我们发现一些知识上的盲区。**
 
 知识的架构是有优劣之分的，最重要的就是**逻辑性**和**完备性**。
 
-我们获取知识的途径可以有 书籍、视频、文章教程，笔者比较推荐
-
 - 应用场景知识
 - 利用好官网资源
 - 自己不看教程重新来一遍
-- 探索最佳实践的模板（ \*\*\* + boilerplate）
+- 探索最佳实践的模板（ react boilerplate github）
