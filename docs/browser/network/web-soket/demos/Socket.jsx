@@ -25,9 +25,10 @@ export default function Socket() {
 
     socket.addEventListener('error', event => {
       console.log('event: error', event);
+
       notification.error({
         message: 'WebSocket Error',
-        description: event,
+        description: event.toString(),
       });
     });
 
