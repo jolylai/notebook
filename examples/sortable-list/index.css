@@ -1,0 +1,38 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list {
+  padding-left: 0;
+  width: 600px;
+  list-style: none;
+}
+
+.list-item {
+  border: 1px solid #eee;
+  margin-top: -1px;
+  display: flex;
+  justify-content: center;
+  align-content: stretch;
+}
+
+.list-item-over {
+  background-color: burlywood;
+}
+
+.list-item-number {
+  display: inline-block;
+  width: 2em;
+  text-align: center;
+  padding: 8px;
+  background-color: bisque;
+}
+
+.list-item-content {
+  flex: 1 0;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
