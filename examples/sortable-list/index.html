@@ -9,50 +9,25 @@
   </head>
   <body>
     <div>
-      <h2>List</h2>
+      <h2>Simple list</h2>
+
       <ul class="list draggable-list">
-        <li class="list-item" data-index="0">
-          <span class="list-item-number">0</span>
-          <span class="list-item-content" draggable="true">Kendra</span>
-        </li>
-        <li class="list-item" data-index="1">
-          <span class="list-item-number">1</span>
-          <span class="list-item-content" draggable="true">Alexys</span>
-        </li>
-        <li class="list-item" data-index="2">
-          <span class="list-item-number">2</span>
-          <span class="list-item-content" draggable="true">Melissa</span>
-        </li>
-        <li class="list-item" data-index="3">
-          <span class="list-item-number">3</span>
-          <span class="list-item-content" draggable="true">Bernard</span>
-        </li>
-        <li class="list-item" data-index="4">
-          <span class="list-item-number">4</span>
-          <span class="list-item-content" draggable="true">Kobe</span>
-        </li>
-        <li class="list-item" data-index="5">
-          <span class="list-item-number">5</span>
-          <span class="list-item-content" draggable="true">Issac</span>
-        </li>
-        <li class="list-item" data-index="6">
-          <span class="list-item-number">6</span>
-          <span class="list-item-content" draggable="true">Tess</span>
-        </li>
-        <li class="list-item" data-index="7">
-          <span class="list-item-number">7</span>
-          <span class="list-item-content" draggable="true">June</span>
-        </li>
-        <li class="list-item" data-index="8">
-          <span class="list-item-number">8</span>
-          <span class="list-item-content" draggable="true">Fred</span>
-        </li>
-        <li class="list-item" data-index="9">
-          <span class="list-item-number">9</span>
-          <span class="list-item-content" draggable="true">Hayden</span>
-        </li>
+        <li class="list-item">Item 1</li>
+        <li class="list-item">Item 2</li>
+        <li class="list-item">Item 3</li>
+        <li class="list-item">Item 4</li>
+        <li class="list-item">Item 5</li>
+        <li class="list-item">Item 6</li>
+        <li class="list-item">Item 7</li>
+        <li class="list-item">Item 8</li>
       </ul>
     </div>
+
     <script src="./index.js"></script>
+    <script>
+      const el = document.querySelector('.draggable-list');
+
+      new Sortable(el);
+    </script>
   </body>
 </html>

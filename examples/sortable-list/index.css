@@ -12,27 +12,10 @@ body {
 
 .list-item {
   border: 1px solid #eee;
+  padding: 8px 16px;
   margin-top: -1px;
-  display: flex;
-  justify-content: center;
-  align-content: stretch;
 }
 
-.list-item-over {
+.list-item-drag {
   background-color: burlywood;
-}
-
-.list-item-number {
-  display: inline-block;
-  width: 2em;
-  text-align: center;
-  padding: 8px;
-  background-color: bisque;
-}
-
-.list-item-content {
-  flex: 1 0;
-  display: flex;
-  align-items: center;
-  padding: 0 8px;
 }
