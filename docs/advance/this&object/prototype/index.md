@@ -1,8 +1,8 @@
 ---
 title: 对象原型
 group:
-  title: 对象原型
-  order: 1
+  title: this 和对象原型
+  order: 2
 ---
 
 ## 构造函数、原型对象和实例之间的关系

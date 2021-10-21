@@ -1,7 +1,7 @@
 ---
 title: Promise
 group:
-  title: 异步
+  title: 异步和性能
 ---
 
 ## 状态

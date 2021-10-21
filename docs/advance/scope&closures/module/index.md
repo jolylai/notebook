@@ -1,7 +1,5 @@
 ---
 title: 模块
-group:
-  title: 闭包
 nav:
   title: 进阶
   order: 30
@@ -112,11 +110,32 @@ ModernModule.define('index', ['math'], function(math) {
 });
 ```
 
-## AMD
+## 现有模块标准
 
-## commonjs
+CJS 是 CommonJS 的缩写。只适用于 node 端：
 
-## UMD
+```js
+const _ = require('lodash');
+module.exports = function doSomething(n) {};
+```
+
+AMD 代表异步模块定义。在浏览器端有效：使用 requireJS 来编写模块化，特点：依赖必须提前声明好。
+
+```js
+define(['dep1', 'dep2'], function(dep1, dep2) {
+  return function() {};
+});
+```
+
+CMD： 使用 seaJS 来编写模块化，特点：支持动态引入依赖文件。
+
+```js
+define(function(require, exports, module) {
+  var indexCode = require('./index.js');
+});
+```
+
+UMD 代表通用模块定义（Universal Module Definition）
 
 ```js
 (function(root, factory) {
@@ -129,7 +148,8 @@ ModernModule.define('index', ['math'], function(math) {
     // 类 CommonJS 环境下使用
     module.exports = factory(require(' moduleB '));
   } else {
-    // 浏览器全局上下文(root 是 window) root.returnExports = factory(root. moduleB);
+    // 浏览器全局上下文(root 是 window)
+    root.returnExports = factory(root.moduleB);
   }
 })(this, function(moduleB) {
   // 以某种方式使用moduleB
@@ -139,9 +159,32 @@ ModernModule.define('index', ['math'], function(math) {
 });
 ```
 
+兼容 AMD，CommonJS 模块化语法。
+
 ## ES6
 
-> [模块化思维导图](https://www.processon.com/view/link/5c8409bbe4b02b2ce492286a#map)
+```js
+<script type="module">
+  import { html, Component, render } from 'https://unpkg.com/htm/preact/standalone.module.js';
+  class App extends Component {
+    state = {
+      count: 0
+    }
+    add = () => {
+      this.setState({ count: this.state.count + 1 });
+    }
+    render() {
+      return html`
+        <div class="app">
+          <div>count: ${this.state.count}</div>
+          <button onClick=${this.add}>Add Todo</button>
+        </div>
+      `;
+    }
+  }
+  render(html`<${App} page="All" />`, document.body);
+</script>
+```
 
 模块化主要是用来抽离公共代码，隔离作用域，避免变量冲突等。
 IIFE： 使用自执行函数来编写模块化，特点：在一个单独的函数作用域中执行代码，避免变量冲突。
@@ -154,34 +197,31 @@ IIFE： 使用自执行函数来编写模块化，特点：在一个单独的函
 })();
 ```
 
-AMD： 使用 requireJS 来编写模块化，特点：依赖必须提前声明好。
+浏览器端 ESM 执行流程
 
-```js
-define('./index.js', function(code) {
-  // code 就是index.js 返回的内容
-});
-```
+1. 开启服务，托管资源（ES 源码）
+2. 加载入口文件，浏览器模块化解析
 
-CMD： 使用 seaJS 来编写模块化，特点：支持动态引入依赖文件。
+   ![](https://cy-picgo.oss-cn-hangzhou.aliyuncs.com/20211021094151.png)
 
-```js
-define(function(require, exports, module) {
-  var indexCode = require('./index.js');
-});
-```
+3. 构建
 
-CommonJS： nodejs 中自带的模块化。
+   1. 遍历依赖树，先解析文件，然后找出依赖，最后又定位并加载这些依赖，如此往复。（下载所有的 js）
+      ![](https://cy-picgo.oss-cn-hangzhou.aliyuncs.com/20211021094034.png)
 
-```js
-var fs = require('fs');
-```
+   2. 模块映射
 
-UMD：兼容 AMD，CommonJS 模块化语法。
+      当加载器要从一个 URL 加载文件时，它会把 URL 记录到模块映射中，并把它标记为正在下载的文件。然后它会发出这个文件请求并继续开始获取下一个文件。
+      ![](https://cy-picgo.oss-cn-hangzhou.aliyuncs.com/20211021094330.png)
 
-webpack(require.ensure)：webpack 2.x 版本中的代码分割。
+   3. 解析模块
 
-ES Modules： ES6 引入的模块化，支持 import 来引入另一个 js 。
+      所有的模块都按照严格模式来解析的。不同文件类型按照不同的解析方式称。在浏览器中，通过 type="module" 属性告诉浏览器这个文件需要被解析为一个模块。不过在 Node 中，我们并不使用 HTML 标签，所以也没办法通过 type 属性来辨别。社区提出一种解决办法是使用 .mjs 拓展名。
 
-```js
-import a from 'a';
-```
+4. 运行
+
+   采用深度优先的后序遍历方式，顺着关系图到达最底端没有任何依赖的模块，然后设置它们的导出。模块映射会以 URL 为索引来缓存模块，以确保每个模块只有一个模块记录。这保证了每个模块只会运行一次。
+
+#### Reference
+
+- [模块化思维导图](https://www.processon.com/view/link/5c8409bbe4b02b2ce492286a#map)
