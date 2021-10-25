@@ -7,15 +7,27 @@
     <title>Document</title>
   </head>
   <body>
-    <div id="box">Box</div>
+    <div id="box1">First Box</div>
+    <div id="box2">Second Box</div>
 
     <script>
-      function animation(selector) {
-        const element = document.querySelector(selector);
-        console.log('element: ', element);
+      function animateIt(selector) {
+        const element = document.getElementById(selector);
+        element.style.position = 'fixed';
+
+        let tick = 0;
+        let timer = setInterval(() => {
+          if (++tick < 100) {
+            element.style.left = element.style.top = tick + 'px';
+          } else {
+            console.log('tick: ', tick);
+            clearInterval(timer);
+          }
+        }, 10);
       }
 
-      animation('#box');
+      animateIt('box1');
+      // animateIt('box2');
     </script>
   </body>
 </html>

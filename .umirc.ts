@@ -10,6 +10,7 @@ export default defineConfig({
   mode: 'site',
   resolve: {
     includes: ['docs'],
+    excludes: ['examples'],
   },
   styles: [
     // 'https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.0.0-alpha.5/tailwind.min.css',
