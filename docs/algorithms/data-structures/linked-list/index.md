@@ -1,11 +1,5 @@
 ---
 title: 链表
-group:
-  order: 1
-  title: 链表
-nav:
-  title: 数据结构
-  order: 40
 ---
 
 ## 链表

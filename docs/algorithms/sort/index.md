@@ -1,9 +1,6 @@
 ---
 title: 前言
 order: 1
-nav:
-  title: 算法
-  order: 50
 group:
   title: 排序
 ---
