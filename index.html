@@ -8,8 +8,18 @@
   </head>
   <body>
     <div id="app"></div>
-    <script type="module">
-      import axiso from 'http://cdn.skypack.dev/axios';
-    </script>
+   <script type="module">
+     import BinaryTreeNode from "./docs/algorithms/tree/index/BinaryTreeNode.js"
+     const root = new BinaryTreeNode(1);
+
+const left = new BinaryTreeNode(2);
+const right = new BinaryTreeNode(3);
+
+root.setLeft(left);
+root.setRight(right);
+
+console.log(root.traverseInOrder());
+
+   </script>
   </body>
 </html>

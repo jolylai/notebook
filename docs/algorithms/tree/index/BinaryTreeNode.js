@@ -69,4 +69,51 @@ export default class BinaryTreeNode {
 
     return false;
   }
+
+  replaceChild(nodeToReplace, replacementNode) {
+    if (!nodeToReplace || !replacementNode) {
+      return false;
+    }
+
+    if (this.left && this.nodeCompare.equal(this.left, replacementNode)) {
+      this.left = nodeToReplace;
+      return true;
+    }
+
+    if (this.right && this.nodeCompare.equal(this.right, replacementNode)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  static copyNode(sourceNode, targetNode) {
+    targetNode.setLeft(sourceNode.left);
+    targetNode.setRight(sourceNode.right);
+    targetNode.setValue(sourceNode.value);
+  }
+
+  /**遍历节点 */
+  traverseInOrder() {
+    let traverse = [];
+
+    // Add left node.
+    if (this.left) {
+      traverse = traverse.concat(this.left.traverseInOrder());
+    }
+
+    // Add root.
+    traverse.push(this.value);
+
+    // Add right node.
+    if (this.right) {
+      traverse = traverse.concat(this.right.traverseInOrder());
+    }
+
+    return traverse;
+  }
+
+  toString() {
+    return this.traverseInOrder().toString();
+  }
 }
