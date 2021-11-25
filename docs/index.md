@@ -1,10 +1,10 @@
 ---
 hero:
   title: JavaScript
-  desc: JavaScript 修炼手册
+  desc: 系统学习 JavaScript
   actions:
     - text: Getting Started
-      link: /basic
+      link: /advance/scope&closures
 features:
   - icon: https://gw.alipayobjects.com/zos/bmw-prod/881dc458-f20b-407b-947a-95104b5ec82b/k79dm8ih_w144_h144.png
     title: JavaScript
