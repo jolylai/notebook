@@ -7,7 +7,7 @@ export default class BinaryTreeNode {
     this.right = null;
     this.parent = null;
 
-    this.nodeCompare = new Comparator();
+    this.nodeComparator = new Comparator();
   }
 
   /**
@@ -57,12 +57,12 @@ export default class BinaryTreeNode {
    * @returns
    */
   removeChild(nodeToRemove) {
-    if (this.left && this.nodeCompare.compare(this.left, nodeToRemove)) {
+    if (this.left && this.nodeComparator.compare(this.left, nodeToRemove)) {
       this.left = null;
       return true;
     }
 
-    if (this.right && this.nodeCompare.equal(this.right, nodeToRemove)) {
+    if (this.right && this.nodeComparator.equal(this.right, nodeToRemove)) {
       this.right = null;
       return true;
     }
@@ -75,12 +75,12 @@ export default class BinaryTreeNode {
       return false;
     }
 
-    if (this.left && this.nodeCompare.equal(this.left, replacementNode)) {
+    if (this.left && this.nodeComparator.equal(this.left, replacementNode)) {
       this.left = nodeToReplace;
       return true;
     }
 
-    if (this.right && this.nodeCompare.equal(this.right, replacementNode)) {
+    if (this.right && this.nodeComparator.equal(this.right, replacementNode)) {
       return true;
     }
 

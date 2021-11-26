@@ -1,6 +1,6 @@
 export default class Comparator {
   constructor(compareFunction) {
-    this.compare = compareFunction || this.defaultCompareFunction;
+    this.compare = compareFunction || Comparator.defaultCompareFunction;
   }
 
   /** 默认比较函数 */
@@ -34,7 +34,6 @@ export default class Comparator {
 
   reverse(a, b) {
     const originCompare = this.compare;
-
     this.compare = (a, b) => originCompare(a, b);
   }
 }
