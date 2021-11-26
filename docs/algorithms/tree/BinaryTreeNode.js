@@ -1,4 +1,4 @@
-import Comparator from '../../utils/Comparator';
+import Comparator from '../utils/Comparator';
 
 export default class BinaryTreeNode {
   constructor(value) {
