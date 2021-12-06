@@ -1,5 +1,6 @@
 ---
 title: 链表
+order: 10
 ---
 
 ## 链表
@@ -24,5 +25,35 @@ class LinkedListNode {
   toString(callback) {
     return callback ? callback(this.value) : `${this.value}`;
   }
+}
+```
+
+## 查找节点
+
+```js
+find({ value, callback }) {
+  if (!this.head) {
+    return null;
+  }
+
+  let currentNode = this.head;
+
+  while (currentNode) {
+    if (callback && callback(currentNode.value)) {
+      return currentNode;
+    }
+
+    if (value !== undefined) {
+      if (this.compare && this.compare(currentNode.value, value) === 0) {
+        return currentNode;
+      } else if (currentNode.value === value) {
+        return currentNode;
+      }
+    }
+
+    currentNode = currentNode.next;
+  }
+
+  return null;
 }
 ```
