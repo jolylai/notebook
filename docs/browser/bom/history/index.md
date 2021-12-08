@@ -3,7 +3,24 @@ title: history
 order: 5
 ---
 
+## 前言
+
+history 对象表示当前窗口首次使用以来用户的导航历史记录。
+
 ## 历史状态
+
+<code src="./demos/Html5History.jsx" inline />
+
+```ts
+interface StateEntry extends HistoryState {
+  back: HistoryLocation | null;
+  current: HistoryLocation;
+  forward: HistoryLocation | null;
+  position: number;
+  replaced: boolean;
+  scroll: _ScrollPositionNormalized | null | false;
+}
+```
 
 history.pushState()方法接收 3 个参数:一个 state 对象、一个新状态的标题和一个(可选的)相对 URL。pushState()方法执行后
 
@@ -16,6 +33,8 @@ history.pushState()方法接收 3 个参数:一个 state 对象、一个新状�
 传给 pushState()和 replaceState()的 state 对象应该只包含可以被序列化的信息。
 
 ## hash 状态
+
+<!-- <code src="./demos/HashHistory.jsx" inline /> -->
 
 HTML5 增加了 hashchange 事件，用于在 URL 散列值(URL 最后#后面的部分)发生变化时通知开发者。event 对象有两个新属性
 
