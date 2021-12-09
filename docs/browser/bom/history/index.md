@@ -7,7 +7,7 @@ order: 5
 
 history 对象表示当前窗口首次使用以来用户的导航历史记录。
 
-## 历史状态
+## HTML5 路由
 
 <code src="./demos/Html5History.jsx" inline />
 
@@ -31,6 +31,24 @@ history.pushState()方法接收 3 个参数:一个 state 对象、一个新状�
 因为 pushState()会创建新的历史记录，所以也会相应地启用“后退”按钮。此时单击“后退” 按钮，就会触发 window 对象上的 popstate 事件。
 
 传给 pushState()和 replaceState()的 state 对象应该只包含可以被序列化的信息。
+
+```js
+const computeScrollPosition = () => ({
+  left: window.pageXOffset,
+  top: window.pageYOffset,
+});
+
+function buildState(back, current, forward, replaced, computeScroll) {
+  return {
+    back,
+    current,
+    forward,
+    replaced,
+    position: window.history.length,
+    scroll: computeScroll ? computeScrollPosition() : null,
+  };
+}
+```
 
 ## hash 状态
 

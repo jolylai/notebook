@@ -1,14 +1,15 @@
 function useHistoryListeners(base, historyState, currentLocation, replace) {
-  let listener = [];
+  let listeners = [];
   let teardowns = [];
   // TODO: should it be a stack? a Dict. Check if the popstate listener
   // can trigger twice
   let pauseState = null;
 
+  // 后退
   const popStateHandler = ({ state }) => {
     const to = createCurrentLocation(base, location);
-    const from: HistoryLocation = currentLocation.value;
-    const fromState: StateEntry = historyState.value;
+    const from = currentLocation.value;
+    const fromState = historyState.value;
     let delta = 0;
 
     if (state) {
@@ -22,6 +23,7 @@ function useHistoryListeners(base, historyState, currentLocation, replace) {
       }
       delta = fromState ? state.position - fromState.position : 0;
     } else {
+      // 第一页
       replace(to);
     }
 
@@ -48,7 +50,7 @@ function useHistoryListeners(base, historyState, currentLocation, replace) {
     pauseState = currentLocation.value;
   }
 
-  function listen(callback: NavigationCallback) {
+  function listen(callback) {
     // setup the listener and prepare teardown callbacks
     listeners.push(callback);
 
@@ -61,6 +63,7 @@ function useHistoryListeners(base, historyState, currentLocation, replace) {
     return teardown;
   }
 
+  // 页面卸载前记录当前滚动条位置
   function beforeUnloadListener() {
     const { history } = window;
     if (!history.state) return;
@@ -85,5 +88,50 @@ function useHistoryListeners(base, historyState, currentLocation, replace) {
     pauseListeners,
     listen,
     destroy,
+  };
+}
+
+const computeScrollPosition = () => ({
+  left: window.pageXOffset,
+  top: window.pageYOffset,
+});
+
+function buildState(back, current, forward, replaced, computeScroll) {
+  return {
+    back,
+    current,
+    forward,
+    replaced,
+    position: window.history.length,
+    scroll: computeScroll ? computeScrollPosition() : null,
+  };
+}
+
+function useHistoryStateNavigation() {
+  /**
+   * 修改当前页面状态
+   * @param {String} to
+   */
+  function replace(to) {
+    const state = Object.assign({}, history.state, {
+      current: to,
+      replaced: true,
+    });
+
+    history.replaceState(state, '', to);
+  }
+
+  function push(to) {
+    const state = Object.assign({}, buildState(location.pathname, to, null));
+
+    history.replaceState(state, '', to);
+  }
+
+  return {
+    location: location.pathname,
+    state: history.state,
+
+    push,
+    replace,
   };
 }

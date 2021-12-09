@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Button, Space } from 'antd';
 
 function Html5History() {
-  const handleStateChange = e => {
+  const popStateHandler = e => {
     console.log('e: ', e);
   };
 
@@ -16,14 +16,22 @@ function Html5History() {
   };
 
   const handlePushState = () => {
-    history.pushState({}, '', '/browser/bom/window');
+    const url = '/browser/bom/window';
+    const state = {
+      back: url,
+      current: '',
+      forward: '',
+      position: 0,
+      replaced: false,
+    };
+    history.pushState(state, '', url);
   };
 
   useEffect(() => {
-    window.addEventListener('popstate', handleStateChange, false);
+    window.addEventListener('popstate', popStateHandler, false);
 
     return () => {
-      window.removeEventListener('popstate', handleStateChange, false);
+      window.removeEventListener('popstate', popStateHandler, false);
     };
   }, []);
 
