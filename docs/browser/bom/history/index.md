@@ -25,7 +25,7 @@ interface StateEntry extends HistoryState {
 history.pushState()方法接收 3 个参数:一个 state 对象、一个新状态的标题和一个(可选的)相对 URL。pushState()方法执行后
 
 - 状态信息就会被推到历史记录中
-- 浏览器地址栏也会改变以反映新的相对 URL。除了这些变化之外，即使
+- 浏览器地址栏也会改变以反映新的相对 URL。
 - location.href 返回的是地址栏中的内容，**浏览器页不会向服务器发送请求**
 
 因为 pushState()会创建新的历史记录，所以也会相应地启用“后退”按钮。此时单击“后退” 按钮，就会触发 window 对象上的 popstate 事件。

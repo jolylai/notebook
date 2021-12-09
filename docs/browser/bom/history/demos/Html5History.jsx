@@ -3,20 +3,12 @@ import { Button, Space } from 'antd';
 
 function Html5History() {
   const popStateHandler = e => {
-    console.log('e: ', e);
-  };
-
-  const handleBack = e => {
-    console.log('e: ', e);
-    history.go(-1);
-  };
-
-  const handleForward = e => {
-    console.log('e: ', e);
+    console.log('e: ', e.state);
   };
 
   const handlePushState = () => {
     const url = '/browser/bom/window';
+
     const state = {
       back: url,
       current: '',
@@ -24,6 +16,7 @@ function Html5History() {
       position: 0,
       replaced: false,
     };
+    console.log(state);
     history.pushState(state, '', url);
   };
 
@@ -37,10 +30,7 @@ function Html5History() {
 
   return (
     <Space>
-      <Button onClick={handleBack}>后退</Button>
-      <Button onClick={handleForward}>前进</Button>
       <Button onClick={handlePushState}>pushState</Button>
-      <Button onClick={handlePushState}>修改当前路由状态</Button>
     </Space>
   );
 }
