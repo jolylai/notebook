@@ -2,59 +2,56 @@
  * title: 可选列表
  * desc: 点击类表单选， 按住 Control（Mac 为 Commond）点击时为多选
  */
-import React from 'react';
-import styled from 'styled-components';
-
-const Container = styled.div`
-  ul {
-    list-style: none;
-  }
-  .selected {
-    background: #00ff00;
-  }
-`;
+import React, { useState } from 'react';
 
 export default () => {
-  const onClick = e => {
-    const { target, metaKey, ctrlKey } = e;
+  const [checkList, setCheckList] = useState([]);
 
-    if (target.tagName != 'LI') {
-      return;
-    }
+  const fruits = ['Apple', 'Pear', 'Orange', 'Banana'];
 
-    const singleSelect = li => {
-      const selected = document.querySelectorAll('.selected');
-      for (let ele of selected) {
-        ele.classList.remove('selected');
-      }
-      li.classList.add('selected');
-    };
+  const listItems = fruits.map(fruit => (
+    <li
+      data-value={fruit}
+      key={fruit}
+      style={{
+        padding: 8,
+        marginTop: -1,
+        border: '1px solid #d1d5db',
+        backgroundColor: checkList.includes(fruit) ? 'skyblue' : '',
+      }}
+    >
+      {fruit}
+    </li>
+  ));
 
-    const toggleSelect = li => {
-      li.classList.toggle('selected');
-    };
+  const toggleCheckList = value => {
+    const exist = checkList.includes(value);
 
-    if (ctrlKey || metaKey) {
-      toggleSelect(target);
+    let newCheckList = [...checkList];
+
+    if (exist) {
+      newCheckList = newCheckList.filter(item => item !== value);
     } else {
-      singleSelect(target);
+      newCheckList.push(value);
     }
+
+    setCheckList(newCheckList);
   };
 
-  const onMouseDown = e => {
-    e.preventDefault();
+  const clickHandler = event => {
+    const value = event.target.getAttribute('data-value');
+
+    if (event.metaKey) {
+      // 多选
+      toggleCheckList(value);
+    } else {
+      checkList.includes(value) ? setCheckList([]) : setCheckList([value]);
+    }
   };
 
   return (
-    <Container>
-      <h3>点击列表项选择</h3>
-      <ol onClick={onClick} onMouseDown={onMouseDown}>
-        <li>Christopher Robin</li>
-        <li>Winnie-the-Pooh</li>
-        <li>Tigger</li>
-        <li>Kanga</li>
-        <li>Rabbit. Just rabbit.</li>
-      </ol>
-    </Container>
+    <ol style={{ paddingLeft: 0, listStyle: 'none' }} onClick={clickHandler}>
+      {listItems}
+    </ol>
   );
 };

@@ -85,7 +85,7 @@ export default () => {
 
 ## 修饰键
 
-<code src='./demos/ComposeKey.jsx' inline />
+<code src="./demos/SelectableList.jsx" />
 
 键盘上的修饰键 `Shift`、`Ctrl`、`Alt` 和 `Meta` 经常用于修改鼠标事件的行为。这几个修饰键的状态:`shiftKey`、`ctrlKey`、`altKey` 和 `metaKey`。这几属性会在各自对应的修饰 键被按下时包含布尔值 true，没有被按下时包含 false。
 
@@ -122,8 +122,6 @@ div.addEventListener('click', event => {
 - 如果点击时，按键 Ctrl（在 Mac 中为 Cmd）是被按下的，则选择会被切换到被点击的元素上，但其他元素不会被改动。
 
 [原生类名操作](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/classList)
-
-<code src="./demos/SelectableList.jsx" />
 
 ## 双击
 
