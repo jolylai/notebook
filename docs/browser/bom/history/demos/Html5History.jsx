@@ -26,15 +26,17 @@ function Html5History() {
 
   // 跳转
   const handlePushState = () => {
-    const url = '/browser/bom/window';
+    const to = '/browser/bom/window';
 
     const currentState = Object.assign({}, history.state, { forward: to });
 
+    history.replaceState(currentState);
+
     const state = {
-      back: url,
-      current: '',
-      forward: '',
-      position: 0,
+      back: location.pathname,
+      current: to,
+      forward: null,
+      position: currentState.position + 1,
       replaced: false,
     };
 

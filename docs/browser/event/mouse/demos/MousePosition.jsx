@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-function CoordinatesClient() {
+function MousePosition() {
   const [state, setState] = useState({
     clientX: null,
     clientY: null,
@@ -17,14 +17,14 @@ function CoordinatesClient() {
   };
 
   useEffect(() => {
-    document.addEventListener('mousemove', handler, false);
+    document.addEventListener('click', handler, false);
 
     return () => {
-      document.removeEventListener('mousemove', handler, false);
+      document.removeEventListener('click', handler, false);
     };
   }, []);
 
   return <div>{JSON.stringify(state)}</div>;
 }
 
-export default CoordinatesClient;
+export default MousePosition;

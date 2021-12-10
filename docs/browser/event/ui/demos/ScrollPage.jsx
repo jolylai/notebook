@@ -6,7 +6,7 @@ export default () => {
     scrollLeft: null,
   });
 
-  function handler(event) {
+  function scrollHandler(event) {
     if (event.target === document) {
       if (document.scrollingElement) {
         const { scrollTop, scrollLeft } = document.scrollingElement;
@@ -19,9 +19,9 @@ export default () => {
   }
 
   useEffect(() => {
-    window.addEventListener('scroll', handler, false);
+    window.addEventListener('scroll', scrollHandler, false);
     return () => {
-      window.removeEventListener('scroll', handler, false);
+      window.removeEventListener('scroll', scrollHandler, false);
     };
   }, []);
 

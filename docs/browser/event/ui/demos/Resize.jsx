@@ -8,8 +8,8 @@ export default () => {
     outerHeight: window.outerHeight,
   });
 
-  function handler(event) {
-    console.log('event: resize', event);
+  function resizeHandler(event) {
+    console.log('event: resize', event.target);
 
     const { innerWidth, innerHeight, outerWidth, outerHeight } = event.target;
 
@@ -17,9 +17,9 @@ export default () => {
   }
 
   useEffect(() => {
-    window.addEventListener('resize', handler, false);
+    window.addEventListener('resize', resizeHandler, false);
     return () => {
-      window.removeEventListener('resize', handler, false);
+      window.removeEventListener('resize', resizeHandler, false);
     };
   }, []);
 
