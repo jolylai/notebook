@@ -58,15 +58,13 @@ const onMouseDown = e => {
 比如，click 事件触发的前提是 mousedown 事件触发后，紧接着又在同一个元素上触发了 mouseup 20
 事件。如果 mousedown 和 mouseup 中的任意一个事件被取消，那么 click 事件就不会触发。类似地， 两次连续的 click 事件会导致 dblclick 事件触发。只要有任何逻辑阻止了这两个 click 事件发生(比 如取消其中一个 click 事件或者取消 mousedown 或 mouseup 事件中的任一个)，dblclick 事件就不 会发生。这 4 个事件永远会按照如下顺序触发:
 
-(1) mousedown
-(2) mouseup
-(3) click
-
-(4) mousedown
-(5) mouseup
-(6) click
-
-(7) dblclick
+1. mousedown
+2. mouseup
+3. click
+4. mousedown
+5. mouseup
+6. click
+7. dblclick
 
 ## 鼠标按键
 
@@ -122,9 +120,15 @@ div.addEventListener('click', event => {
 
 [原生类名操作](https://developer.mozilla.org/zh-CN/docs/Web/API/Element/classList)
 
-## 坐标位置
+## 光标位置
 
 <code src="./demos/MousePosition.jsx" />
+
+#### client
+
+#### page
+
+#### screen
 
 | 参数    | 说明                   | 类型   |
 | ------- | ---------------------- | ------ |
