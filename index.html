@@ -7,18 +7,24 @@
     <title>Document</title>
   </head>
   <body>
-    <div id="app" contenteditable>ddd</div>
-    <script type="module">
-      import BinaryTreeNode from './docs/algorithms/tree/index/BinaryTreeNode.js';
-      const root = new BinaryTreeNode(1);
+    <div id="app"></div>
+    <button id="btn">button</button>
+    <script>
+      const btn = document.getElementById('btn');
 
-      const left = new BinaryTreeNode(2);
-      const right = new BinaryTreeNode(3);
+      const handler = event => {
+        console.log(event.type);
+        console.log('button', event.button);
 
-      root.setLeft(left);
-      root.setRight(right);
+        if (event.type === 'mouseup') {
+          event.stopImmediatePropagation();
+        }
+      };
 
-      console.log(root.traverseInOrder());
+      btn.addEventListener('mousedown', handler, false);
+      btn.addEventListener('mouseup', handler, false);
+      btn.addEventListener('click', handler, false);
+      btn.addEventListener('dblclick', handler, false);
     </script>
   </body>
 </html>
