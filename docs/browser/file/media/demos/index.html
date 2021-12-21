@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>媒体</title>
+  </head>
+  <body>
+    <h3 class="audio-player__current"><small>Playing:</small> Jingle Bells</h3>
+    <button
+      data-action="play"
+      data-state="paused"
+      class="audio-player__button"
+      type="button"
+    >
+      <span class="audio-player__label">Play</span>
+      <svg data-play height="24" width="24" aria-hidden="true">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+      <svg data-pause hidden height="24" width="24">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+      </svg>
+    </button>
+    <button
+      data-action="mute"
+      class="audio-player__button"
+      type="button"
+      aria-pressed="false"
+    >
+      <span class="audio-player__label">Mute</span>
+      <svg height="24" width="24" aria-hidden="true">
+        <!-- svg path -->
+      </svg>
+    </button>
+    <p class="audio-player__time">
+      <span class="audio-player__label">Elapsed time&nbsp;</span
+      ><span data-time="remaining">0:00</span> /
+      <span class="audio-player__label"> Total time&nbsp;</span
+      ><span data-time="total">0:00</span>
+    </p>
+    <audio
+      controls
+      src="https://12daysofwebdev.cdn.prismic.io/12daysofwebdev/b60d021d-413b-45db-a561-e5f7b57cfc89_jingle-bells.mp3"
+    ></audio>
+  </body>
+</html>

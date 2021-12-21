@@ -1,10 +1,14 @@
 ---
-title: 进程和线程
+title: 第一部分
 group:
-  order: 1
+  order: 10
   title: 现代浏览器内部揭秘
-  path: inside-browser
 ---
+
+现代浏览器工作原理 (part 1)
+现代浏览器工作原理 (part 2)
+现代浏览器工作原理 (part 3)
+现代浏览器工作原理 (part 4)
 
 ## CPU、GPU、内存和多进程体系结构
 

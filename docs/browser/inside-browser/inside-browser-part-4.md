@@ -2,7 +2,6 @@
 title: 第四部分
 group:
   title: 现代浏览器内部揭秘
-  path: inside-browser
 ---
 
 ## 用户输入行为与合成器
@@ -40,7 +39,7 @@ group:
 web 开发中常用的事件处理模式是事件代理。因为事件会冒泡，所以你可以在最顶层的元素中添加一个事件处理器，用来代理事件目标产生的任务。下面这样的代码，你可能见过，或许也写过。
 
 ```
-document.body.addEventListener('touchstart',  event => {
+document.body.addEventListener('touchstart', event => {
     if (event.target === area) {
         event.preventDefault();
     }

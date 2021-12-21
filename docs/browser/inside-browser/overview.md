@@ -1,11 +1,5 @@
 ---
 title: 总结
-nav:
-  order: 10
-  title: 浏览器
-group:
-  title: 现代浏览器内部揭秘
-  path: inside-browser
 ---
 
 ## 进程 线程

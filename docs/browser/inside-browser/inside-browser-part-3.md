@@ -1,8 +1,7 @@
 ---
-title: 渲染进程的内部机制
+title: 第三部分
 group:
   title: 现代浏览器内部揭秘
-  path: inside-browser
 ---
 
 ## 渲染进程的内部机制

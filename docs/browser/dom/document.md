@@ -2,7 +2,7 @@
 title: document
 order: 2
 group:
-  order: 2
+  order: 30
 ---
 
 `document` 对象是 HTMLDocument(继承自 Document 类型)的一个实例，表示整个 HTML 页面。而且，document 对象是 window 对象的一个 属性，因此可以将其作为全局对象来访问。Document 节点具有下列特征:

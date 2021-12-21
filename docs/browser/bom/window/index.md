@@ -3,7 +3,7 @@ title: window
 order: 1
 group:
   title: BOM
-  order: 2
+  order: 20
 ---
 
 ## 前言

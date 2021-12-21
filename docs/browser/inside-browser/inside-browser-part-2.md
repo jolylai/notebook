@@ -1,8 +1,7 @@
 ---
-title: 导航
+title: 第二部分
 group:
   title: 现代浏览器内部揭秘
-  path: inside-browser
 ---
 
 ## 导航时发生了什么
