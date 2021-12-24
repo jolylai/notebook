@@ -1,3 +1,15 @@
+---
+title: 前言
+order: 1
+group:
+  order: 1
+  title: 概览
+nav:
+  title: Lodash
+---
+
+- [Lodash](https://lodash.com/docs/4.17.15)
+
 ## 函数是一等公民
 
 函数及函数式概念之所以如此重要，其原因之一在于函数是程序执行过程中的主要模块单元。除了全局 JavaScript 代码是在页面构建的阶段

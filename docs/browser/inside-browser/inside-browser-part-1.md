@@ -1,5 +1,8 @@
 ---
 title: 第一部分
+nav:
+  order: 10
+  title: 浏览器
 group:
   order: 10
   title: 现代浏览器内部揭秘

@@ -1,7 +1,5 @@
 ---
 title: 缓存
-group:
-  title: 网络
 ---
 
 ## 前言
