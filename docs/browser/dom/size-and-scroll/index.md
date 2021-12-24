@@ -1,8 +1,10 @@
 ---
-title: 滚动
+title: 元素大小和滚动
 ---
 
 ## 概览
+
+元素有边框（border），内边距（padding）和滚动（scrolling）等全套功能。但没有外边距（margin），因为它们不是元素本身的一部分，并且它们没什么特殊的属性。
 
 ![](https://javascript.info/article/size-and-scroll/metric-all.svg)
 
@@ -11,6 +13,24 @@ title: 滚动
 ### clientLeft 和 clientTop
 
 <code src="./demos/ClientLeft.jsx" inline />
+
+表示一个元素的左边框的宽度，以像素表示。如果元素的文本方向是从右向左（RTL, right-to-left），并且由于内容溢出导致左边出现了一个垂直滚动条，则该属性包括滚动条的宽度。clientLeft 不包括左外边距和左内边距。clientLeft 是只读的。
+
+```js
+const body = document.body;
+
+// 即 CSS 中 border-left 的值
+const borderLeft = body.clientLeft; // -> 20
+```
+
+`HTMLElement.clientTop`一个元素顶部边框的宽度（以像素表示）。不包括顶部外边距或内边距。clientTop 是只读的。
+
+```js
+const body = document.body;
+
+// 即 CSS 中 border-top 的值
+const borderLeft = body.clientTop; // -> 20
+```
 
 表示一个元素的左边框的宽度，以像素表示。**clientLeft = 左边框宽度 + 滚动条宽度**,不包括左外边距和左内边距。
 
@@ -131,9 +151,7 @@ element.scrollIntoView(false);
 element.scrollIntoView({ block: 'start', inline: 'nearest' });
 ```
 
-## 习题
-
-### 判断一个元素是否在可视区域中
+## 判断一个元素是否在可视区域中
 
 <code src="./demos/ViewPort.jsx" inline />
 
@@ -154,6 +172,8 @@ function isInViewPortOfOne(el) {
   return top <= viewPortHeight;
 }
 ```
+
+### getBoundingClientRect
 
 ```js
 function isInViewPort(element) {

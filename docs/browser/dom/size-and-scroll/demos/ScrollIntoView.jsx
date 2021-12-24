@@ -5,8 +5,9 @@ export default function ScrollIntoView() {
   const ulStyle = {
     height: 300,
     overflow: 'auto',
-    liStyle: 'none',
+    listStyle: 'none',
     position: 'relative',
+    paddingLeft: 0,
   };
 
   const liStyle = {
@@ -35,8 +36,8 @@ export default function ScrollIntoView() {
 
   return (
     <div>
-      <Button onClick={handleScrollIntoView}>scrollIntoView</Button>
       <ul style={ulStyle}>{lis}</ul>
+      <Button onClick={handleScrollIntoView}>scrollIntoView</Button>
     </div>
   );
 }

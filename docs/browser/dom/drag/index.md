@@ -2,11 +2,25 @@
 title: 原生拖放
 ---
 
+```js
+const getElements = (selector, root = document) => {
+  if (selector instanceof Element) {
+    return [selector];
+  }
+
+  if (selector instanceof NodeList) {
+    return selector;
+  }
+
+  return root.querySelectorAll(selector);
+};
+```
+
 ## 被拖拽元素
 
 默认情况下，`图像`、`链接`和`文本`是可以拖动的，也就是说，不用额外编写代码，用户就可以拖动它们。文本只有在被选中的情况下才能拖动，而图像和链接在任何时候都可以拖动。
 
-<code src='./demo/DragableElement.jsx' inline />
+<code src='./demo/DraggableElement.jsx' inline />
 
 图像和链接的 `draggable` 属性自动被设置成了 `true`，而其他元素这个属性的默认值都是 `false`。要想让其他元素可拖动，或者让图像或链接不能拖动，都可以设置这个属性。
 
@@ -18,22 +32,6 @@ title: 原生拖放
 ```
 
 拖动某元素时，将依次触发 下列事件: `dragstart -> drag -> dragend`
-
-```js
-const dragElement = document.getElementById('dragElement');
-
-dragElement.ondragstart = function() {
-  console.log('ondragstart');
-};
-
-dragElement.ondrag = function() {
-  console.log('ondrag');
-};
-
-dragElement.ondragend = function() {
-  console.log('dragend');
-};
-```
 
 ```js
 const dragElement = document.getElementById('dragElement');

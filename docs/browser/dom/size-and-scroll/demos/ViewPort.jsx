@@ -33,8 +33,9 @@ export default function ViewPort() {
   const ulStyle = {
     height: 300,
     overflow: 'auto',
-    liStyle: 'none',
+    listStyle: 'none',
     position: 'relative',
+    paddingLeft: 0,
   };
 
   const liStyle = {
