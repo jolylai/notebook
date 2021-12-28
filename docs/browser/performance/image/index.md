@@ -18,6 +18,20 @@ title: 图片优化
 
 ## 懒加载
 
+```js
+const getElements = (selector, root = document) => {
+  if (selector instanceof Element) {
+    return [selector];
+  }
+
+  if (selector instanceof NodeList) {
+    return selector;
+  }
+
+  return root.querySelectorAll(selector);
+};
+```
+
 <!-- <code src='./demos/LazyImage.jsx' inline /> -->
 
 `img` 只有被赋值 `src` 值的时候浏览器才会加载图片，在`img` 进入可视区的时候, 设置 `img` 的`src`
