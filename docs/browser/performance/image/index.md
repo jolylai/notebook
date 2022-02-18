@@ -18,33 +18,26 @@ title: 图片优化
 
 ## 懒加载
 
-```js
-const getElements = (selector, root = document) => {
-  if (selector instanceof Element) {
-    return [selector];
-  }
-
-  if (selector instanceof NodeList) {
-    return selector;
-  }
-
-  return root.querySelectorAll(selector);
-};
-```
-
-<!-- <code src='./demos/LazyImage.jsx' inline /> -->
-
-`img` 只有被赋值 `src` 值的时候浏览器才会加载图片，在`img` 进入可视区的时候, 设置 `img` 的`src`
+1. 首先给图片一个占位资源,`img` 只有被赋值 `src` 值的时候浏览器才会加载图片，在`img` 进入可视区的时候, 设置 `img` 的`src`
 
 ```html
-<!-- 未加载 -->
 <img class="lazy" data-src="https://source.unsplash.com/random/800x600" />
+```
+
+2. 通过监听 scroll 事件来判断图片是否到达视口时加载图片
+
+```js
+const load = element => {
+  if (element.getAttribute('data-src')) {
+    element.src = element.getAttribute('data-src');
+    element.setAttribute('data-loaded', true);
+  }
+};
 ```
 
 `img` 进入可视区的时候将 `img` 设置成以下值
 
 ```html
-<!-- 已加载 -->
 <img
   class="lazy"
   data-src="https://source.unsplash.com/random/800x600"
@@ -53,7 +46,16 @@ const getElements = (selector, root = document) => {
 />
 ```
 
-### 获取元素
+3. 在元素进入可视区域的时候将图片的 `data-src` 赋值到 `src` 中，并标注`data-loaded="true"` 为已加载
+
+```js
+const load = element => {
+  element.src = element.getAttribute('data-src');
+  element.setAttribute('data-loaded', true);
+};
+```
+
+<!-- <code src='./demos/LazyImage.jsx' inline /> -->
 
 我们需要知道哪些元素需要懒加载，用户可传入的可能是一个元素，元素列表或者一个选择器
 
@@ -71,11 +73,47 @@ const getElements = (selector, root = document) => {
 };
 ```
 
-### 加载图片
+### 1. clientHeight、scrollTop 和 offsetTop
+
+```js
+function isInViewPortOfOne(el) {
+  // viewPortHeight 兼容所有浏览器写法
+  const viewPortHeight =
+    window.innerHeight ||
+    document.documentElement.clientHeight ||
+    document.body.clientHeight;
+  const offsetTop = el.offsetTop;
+  const scrollTop = document.documentElement.scrollTop;
+  const top = offsetTop - scrollTop;
+  return top <= viewPortHeight;
+}
+```
+
+### 2. getBoundingClientRect
+
+```js
+function isInViewPort(element) {
+  const viewWidth = window.innerWidth || document.documentElement.clientWidth;
+  const viewHeight =
+    window.innerHeight || document.documentElement.clientHeight;
+  const { top, right, bottom, left } = element.getBoundingClientRect();
+
+  return top >= 0 && left >= 0 && right <= viewWidth && bottom <= viewHeight;
+}
+```
+
+### 3. IntersectionObserver
 
 ```js
 const observer = new IntersectionObserver((entries, observer) => {
   entries.forEach(entry => {
+    entry.time; // 触发的时间
+    entry.rootBounds; // 根元素的位置矩形，这种情况下为视窗位置
+    entry.boundingClientRect; // 被观察者的位置举行
+    entry.intersectionRect; // 重叠区域的位置矩形
+    entry.intersectionRatio; // 重叠区域占被观察者面积的比例（被观察者不是矩形时也按照矩形计算）
+    entry.target; // 被观察者
+
     if (entry.intersectionRatio > 0 || entry.isIntersecting) {
       // 只需要首次进入可视区时加载一次·
       observer.unobserve(entry.target);
@@ -95,15 +133,6 @@ observer.observe(element);
 - `entry.rootBounds`: 窗体根元素的矩形区域对象。
 - `entry.target`: 当前交叉的元素。
 - `entry.time`: 当前时间戳。
-
-在元素进入可视区域的时候将图片的 `data-src` 赋值到 `src` 中，并标注`data-loaded="true"` 为已加载
-
-```js
-const load = element => {
-  element.src = element.getAttribute('data-src');
-  element.setAttribute('data-loaded', true);
-};
-```
 
 #### Reference
 
