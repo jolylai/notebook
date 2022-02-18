@@ -1,5 +1,5 @@
 import LinkedListNode from './LinkedListNode';
-import Comparator from '../../utils/Comparator';
+import Comparator from '../utils/Comparator';
 
 export default class LinkedList {
   constructor(comparatorFunction) {
@@ -85,7 +85,7 @@ export default class LinkedList {
 
   /**
    * 同过值或者回调函数查找节点
-   * @param {*} param0
+   * @param {*} param
    * @returns
    */
   find({ value, callback }) {
