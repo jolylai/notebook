@@ -1,5 +1,8 @@
 ---
 title: 递归
+group:
+  order: 1
+  title: 快速开始
 ---
 
 ## 递归函数

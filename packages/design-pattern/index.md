@@ -1,5 +1,5 @@
 ---
-title: 指南
+title: 快速开始
 order: 1
 nav:
   title: 设计模式

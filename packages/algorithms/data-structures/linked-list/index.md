@@ -1,8 +1,5 @@
 ---
-title: 概览
-group:
-  title: 链表
-  order: 1
+title: 链表
 ---
 
 ## 前言

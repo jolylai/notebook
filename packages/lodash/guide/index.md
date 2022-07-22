@@ -1,9 +1,6 @@
 ---
 title: 前言
 order: 1
-group:
-  order: 1
-  title: 概览
 nav:
   title: Lodash
 ---
