@@ -14,12 +14,13 @@ export default defineConfig({
   ],
   extraBabelPlugins: [
     [
-      'import',
+      'babel-plugin-import',
       {
         libraryName: 'antd',
         libraryDirectory: 'es',
-        style: 'css',
+        style: true,
       },
+      'antd',
     ],
   ],
   // more config: https://d.umijs.org/config
