@@ -1,37 +1,7 @@
-import React, { useRef } from 'react';
-import styled from 'styled-components';
+import { Space } from 'antd';
+import React from 'react';
 
 export default () => {
-  const Container = styled.div`
-    button + button {
-      margin-left: 8px;
-    }
-  `;
-
-  const PulsIcon = styled.span`
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    position: relative;
-    &::before,
-    &::after {
-      content: '';
-      display: block;
-      position: absolute;
-    }
-
-    &::before {
-      border-top: 1px solid;
-      width: 100%;
-      top: 50%;
-    }
-    &::after {
-      height: 100%;
-      border-left: 1px solid;
-      left: 50%;
-    }
-  `;
-
   const onContextMenu = e => {
     console.log('contextmenu');
   };
@@ -69,7 +39,7 @@ export default () => {
   };
 
   return (
-    <Container>
+    <Space>
       <button
         onContextMenu={onContextMenu}
         onMouseEnter={onMouseEnter}
@@ -93,8 +63,8 @@ export default () => {
       </button>
       <button onContextMenu={onContextMenu}>鼠标右键</button>
       <button onMouseLeave={onMouseLeave} onMouseOut={onMouseOut}>
-        <PulsIcon /> 新增
+        新增
       </button>
-    </Container>
+    </Space>
   );
 };

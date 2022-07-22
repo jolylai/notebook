@@ -4,6 +4,7 @@ title: 鼠标事件
 
 ## 点击事件
 
+<code src="./demos/MouseEvent.jsx" inline />
 <code src="./demos/MouseClick.jsx" inline />
 
 <!-- | 事件          | 触发时机                                                                                                                                              | 冒泡 | 键盘触发 |

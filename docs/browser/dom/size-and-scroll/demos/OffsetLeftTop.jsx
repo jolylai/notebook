@@ -1,29 +1,28 @@
 import React from 'react';
-import styled from 'styled-components';
 
 export default () => {
-  const SpanBox = styled.div`
-    width: 300px;
-    border-color: blue;
-    border-style: solid;
-    border-width: 1;
-  `;
-
-  const Box = styled.div`
-    position: absolute;
-    border-color: red;
-    border-width: 1;
-    border-style: solid;
-    z-index: 10;
-  `;
-
   return (
     <div>
-      <SpanBox>
+      <div
+        style={{
+          width: '300px',
+          borderColor: 'blue',
+          borderStyle: 'solid',
+          borderWidth: 1,
+        }}
+      >
         <span>Short span. </span>
         <span id="long">Long span that wraps withing this div.</span>
-      </SpanBox>
-      <Box></Box>
+      </div>
+      <div
+        style={{
+          position: 'absolute',
+          borderColor: 'red',
+          borderWidth: '1',
+          borderStyle: 'solid',
+          zIndex: '10',
+        }}
+      ></div>
     </div>
   );
 };
