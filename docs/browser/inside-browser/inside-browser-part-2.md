@@ -6,7 +6,7 @@ group:
 
 ## 导航时发生了什么
 
-<iframe src="//player.bilibili.com/player.html?aid=583494659&bvid=BV1Rz4y197Jd&cid=197789916&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width='100%' height='600'> </iframe>
+<iframe src="//player.bilibili.com/player.html?aid=583494659&bvid=BV1Rz4y197Jd&cid=197789916&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowFullScreen={true} width='100%' height='600'> </iframe>
 
 在这篇文章中，我们会更深入研究每个进程和线程如何进行通信以展示网站。
 

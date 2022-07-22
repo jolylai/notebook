@@ -5,10 +5,9 @@ title: 元素大小和滚动
 ## 概览
 
 元素有边框（border），内边距（padding）和滚动（scrolling）等全套功能。但没有外边距（margin），因为它们不是元素本身的一部分，并且它们没什么特殊的属性。
+<code src='./demos/Schematic.jsx' inline />
 
-![](https://javascript.info/article/size-and-scroll/metric-all.svg)
-
-## 元素视图属性
+## 元素大小
 
 ### clientLeft 和 clientTop
 
@@ -48,15 +47,13 @@ const borderLeft = body.clientTop; // -> 20
 
 当在根元素(`<html>`元素)上使用 clientWidth 时(或者在`<body>`上，如果文档是在 quirks(怪异)模式下)，将返回 viewport 的宽度(不包括任何滚动条)
 
-## offset
+## offsetParent，offsetLeft/Top
 
-![](https://cy-picgo.oss-cn-hangzhou.aliyuncs.com/dimensions-offset.png)
+![](https://javascript.info/article/size-and-scroll/metric-all.svg)
 
 ### offsetParent
 
 对块级元素来说，offsetTop、offsetLeft、offsetWidth 及 offsetHeight 描述了元素相对于 offsetParent 的边界框。
-
-`HTMLElement.offsetParent` 是一个只读属性，返回一个指向最近的（closest，指包含层级上的最近）包含该元素的定位元素。如果没有定位的元素，则 offsetParent 为最近的 table, table cell 或根元素（标准模式下为 html；quirks 模式下为 body）。当元素的 style.display 设置为 "none" 时，offsetParent 返回 null。offsetParent 很有用，因为 offsetTop 和 offsetLeft 都是相对于其内边距边界的。
 
 offsetParent 是最接近的祖先（ancestor），在浏览器渲染期间，它被用于计算坐标。
 
@@ -70,13 +67,9 @@ offsetParent 是最接近的祖先（ancestor），在浏览器渲染期间，�
 2. 对于 `<body>` 与 `<html>`。
 3. 对于带有 position:fixed 的元素。
 
-`offsetLeft/offsetTop` 提供相对于 `offsetParent` (padding-box) 左上角的 x/y 坐标。
-
 ### offsetLeft 和 offsetTop
 
-<Alert>
-相对于 offsetParent 的 padding-box 计算
-</Alert>
+`offsetLeft/offsetTop` 提供相对于 `offsetParent` (padding-box) 左上角的 x/y 坐标。
 
 - `HTMLElement.offsetTop` 为只读属性，它返回当前元素相对于其 offsetParent 元素的顶部的距离。
 - `HTMLElement.offsetLeft` 为只读属性，返回当前元素左上角相对于 offsetParent 节点的左边界偏移的像素值。
@@ -90,8 +83,6 @@ offsetParent 是最接近的祖先（ancestor），在浏览器渲染期间，�
 <code src="./demos/OffsetWidthHeight.jsx" inline />
 
 测量包含元素的边框(border)、水平线上的内边距(padding)、竖直方向滚动条(scrollbar)（如果存在的话）、以及 CSS 设置的宽度(width)的值。(即 `content + scrollbar + padding + border`)
-
-各浏览器的 offsetWidth 可能有所不同，所有需要考虑兼容性
 
 HTMLElement.offsetHeight 是一个只读属性，它返回该元素的像素高度，高度包含该元素的垂直内边距和边框，且是一个整数。
 
@@ -302,5 +293,9 @@ export default () => {
   );
 };
 ```
+
+## 总结
+
+`HTMLElement.offsetParent` 是一个只读属性，返回一个指向最近的（closest，指包含层级上的最近）包含该元素的定位元素。如果没有定位的元素，则 offsetParent 为最近的 table, table cell 或根元素（标准模式下为 html；quirks 模式下为 body）。当元素的 style.display 设置为 "none" 时，offsetParent 返回 null。offsetParent 很有用，因为 offsetTop 和 offsetLeft 都是相对于其内边距边界的。
 
 [HTML 的各种宽高](https://www.jianshu.com/p/60332df38393)

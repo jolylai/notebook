@@ -1,7 +1,5 @@
 ---
 title: 概览
-group:
-  title: ES6 与未来
 ---
 
 #### Reference

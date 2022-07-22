@@ -3,6 +3,8 @@ title: ESModule
 nav:
   title: 进阶
   order: 30
+group:
+  title: ES6 与未来
 ---
 
 ## 模块模式

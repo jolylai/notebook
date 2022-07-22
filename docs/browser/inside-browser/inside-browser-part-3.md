@@ -6,7 +6,7 @@ group:
 
 ## 渲染进程的内部机制
 
-<iframe src="//player.bilibili.com/player.html?aid=840997499&bvid=BV1x54y1B7RE&cid=200801840&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width='100%' height='600'> </iframe>
+<iframe src="//player.bilibili.com/player.html?aid=840997499&bvid=BV1x54y1B7RE&cid=200801840&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowFullScreen={true} width='100%' height='600'> </iframe>
 
 这是关于浏览器工作原理博客系列四部分中的第三部分。之前，我们介绍了[多进程架构](https://github.com/xitu/gold-miner/blob/master/TODO1/inside-look-at-modern-web-browser-part1.md)和[导航流](https://github.com/xitu/gold-miner/blob/master/TODO1/inside-browser-part2.md)。在这篇文章中，我们将一探渲染进程的内部机制。
 

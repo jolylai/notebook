@@ -5,9 +5,6 @@ nav:
   title: 数据结构与算法
 ---
 
-- [freecodecamp](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/intermediate-algorithm-scripting/seek-and-destroy)
-- [avascript-algorithms](https://github.com/trekhleb/javascript-algorithms/blob/master/README.zh-CN.md)
-
 ## 重点关注
 
 - 数据结构与算法的特点
@@ -29,10 +26,8 @@ nav:
 算法在运行过程中临时占用的存储空间的度量
 </Alert>
 
-## 时间复杂度
-
-## 空间复杂度
-
 #### Reference
 
 - [javascript-algorithms](https://github.com/trekhleb/javascript-algorithms)
+- [freecodecamp](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/intermediate-algorithm-scripting/seek-and-destroy)
+- [labuladong](https://github.com/labuladong/fucking-algorithm)
