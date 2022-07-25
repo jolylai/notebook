@@ -1,5 +1,8 @@
 ---
 title: 链表
+order: 1
+group:
+  title: 数据结构
 ---
 
 ## 前言

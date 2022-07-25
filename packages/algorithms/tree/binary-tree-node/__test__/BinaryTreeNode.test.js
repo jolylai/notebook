@@ -1,5 +1,4 @@
-import { describe, expect, test } from 'vitest';
-import BinaryTreeNode from './BinaryTreeNode';
+import BinaryTreeNode from '../BinaryTreeNode';
 
 describe('BinaryTreeNode', () => {
   test('should traverse node', () => {
