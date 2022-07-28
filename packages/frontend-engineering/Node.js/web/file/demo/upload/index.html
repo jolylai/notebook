@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Upload</title>
+  </head>
+  <body>
+    <input type="file" id="file" name="file" />
+
+    <script>
+      function request(option) {
+        const { method = 'get', url, data = {} } = option;
+        const xhr = new XMLHttpRequest();
+
+        if (option.onProgress && xhr.upload) {
+          xhr.upload.onprogress = function progress(e) {
+            console.log('progress: ', e);
+            if (e.total > 0) {
+              e.percent = (e.loaded / e.total) * 100;
+            }
+            option.onProgress(e);
+          };
+        }
+
+        const formData = new FormData();
+
+        for (let key in data) {
+          formData.append(key, data[key]);
+        }
+
+        xhr.open(method, url, true);
+
+        xhr.send(formData);
+      }
+
+      const fileElement = document.getElementById('file');
+
+      const onFileChange = e => {
+        console.log('e: ', e.target.files);
+        const file = e.target.files[0];
+        uploadFile(file);
+      };
+
+      const uploadFile = async file => {
+        const onProgress = event => {
+          console.log('onprogress: ', event);
+        };
+
+        request({
+          method: 'post',
+          url: 'http://localhost:3000',
+          onProgress,
+          data: { file },
+        });
+      };
+
+      fileElement.addEventListener('change', onFileChange, false);
+    </script>
+  </body>
+</html>
