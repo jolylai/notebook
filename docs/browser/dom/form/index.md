@@ -1,7 +1,5 @@
 ---
-title: 基础
-group:
-  title: 表单
+title: 表单
 ---
 
 <code src="./demos/Login.jsx" />
