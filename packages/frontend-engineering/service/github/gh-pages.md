@@ -1,10 +1,10 @@
 ---
-title: Github Pages
+title: GitHub Pages
 ---
 
-## Github Pages
+## GitHub Pages
 
-Github 提供了免费的静态文件服务，我们只需将我们的最终生成的静态文件上传到`gh-pages`分支上就能拥有一个属于自己的静态网站
+GitHub 提供了免费的静态文件服务，我们只需将我们的最终生成的静态文件上传到`gh-pages`分支上就能拥有一个属于自己的静态网站
 
 修改 `.umirc.js`，比如本项目的仓库名为 `notebook-devops`
 
@@ -14,7 +14,7 @@ import { defineConfig } from 'dumi';
 export default defineConfig({
   base: '/notebook-devops',
   publicPath: '/notebook-devops/',
-  title: 'Devops',
+  title: 'DevOps',
   favicon: 'https://cy-picgo.oss-cn-hangzhou.aliyuncs.com/pomelo.svg',
   logo: 'https://cy-picgo.oss-cn-hangzhou.aliyuncs.com/pomelo.svg',
   outputPath: 'docs-dist',
@@ -71,7 +71,7 @@ yarn add gh-pages -D
 yarn run docs:deploy
 ```
 
-## Github Actions 自动部署
+## GitHub Actions 自动部署
 
 创建`.github/workflows/deploy.yml`
 
@@ -109,7 +109,7 @@ jobs:
           publish_dir: ./docs-dist
 ```
 
-代码提交到 Github 仓库时，使用 Travis 自动执行打包，并将`docs-dist`部署到 gh-pages 中
+代码提交到 GitHub 仓库时，使用 Travis 自动执行打包，并将`docs-dist`部署到 gh-pages 中
 
 ## Travis 自动部署
 

@@ -33,13 +33,13 @@ nav:
 4. 基础服务
 
    - ⌛️ 私有构件仓库 - 私有 Npm、Maven、Nexus
-   - ⌛️ 版本控制服务 - Gitlab
+   - ⌛️ 版本控制服务 - GitLab
    - ⌛️CI/CD 持续构建/集成服务
    - ⌛️MockServer
 
 5. 真实项目揭秘
 
-   - Element3 的 Vue Cli 插件的开发
+   - Element3 的 Vue CLI 插件的开发
    - Element3 组件库工程化实战
    - ⌛️ 仿掘金 -知识分享平台(SSR + DevOps 实战)
    - ⌛️Vue3.0 工程化解读

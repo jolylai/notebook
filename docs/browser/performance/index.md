@@ -6,7 +6,7 @@ title: 概览
 
 网络层面的性能优化，无疑是如何让资源体积更小加载更快。
 
-- 构建策略：基于构建工具(Webpack/Rollup/Parcel/Esbuild/Vite/Gulp)
+- 构建策略：基于构建工具(Webpack/Rollup/Parcel/esbuild/Vite/Gulp)
 - 图像策略：基于图像类型(JPG/PNG/SVG/WebP/Base64)
 - 分发策略：基于内容分发网络(CDN)
 - 缓存策略：基于浏览器缓存(强缓存/协商缓存)

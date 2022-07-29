@@ -23,7 +23,7 @@ module.exports = {
 
 ## TypeScript
 
-Jest 可以通过 Babel 支持 TypeScript。 首先，在项目中正确的使用 Babel。 其次，使用 Yarn 或者 Npm 安装 @babel/preset-typescript
+Jest 可以通过 Babel 支持 TypeScript。 首先，在项目中正确的使用 Babel。 其次，使用 Yarn 或者 npm 安装 @babel/preset-typescript
 
 ```
 yarn add --dev @babel/preset-typescript

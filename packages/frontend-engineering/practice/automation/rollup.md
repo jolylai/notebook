@@ -111,7 +111,7 @@ export default {
 };
 ```
 
-## 转换 Commonjs
+## 转换 CommonJS
 
 ```shell
 yarn add rollup-plugin-commonjs -D

@@ -16,7 +16,7 @@ nav:
 - [ ] 错误处理/异常处理
 - [ ] 事件队列 (setTimeout/setInterval/Promise)
 - [ ] JSON
-- [ ] Ajax/Fetch
+- [ ] AJAX/Fetch
 - [ ] ES6+
 - [ ] 正则表达式
 
@@ -49,7 +49,7 @@ nav:
 ## 4. 📄 文章&教程
 
 - [JavaScript 教程](https://www.runoob.com/js/js-tutorial.html)
-- [Eloquent Javascript](https://eloquentjavascript.net/)
+- [Eloquent JavaScript](https://eloquentjavascript.net/)
 - [ECMAScript 6 入门-阮一峰](https://es6.ruanyifeng.com/)
 - [现代 JavaScript 教程](https://zh.javascript.info/)
 - [记录前端开发中的技巧以及算法知识](https://github.com/louzhedong/blog)
@@ -58,7 +58,7 @@ nav:
 - [axios](https://zhuanlan.zhihu.com/p/50859466)
 - [掘金翻译计划](https://github.com/xitu/gold-miner)
 
-## 5. Github
+## 5. GitHub
 
 - [RoadMap](https://github.com/ObjTube/front-end-roadmap)
 - [原生 Web 项目](https://github.com/bradtraversy/vanillawebprojects)
@@ -105,7 +105,7 @@ nav:
 - [ JavaScript 算法与数据结构 | 多种基于 JavaScript 的算法与数据结构](http://github.com/trekhleb/javascript-algorithms)
 - [ leetcode 解题之路 | 私藏 LeetCode 解题攻略 ](https://github.com/azl397985856/leetcode)
 - [ 五分钟学算法 | 每天拿出五分钟 学学算法 比如上个厕所就学了 ](https://github.com/MisterBooo/LeetCodeAnimation)
-- [数据结构与算法项目推荐 | Github 上 170K+Star 的前端学习数据结构和算法题目 ](https://github.com/biaochenxuying/blog/issues/43)
+- [数据结构与算法项目推荐 | GitHub 上 170K+Star 的前端学习数据结构和算法题目 ](https://github.com/biaochenxuying/blog/issues/43)
 - [JavaScript 十大经典排序算法 | JavaScript 排序必会题目 作者功力很深 值得学习 ](https://github.com/biaochenxuying/blog/issues/42)
 - [算法可视化工具 | 用可视化工具和交互方式 让你从代码中可视化算法 ](https://github.com/algorithm-visualizer/algorithm-visualizer)
 - [算法可视化来源 ](https://visualgo.net/en)
@@ -118,7 +118,7 @@ nav:
 - [WEB 前端面试宝典](https://github.com/h5bp/Front-end-Developer-Interview-Questions/)
 - [掘金前端面试题合集](https://github.com/shfshanyue/blog/blob/master/post/juejin-interview.md)
 - [前端面试图谱](https://yuchengkai.cn/)
-- [前端面试开源项目汇总 | Github 上 100K+ Star 的前端面试开源项目汇总](https://github.com/biaochenxuying/blog/issues/47)
+- [前端面试开源项目汇总 | GitHub 上 100K+ Star 的前端面试开源项目汇总](https://github.com/biaochenxuying/blog/issues/47)
 
 ## 11. 技术社区
 
@@ -160,7 +160,7 @@ nav:
 
 ## 14. 部署工具
 
-- [Github Page | Github 提供的免费静态网站托管服务](https://pages.github.com/)
+- [GitHub Page | GitHub 提供的免费静态网站托管服务](https://pages.github.com/)
 - [Netlify | 30 秒内部署你的网站](https://www.netlify.com/)
 - [Vercel | 快速部署你的网站 国外很流行](https://vercel.com/)
 - [Surge | 一个命令部署你的网站](https://surge.sh/)
@@ -180,7 +180,7 @@ nav:
 - [ES6 编程风格 | 阮一峰编写的 ES6 代码规范 值得每个人阅读并参考](https://es6.ruanyifeng.com/#docs/style)
 - [Airbnb 前端代码规范 | 国外企业的前端代码规范](https://github.com/airbnb/javascript)
 - [ESLint | 代码规范检查和格式化工具](https://eslint.org/)
-- [Prettier | VSCode 最热门的代码格式化工具 让你写出漂亮的代码](https://prettier.io/)
+- [Prettier | VS Code 最热门的代码格式化工具 让你写出漂亮的代码](https://prettier.io/)
 
 ## 17. 调试抓包
 
@@ -203,7 +203,7 @@ nav:
 
 ## 19. 开发工具
 
-- [ VSCode | 前端最流行的编辑器 ](https://code.visualstudio.com/)
+- [ VS Code | 前端最流行的编辑器 ](https://code.visualstudio.com/)
 - [ Sublime Text | 轻量级代码编辑工具 曾经我的最爱 ](https://www.sublimetext.com/)
 - [ WebStom | 忠爱粉最多的编辑器 ](https://www.jetbrains.com/webstorm/)
 - [ Atom | 用的人很多 我却不喜欢的编辑器 ](https://atom.io/)

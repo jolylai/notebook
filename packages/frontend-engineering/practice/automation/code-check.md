@@ -193,7 +193,7 @@ yarn prettier --write "app/**/*.test.js"
 prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"
 ```
 
-## Eslint
+## ESLint
 
 安装 `eslint`
 
@@ -251,7 +251,7 @@ EditorConfig 有助于维护跨多个编辑器和 IDE 从事同一项目的多�
 # top-most EditorConfig file 表示是最顶层的配置文件，发现设为true时，才会停止查找.editorconfig文件
 root = true
 
-# Unix-style newlines with a newline ending every file 对于所有的文件  始终在文件末尾插入一个新行
+# UNIX-style newlines with a newline ending every file 对于所有的文件  始终在文件末尾插入一个新行
 [*]
 end_of_line = lf
 insert_final_newline = true

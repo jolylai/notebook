@@ -227,7 +227,7 @@ http {
           add_header Cache-Control "public";
         }
 
-        # Javascript and CSS files
+        # JavaScript and CSS files
         location ~* \.(?:css|js)$ {
             try_files $uri =404;
             expires 1y;

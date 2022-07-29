@@ -26,7 +26,7 @@ CSS 样式在 HTML 页面中可以通过两个元素加载。`<link>`元素用�
 <link rel="stylesheet" type="text/css" href="styles.css" />
 ```
 
-使用 Dom 编程
+使用 DOM 编程
 
 ```js
 let link = document.createElement('link');

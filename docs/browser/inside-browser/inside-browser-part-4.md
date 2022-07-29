@@ -138,7 +138,7 @@ window.addEventListener('pointermove', event => {
 
 ## 后续步骤
 
-本系列文章里，我们探讨了很多关于 web 浏览器内部的工作原理。如果之前你从来没想过：为什么 Devtools 推荐在事件处理器上添加 `{passive:true}` 选项、为什么有时须在 script 标签里添加 `async` 属性？那么我希望这一系列文章能帮助你了解，为什么传递这些信息给浏览器能让其提供更为迅捷流畅的 web 体验。
+本系列文章里，我们探讨了很多关于 web 浏览器内部的工作原理。如果之前你从来没想过：为什么 DevTools 推荐在事件处理器上添加 `{passive:true}` 选项、为什么有时须在 script 标签里添加 `async` 属性？那么我希望这一系列文章能帮助你了解，为什么传递这些信息给浏览器能让其提供更为迅捷流畅的 web 体验。
 
 ### 使用 Lighthouse
 
@@ -146,7 +146,7 @@ window.addEventListener('pointermove', event => {
 
 ### 学习如何评测性能
 
-对于不同的站点，桎梏其性能之处可能不尽相同，所以专门为你自己的站点定制化一套性能评测方案，并择优选取技术应用，是重中之重。Chrome 的 Devtools 团队就 [如何测试你的站点性能](https://developers.google.com/web/tools/chrome-devtools/speed/get-started) 撰有相关教程可供参阅。
+对于不同的站点，桎梏其性能之处可能不尽相同，所以专门为你自己的站点定制化一套性能评测方案，并择优选取技术应用，是重中之重。Chrome 的 DevTools 团队就 [如何测试你的站点性能](https://developers.google.com/web/tools/chrome-devtools/speed/get-started) 撰有相关教程可供参阅。
 
 ### 为你的站点添加 Feature Policy
 

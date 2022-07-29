@@ -67,17 +67,17 @@ const instance = axios.create({
 });
 ```
 
-### JQuery
+### jQuery
 
 ```js
-class JQuery {
+class jQuery {
     constructor(selector){
         ...
     }
 }
 
 window.$ = function(selector){
-    return new JQuery(selector)
+    return new jQuery(selector)
 }
 ```
 

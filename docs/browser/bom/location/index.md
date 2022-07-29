@@ -72,7 +72,7 @@ function getUrlParameters(url) {
 需要对几个数据类型进行特殊转换，如果值为 undefined 或 null 则跳过
 
 - 数组: `{list: [1,2]}` 转换 `list[]=1&list[]=2`
-- 对象：使用 `JSON.stringify()`转成 Json 字符串
+- 对象：使用 `JSON.stringify()`转成 JSON 字符串
 - 时间：使用 `.toISOString()` 转成字符串
 
 ```js
