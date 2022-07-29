@@ -1,0 +1,104 @@
+@import '~dumi-theme-default/src/style/variables.less';
+
+.@{prefix}-menu {
+  overflow: auto;
+
+  &-inner {
+    overflow: initial;
+    width: auto;
+    height: auto;
+
+    ul {
+      li {
+        margin-top: 8px;
+        a,
+        > span {
+          padding-left: 16px;
+          line-height: 1.5;
+          padding-right: 0;
+
+          &::before {
+            content: unset;
+          }
+        }
+        ul {
+          padding-left: 0;
+          border-left-width: 1px;
+          border-left-style: solid;
+          border-left-color: rgb(241 245 249/1);
+        }
+      }
+    }
+
+    // 1-level list styles
+    > ul {
+      > li {
+        margin-top: 18px;
+      }
+      > li > a {
+        line-height: 1.5;
+        margin-top: 8px;
+
+        // 一级菜单不是链接
+        &:not([href]) {
+          padding-top: 0px;
+          line-height: 1.5;
+          font-weight: normal;
+          color: inherit;
+
+          [data-prefers-color='dark'] & {
+            color: @c-heading-dark !important;
+          }
+        }
+      }
+    }
+
+    // n-level list styles
+    > ul ul {
+      a {
+        border-left-width: 1px;
+        border-left-style: solid;
+        border-left-color: transparent;
+
+        &.active {
+          color: @c-primary;
+
+          border-left-color: currentColor;
+          [data-prefers-color='dark'] & {
+            color: @c-primary-dark;
+            border-left-color: currentColor;
+          }
+        }
+      }
+    }
+  }
+
+  &[data-mode='site'] {
+    padding: 0 2rem;
+
+    .@{prefix}-menu-list {
+      padding: 0;
+      > li > a {
+        &::after {
+          content: unset;
+        }
+
+        &.active {
+          background: none;
+        }
+      }
+    }
+
+    @media @desktop {
+      padding-top: 0;
+
+      .@{prefix}-menu-list > li > a {
+        padding-left: 0px;
+
+        ~ ul {
+          margin-left: 0px;
+        }
+      }
+    }
+  }
+}
