@@ -1,8 +1,5 @@
 ---
 title: 代码规范
-group:
-  title: 开发规范
-  order: 1
 ---
 
 ## 项目目录结构

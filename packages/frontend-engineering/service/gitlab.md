@@ -1,3 +1,7 @@
+---
+title: GitLab
+---
+
 ```yml
 variables:
   WEB_IMAGE: rm/rm-front

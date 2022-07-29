@@ -1,7 +1,5 @@
 ---
-title: 子进程
-group:
-  title: 进程管理
+title: 进程管理
 ---
 
 ```js

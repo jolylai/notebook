@@ -1,8 +1,5 @@
 ---
 title: 代码规范检查
-group:
-  title: 自动化
-  order: 2
 ---
 
 ## 前言
