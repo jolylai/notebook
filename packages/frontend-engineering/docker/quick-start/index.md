@@ -48,6 +48,16 @@ $ sudo systemctl start docker
 
 images, containers, volumes, and networks 些内容都会在 `/var/lib/docker/`目录下
 
+修改镜像源
+
+```shell
+# 安装 docker 官方的镜像源
+$ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+# 如果在国内，安装阿里云的镜像
+$ yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+```
+
 ## 快速安装
 
 Ubuntu
