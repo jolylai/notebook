@@ -1,4 +1,6 @@
-# 概要
+---
+title: puppeteer
+---
 
 ## 安装
 
@@ -88,7 +90,7 @@ let productsList = await page.evaluate(element => {
 }, productsBox[0]);
 ```
 
-Using elementHandle.\\\\\\\\\\$\$
+Using elementHandle.\\\\\\\\\\\\$\$
 
 ```js
 const productList = [];
