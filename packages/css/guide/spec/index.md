@@ -10,9 +10,8 @@ group:
 
 # 设计规范
 
-> [Ant Design 设计规范](https://ant.design/docs/spec/introduce-cn)
-
-[BootStrap CSS](https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap.css)
+- [Ant Design 设计规范](https://ant.design/docs/spec/introduce-cn)
+- [BootStrap CSS](https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap.css)
 
 ## 配色
 
@@ -60,6 +59,7 @@ em 是相对长度单位。相对于当前对象内文本的字体尺寸。如�
 
 ## 参考资料
 
+- [Github](https://github.com/zhangxinxu/quiz)
 - [codepen](https://codepen.io)
 - [Josh Comeau](https://www.joshwcomeau.com/tutorials/)
 - [awwwards](https://www.awwwards.com)

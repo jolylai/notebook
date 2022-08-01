@@ -1,29 +1,46 @@
-# margin
+---
+title: margin
+order: 3
+---
 
 ## margin 合并
 
-**块级元素** 的 **上外边距(margin-top)** 与 **下外边距(margin-bottom)** 有时会合并为单个外边距，这样的现象称为“margin 合并”。
+**块级元素** 的 **上外边距(margin-top)** 与 **下外边距(margin-bottom)** 有时会合并为单个外边距，这样的现象称为 **“margin 合并”**。
 
 1. **块级元素**，但不包括浮动和绝对定位元素，尽管浮动和绝对定位可以让元素块状化。
 2. **只发生在垂直方向**，需要注意的是，这种说法在不考虑 `writing-mode` 的情况下才是正确的，严格来讲，应该是 **只发生在和当前文档流方向的相垂直的方向上** 。由于默认文档流 是水平流，因此发生 margin 合并的就是垂直方向。
 
-**块级元素**的上外边距(margin-top)与下外边距(margin-bottom)有时会合并为单个外边距，这样的现象称为“margin 合并”。
+### 合并的 3 种场景
 
-1. 相邻兄弟元素 margin 合并。
+1.相邻兄弟元素 margin 合并。这是 margin 合并中最常见、最基本的
 
 <p>eligendi sapiente aut</p>
 <p>dolore occaecati deserunt</p>
 
-2. 父级和第一个/最后一个子元素。
+则第一行和第二行之间的间距还是 1em，因为第一行的 margin-bottom 和第二行的 margin-top 合并在一起了，并非上下相加。
 
-<hero />
+2.父级和第一个/最后一个子元素。
 
-<script setup>
-import Negative from './demos/negative.vue'
-import Hero from './demos/hero.vue'
-</script>
+<code src='./demos/Hero.jsx' inline />
 
-#### 合并的 3 种场景
+3.空块级元素的 margin 合并。
+
+```html
+<div class="father">
+  <div class="son"></div>
+</div>
+```
+
+```css
+.father {
+  overflow: hidden;
+}
+.son {
+  margin: 1em 0;
+}
+```
+
+结果，此时.father 所在的这个父级`<div>`元素高度仅仅是 1em，因为.son 这个空`<div>`元 素的 margin-top 和 margin-bottom 合并在一起了。
 
 ## 两栏自适应布局
 

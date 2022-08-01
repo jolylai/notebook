@@ -72,14 +72,6 @@ h6 {
 }
 ```
 
-## 盒子模型
-
-<script setup>
-  import BoxSizing from './demos/box-sizing.vue'
-</script>
-
-<box-sizing />
-
 #### reference
 
 - [custom-css-reset](https://www.joshwcomeau.com/css/custom-css-reset/)

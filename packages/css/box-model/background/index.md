@@ -2,9 +2,13 @@
 title: background
 ---
 
-# 灵活的背景定位
+## 灵活的背景定位
 
-## background-position
+很多时候，我们想针对容器某个角对背景图片做偏移定位，如右下角。
+
+<code src='./demos/Position.jsx' inline />
+
+### background-position
 
 ```css
 main {
@@ -22,75 +26,12 @@ main {
 }
 ```
 
-  <DemoBlock  demo='css-background-position' />
-
-## background-origin
-
-```css
-background: url('http://csssecrets.io/images/code-pirate.svg') no-repeat bottom
-  right #58a;
-background-origin: content-box;
-
-max-width: 10em;
-min-height: 5em;
-padding: 10px;
-color: #fff;
-```
-
-  <DemoBlock  demo='css-background-origin' />
-
-::: tip 📝
-
-- background-position 是以 padding box 为准的，这样边框才不会遮住背景图片。
-- 视觉效果跟 background-position 完全一样的，但我们的代码变得更加 DRY
-  了。
-  :::
-
-## calc()
-
-```css
-background: url('http://csssecrets.io/images/code-pirate.svg') no-repeat #58a;
-background-position: calc(100% - 10px) calc(100% - 10px);
-
-max-width: 10em;
-min-height: 5em;
-padding: 10px;
-color: #fff;
-```
-
-  <DemoBlock  demo='css-background-calc' />
-
-::: tip 📝
-
-- background-position 是以 padding box 为准的，这样边框才不会遮住背景图片。
-- 视觉效果跟 background-position 完全一样的，但我们的代码变得更加 DRY
-  了。
-  :::
-
-# Background
-
-::: tip
-[background 属性相关介绍](https://www.zhangxinxu.com/wordpress/2011/05/%E7%BF%BB%E8%AF%91-css3-backgrounds%E7%9B%B8%E5%85%B3%E4%BB%8B%E7%BB%8D/)
-:::
-
-## background 中的属性
-
-### background-color
-
-```css
-/* 规定要使用的背景颜色 */
-background-color: #color;
-```
-
-### background-position
-
 ```css
 /* 规定背景图像的位置 */
 background-position: 0% 0%;
 background-position: right 0% bottom 0%;
 ```
 
-::: tip
 top left right bottom center
 
 - 如果您仅规定了一个关键词，那么第二个值将是"center"
@@ -108,7 +49,71 @@ xpos ypos
 - 左上角是 0 0 单位是像素 (0px 0px) 或任何其他的 CSS 单位
 - 如果您仅规定了一个值，另一个值将是 50%
 - 您可以混合使用 % 和 position 值
+
+### background-origin
+
+```css
+background: url('http://csssecrets.io/images/code-pirate.svg') no-repeat bottom
+  right #58a;
+background-origin: content-box;
+
+max-width: 10em;
+min-height: 5em;
+padding: 10px;
+color: #fff;
+```
+
+- background-position 是以 padding box 为准的，这样边框才不会遮住背景图片。
+- 视觉效果跟 background-position 完全一样的，但我们的代码变得更加 DRY 了。
+
+### calc()
+
+```css
+background: url('http://csssecrets.io/images/code-pirate.svg') no-repeat #58a;
+background-position: calc(100% - 10px) calc(100% - 10px);
+
+max-width: 10em;
+min-height: 5em;
+padding: 10px;
+color: #fff;
+```
+
+- background-position 是以 padding box 为准的，这样边框才不会遮住背景图片。
+- 视觉效果跟 background-position 完全一样的，但我们的代码变得更加 DRY 了。
+
+## 渐变
+
+### 线性渐变
+
+```css
+background: linear-gradient(direction, color-stop1, color-stop2, ...);
+background: linear-gradient(to bottom right, beige 50%, pink 50%);
+
+/* Using Angles */
+background: linear-gradient(angle, color-stop1, color-stop2);
+background: linear-gradient(30deg, beige 50%, pink 50%);
+
+/* Repeating a linear-gradient */
+```
+
+::: tip
+direction
+
+- top to bottom (默认值)
+- to top
+- to right
+- to left
+- to bottom right
   :::
+
+## background 中的属性
+
+### background-color
+
+```css
+/* 规定要使用的背景颜色 */
+background-color: #color;
+```
 
 ### background-size
 
@@ -232,28 +237,6 @@ background-clip: border-box
 background-size: auto
 ```
 
-````
-## 渐变
+#### Reference
 
-### 线性渐变
-
-```css
-background: linear-gradient(direction, color-stop1, color-stop2, ...);
-background: linear-gradient(to bottom right, beige 50%, pink 50%);
-
-/* Using Angles */
-background: linear-gradient(angle, color-stop1, color-stop2);
-background: linear-gradient(30deg, beige 50%, pink 50%);
-
-/* Repeating a linear-gradient */
-````
-
-::: tip
-direction
-
-- top to bottom (默认值)
-- to top
-- to right
-- to left
-- to bottom right
-  :::
+- [background 属性相关介绍](https://www.zhangxinxu.com/wordpress/2011/05/%E7%BF%BB%E8%AF%91-css3-backgrounds%E7%9B%B8%E5%85%B3%E4%BB%8B%E7%BB%8D/)
