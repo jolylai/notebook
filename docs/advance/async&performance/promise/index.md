@@ -1,5 +1,6 @@
 ---
 title: Promise
+order: 1
 group:
   title: 异步和性能
 ---

@@ -1,6 +1,33 @@
-# 生成器
+---
+title: 生成器
+order: 2
+---
 
 ## 打破完整运行
+
+JavaScript 开发者在代码中几乎普遍依赖的一个假定:一个函数 一旦开始执行，就会运行到结束，期间不会有其他代码能够打断它并插入其间。
+
+```js
+var x = 1;
+function foo() {
+  x++;
+  bar(); // <-- 这一行是什么作用? 234
+  console.log('x:', x);
+}
+function bar() {
+  x++;
+}
+foo(); // x: 3
+
+// 构造一个迭代器it来控制这个生成器
+var it = foo();
+// 这里启动foo()!
+it.next();
+x; // 2 bar();
+x; // 3 it.next(); // x: 3
+```
+
+<code src='./demos/Demo1.jsx' />
 
 ### 输入和输出
 

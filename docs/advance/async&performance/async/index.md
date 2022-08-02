@@ -1,5 +1,6 @@
 ---
 title: async/await
+order: 3
 ---
 
 ## 循环
