@@ -27,6 +27,12 @@ importers:
       prettier: registry.npmmirror.com/prettier/1.19.1
       yorkie: registry.npmmirror.com/yorkie/2.0.0
 
+  packages/css:
+    specifiers:
+      '@ant-design/colors': ^6.0.0
+    devDependencies:
+      '@ant-design/colors': registry.npmmirror.com/@ant-design/colors/6.0.0
+
 packages:
 
   registry.npmmirror.com/@ampproject/remapping/2.2.0:

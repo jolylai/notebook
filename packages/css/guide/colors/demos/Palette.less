@@ -1,0 +1,35 @@
+.palette {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.colors {
+  padding: 16px;
+  max-width: 216px;
+  border-radius: 2px;
+
+  box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12),
+    0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+
+  .title {
+    font-size: 14px;
+    line-height: 16px;
+    color: rgb(100 116 139/1);
+    margin-bottom: 8px;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  li {
+    width: 2rem;
+    padding-top: 100%;
+  }
+}
