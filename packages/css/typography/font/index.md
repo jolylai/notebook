@@ -29,13 +29,9 @@ font-weight: 800;
 font-weight: 900;
 ```
 
-::: tip
-
 - 如果使用数值作为 font-weight 属性值，必须是 100 ～ 900 的整百数。不能自创如: `font-weight:550`
 - `font-weight:400` 实际上等同于 `font-weight:normal`，`font-weight:700` 等同于 f`ont-weight:bold`。
 - lighter 和 bolder 是基于临界点进行解析的，千万不要想当然地认为是根据当前字重上下 100 加加减减后的效果。
-
-:::
 
 ### lighter 和 bolder 解析规则表
 
@@ -59,13 +55,9 @@ font-style: italic;
 font-style: oblique;
 ```
 
-::: tip
-
 - italic 和 oblique 这两个关键字都表示“斜体”的意思
 - italic 是使用当前字体的斜体字体，而 oblique 只是单纯地让文字倾斜。
 - 没有斜体字体时 italic 表现会和 oblique 一致，因此，我们在实际开发的时候，几乎没有任何理由需要使用 font-style:oblique。
-
-:::
 
 ## font
 
@@ -75,11 +67,8 @@ font-style: oblique;
 [ [ font-style || font-variant || font-weight ]? font-size [ / line-height ]? font-family ]
 ```
 
-::: tip
-
 - font-size 和 font-family 后面没有问号，也就是说是必需的，是不可以省略的。
 - 是 font 缩写必须要带上 font-family，然而，原本真实继承的 font-family 属性值可能会很长，每次 font 缩写后面都挂一个长长的字体列表，令人很是不悦
-  :::
 
 我们可以随便找一个系统根本不存在的字体名占位，如字母 a，或者特殊一点，
 用笑脸表情 ☺，然后再设置 font-family:inherit 来重置这个占位字体。
@@ -97,8 +86,6 @@ font-style: oblique;
 font: caption | icon | menu | message-box | small-caption | status-bar;
 ```
 
-::: tip
-
 - caption：活动窗口标题栏使用的字体。
 - icon：包含图标内容所使用的字体，如所有文件夹名称、文件名称、磁盘名称，甚至
   浏览器窗口标题所使用的字体。
@@ -106,11 +93,8 @@ font: caption | icon | menu | message-box | small-caption | status-bar;
 - message-box：消息盒里面使用的字体。
 - small-caption：调色板标题所使用的字体。
 - status-bar：窗体状态栏使用的字体。
-  :::
 
-::: warning
-
-- 使用关键字作为属性值的时候必须是独立的，不能添加 font-family 或
+* 使用关键字作为属性值的时候必须是独立的，不能添加 font-family 或
   者 font-size 之类的，这和 font 属性缩写不是一个路子。如果混用，例如：
 
 ```css
@@ -120,7 +104,6 @@ font: caption | icon | menu | message-box | small-caption | status-bar;
 ```
 
 则此时的 menu 是作为自定义的字体名称存在的，而不是表示系统的 menu 菜单字体。
-:::
 
 ### 让网页的字体跟系统走
 
@@ -175,13 +158,10 @@ body {
 }
 ```
 
-::: tip
-
 - `font-family` 可以看成是一个字体变量，名称可以非常随意，就是使用这些稀奇古
   怪的字符或者空格的时候，一定要加引号。
 - 但是有一类名称不能随便设置，就是原本系统就有的字体
   名称。
-  :::
 
 ## src
 
@@ -197,8 +177,6 @@ body {
 }
 ```
 
-::: tip
-
 - svg 格式是为了兼容 iOS 4.1 及其之前的版本，考虑到现如今 iOS 的版本数已经翻了一
   番，所以 svg 格式的兼容代码大可舍弃。
 - eot 格式是 IE 私有的。注意，目前所有版本的 IE 浏览器都支持 eot 格式，并不是只
@@ -208,7 +186,6 @@ body {
   是 woff2，只是此字体目前仅 Chrome 和 Firefox 支持得比较好。
 - ttf 格式作为系统安装字体比较多，Web 开发也能用，就是尺寸大了点儿，优点在于
   老版本 Android 也支持。
-  :::
 
 # font-family
 
@@ -224,8 +201,6 @@ body {
   装饰而且笔画的粗细会有所不同的字体。无衬线字体没有这些额外的装饰，而且笔画的粗细差不多
 
 ## 等宽字体
-
-::: demo
 
 ```html
 <template>
@@ -252,13 +227,9 @@ body {
 </script>
 ```
 
-:::
-
 ## ch 单位与等宽字体布局
 
 1ch 表示一个 0 字符的宽度
-
-::: demo
 
 ```html
 <template>
@@ -278,11 +249,7 @@ body {
 </script>
 ```
 
-:::
-
 # font-size
-
-::: demo
 
 ```html
 <template>
@@ -315,11 +282,7 @@ body {
 </script>
 ```
 
-:::
-
 ## hhh
-
-::: demo
 
 ```html
 <template>
@@ -338,4 +301,46 @@ body {
 </style>
 ```
 
-:::
+## 文本溢出点点点效果
+
+```css
+text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
+```
+
+<p class="demo" :class="$style.example">
+  这是个段很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的文字
+</p>
+
+<style module>
+.example {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.box{
+  height: 120px;
+  border: 1px solid #bbb;
+  overflow: auto;
+}
+.content{
+  height: 200px;
+  background: #eee;
+}
+</style>
+
+## 锚点定位
+
+```html
+<a href="#">返回顶部></a> <a href="#1">发展历程></a>
+<h2 id="1">发展历程</h2>
+```
+
+## ff
+
+<div class="demo" :class="$style.box">
+  <div :class="$style.content"></div>
+  <h4 id="title">底部标题</h4>
+</div>
+<p><a href="#title">点击测试</a></p>

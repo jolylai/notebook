@@ -31,14 +31,9 @@ li:nth-child(2) {
 }
 ```
 
-  <DemoBlock  demo='css-experience-hit-area-border' />
-
-::: tip
-
 - 使用`border: 10px solid transparent;`扩大点击区域
 - 当需要边框时可以用 `box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3) inset;` 模拟一道边框
 - 但如果把内嵌投影和（常规的）外部投影组合起来，将会得到一个怪异的效果（如图 2 ），因为**外部投影是绘制在 border box 外部的**。
-  :::
 
 ## 伪元素
 
