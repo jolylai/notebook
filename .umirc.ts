@@ -1,8 +1,8 @@
 import { defineConfig } from 'dumi';
 
 export default defineConfig({
-  base: '/notebook',
-  publicPath: '/notebook/',
+  // base: '/notebook',
+  // publicPath: '/notebook/',
   title: 'JavaScript',
   favicon: 'https://cy-picgo.oss-cn-hangzhou.aliyuncs.com/javascript.svg',
   logo: 'https://cy-picgo.oss-cn-hangzhou.aliyuncs.com/javascript.svg',
