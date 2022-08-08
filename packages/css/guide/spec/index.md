@@ -3,6 +3,7 @@ title: 设计规范
 order: 1
 nav:
   title: CSS
+  order: 10
 group:
   title: 快速开始
   order: 10

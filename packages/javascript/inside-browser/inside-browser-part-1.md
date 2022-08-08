@@ -1,17 +1,12 @@
 ---
 title: 第一部分
 nav:
-  order: 10
-  title: 浏览器
+  order: 20
+  title: JavaScript
 group:
   order: 10
   title: 现代浏览器内部揭秘
 ---
-
-现代浏览器工作原理 (part 1)
-现代浏览器工作原理 (part 2)
-现代浏览器工作原理 (part 3)
-现代浏览器工作原理 (part 4)
 
 ## CPU、GPU、内存和多进程体系结构
 
