@@ -1,5 +1,5 @@
 ---
-title: Git版本规范
+title: Git 版本规范
 ---
 
 ## 提交规范
