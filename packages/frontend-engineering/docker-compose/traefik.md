@@ -2,6 +2,14 @@
 title: Traefik
 ---
 
+![architecture-overview](https://doc.traefik.io/traefik/assets/img/architecture-overview.png)
+
+- Providers discover the services that live on your infrastructure (their IP, health, ...)
+- Entrypoints listen for incoming traffic (ports, ...)
+- Routers: 解析请求 (host, path, headers, SSL, ...)
+- Services 转发请请求到你的服务 (load balancing, ...)
+- Middlewares may update the request or make decisions based on the request (authentication, rate limiting, headers, ...)
+
 ## 边缘路由
 
 Traefik 是一个边缘路由器，这意味着它是通往你平台的大门，它拦截和路由每一个传入的请求:它知道所有的逻辑和每一个规则来决定哪个服务处理哪个请求
