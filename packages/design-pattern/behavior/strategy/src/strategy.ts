@@ -2,19 +2,19 @@ interface Strategy {
   doAlgorithm(data: string[]): string[];
 }
 
-class StrategyA implements Strategy {
+export class StrategyA implements Strategy {
   doAlgorithm(data: string[]): string[] {
     return data.sort();
   }
 }
 
-class StrategyB implements Strategy {
+export class StrategyB implements Strategy {
   doAlgorithm(data: string[]): string[] {
     return data.reverse();
   }
 }
 
-class Content {
+export class Content {
   strategy: Strategy;
 
   constructor(strategy: Strategy) {
